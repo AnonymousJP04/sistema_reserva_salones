@@ -1,0 +1,25 @@
+<h2>Mis Reservas</h2>
+
+<table class="tabla-historial">
+  <thead>
+    <tr>
+      <th>Fecha</th>
+      <th>Salón</th>
+      <th>Horario</th>
+      <th>Personas</th>
+      <th>Evento</th>
+      <th>Estado</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let reserva of reservas">
+      <td>{{ reserva.fecha_reserva }}</td>
+      <td>{{ reserva.nombre_salon }}</td>
+      <td>{{ reserva.hora_inicio }} - {{ reserva.hora_fin }}</td>
+      <td>{{ reserva.numero_personas }}</td>
+      <td>{{ reserva.tipo_evento }}</td>
+      <td>{{ reserva.estado }}</td>
+    </tr>
+  </tbody>
+</table>
+

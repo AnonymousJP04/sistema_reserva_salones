@@ -1,0 +1,8 @@
+<div *ngFor="let notificacion of notificaciones">
+  <div [class.leida]="notificacion.leida">
+    <h4>{{ notificacion.titulo }}</h4>
+    <p>{{ notificacion.mensaje }}</p>
+    <small>{{ notificacion.created_at | date:'short' }}</small>
+    <button *ngIf="!notificacion.leida" (click)="marcarLeida(notificacion.id)">Marcar como leída</button>
+  </div>
+</div>
