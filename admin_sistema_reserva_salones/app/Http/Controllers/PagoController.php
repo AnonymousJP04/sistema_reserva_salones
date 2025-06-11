@@ -73,4 +73,19 @@ class PagoController extends Controller
         $pago->delete();
         return redirect()->route('pagos.index')->with('success', 'Pago eliminado exitosamente');
     }
+
+public function verificar(Request $request, Pago $pago)
+{
+    $validated = $request->validate([
+        'estado' => 'required|in:pendiente,verificado,rechazado,reembolsado',
+    ]);
+
+    $pago->update(['estado' => $validated['estado']]);
+
+    return redirect()->route('pagos.index', $pago)->with('success', 'Estado del pago actualizado correctamente');
+}
+
+
+
+    
 }

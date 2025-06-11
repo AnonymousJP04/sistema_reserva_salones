@@ -59,10 +59,10 @@ class ReservaController extends Controller
         }
 
         // Genera código de reserva y calcula total
-        $validated['codigo_reserva'] = 'RES-' . strtoupper(uniqid());
+        $validated['codigo_reserva'] = 'RES-' . strtoupper(uniqid()); // Genera un código único para la reserva
         $validated['estado'] = 'pendiente';
         $validated['usuario_id'] = Auth::id();
-        
+
         $salon = Salon::find($validated['salon_id']);
         $horas = Carbon::parse($validated['hora_fin'])->diffInHours(Carbon::parse($validated['hora_inicio']));
         $validated['total'] = $salon->precio_base * $horas;
@@ -85,4 +85,12 @@ class ReservaController extends Controller
         $reserva->update(['estado' => 'rechazada']);
         return back()->with('success', 'Reserva rechazada');
     }
+
+    // Muestra los detalles de una reserva específica
+public function show($id)
+{
+    $reserva = Reserva::with('salon')->findOrFail($id);
+    return view('reservas.show', compact('reserva'));
+}
+
 }
