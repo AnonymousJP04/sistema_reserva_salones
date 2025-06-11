@@ -1,0 +1,100 @@
+/* Estilos para la página de bienvenida */
+.hero-section {
+  background: linear-gradient(135deg, #5d9670 0%, #858486 100%);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Patrón de fondo decorativo */
+.hero-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+  opacity: 0.3;
+}
+
+/* Animación del icono principal */
+.animated-icon {
+  animation: float 3s ease-in-out infinite;
+  filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.2));
+}
+
+@keyframes float {
+  0%, 100% { 
+    transform: translateY(0px); 
+  }
+  50% { 
+    transform: translateY(-20px); 
+  }
+}
+
+/* Botón principal personalizado */
+.btn-warning {
+  background: linear-gradient(45deg, #13a85e, #199c24);
+  border: none;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.btn-warning:hover {
+  background: linear-gradient(45deg, #0ec47e, #a0ff07);
+  transform: translateY(-3px);
+  box-shadow: 0 15px 35px rgba(48, 255, 7, 0.4);
+}
+
+/* Tarjetas de información */
+.info-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.info-card:hover {
+  transform: translateY(-5px);
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* Efectos de texto */
+.text-warning {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.text-white {
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+  .display-3 {
+    font-size: 2.5rem;
+  }
+  
+  .lead {
+    font-size: 1.1rem;
+  }
+  
+  .btn-lg {
+    padding: 0.75rem 2rem;
+    font-size: 1.1rem;
+  }
+}
+
+/* Efectos adicionales */
+.container {
+  position: relative;
+  z-index: 1;
+}
+
+/* Animación suave para todos los elementos */
+* {
+  transition: all 0.3s ease;
+}

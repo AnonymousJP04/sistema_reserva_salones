@@ -1,1 +1,74 @@
-<p>register works!</p>
+<div class="container mt-5 register-container" style="max-width: 500px;">
+    <div class="text-center mb-4">
+        <i class="bi bi-person-plus icono-register"></i>
+        <h2 class="fw-bold">Registro de Usuario</h2>
+    </div>
+    <form (ngSubmit)="registrar()" class="p-4 rounded bg-white shadow-sm">
+      <div class="mb-3">
+        <label for="nombre_usuario" class="form-label">
+          <i class="bi bi-person-badge me-2 text-success"></i>Nombre de usuario
+        </label>
+        <div class="input-group">
+          <span class="input-group-text bg-light"><i class="bi bi-person"></i></span>
+          <input type="text" class="form-control" id="nombre_usuario" [(ngModel)]="usuario.nombre_usuario" name="nombre_usuario" required>
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="correo" class="form-label">
+          <i class="bi bi-envelope-at me-2 text-primary"></i>Correo electrónico
+        </label>
+        <div class="input-group">
+          <span class="input-group-text bg-light"><i class="bi bi-envelope"></i></span>
+          <input type="email" class="form-control" id="correo" [(ngModel)]="usuario.correo" name="correo" required>
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="contrasena" class="form-label">
+          <i class="bi bi-lock-fill me-2 text-warning"></i>Contraseña
+        </label>
+        <div class="input-group">
+          <span class="input-group-text bg-light"><i class="bi bi-key"></i></span>
+          <input type="password" class="form-control" id="contrasena" [(ngModel)]="usuario.contrasena" name="contrasena" required>
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="telefono" class="form-label">
+          <i class="bi bi-telephone me-2 text-info"></i>Teléfono
+        </label>
+        <div class="input-group">
+          <span class="input-group-text bg-light"><i class="bi bi-phone"></i></span>
+          <input type="tel" class="form-control" id="telefono" [(ngModel)]="usuario.telefono" name="telefono" required>
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="nit" class="form-label">
+          <i class="bi bi-card-heading me-2 text-secondary"></i>NIT
+        </label>
+        <div class="input-group">
+          <span class="input-group-text bg-light"><i class="bi bi-credit-card"></i></span>
+          <input type="text" class="form-control" id="nit" [(ngModel)]="usuario.nit" name="nit" required>
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="carnet" class="form-label">
+          <i class="bi bi-person-vcard me-2 text-dark"></i>Carnet
+        </label>
+        <div class="input-group">
+          <span class="input-group-text bg-light"><i class="bi bi-person-badge-fill"></i></span>
+          <input type="text" class="form-control" id="carnet" [(ngModel)]="usuario.carnet" name="carnet" required>
+        </div>
+      </div>
+      <div *ngIf="mensajeExito" class="alert alert-success d-flex align-items-center">
+        <i class="bi bi-check-circle-fill me-2"></i> {{ mensajeExito }}
+      </div>
+      <div *ngIf="mensajeError" class="alert alert-danger d-flex align-items-center">
+        <i class="bi bi-exclamation-triangle-fill me-2"></i> {{ mensajeError }}
+      </div>
+      <button type="submit" class="btn btn-success w-100 d-flex align-items-center justify-content-center mb-2">
+        <i class="bi bi-person-plus me-2"></i> Registrarse
+      </button>
+      <a (click)="login()" class="btn btn-link w-100 d-flex align-items-center justify-content-center">
+        <i class="bi bi-box-arrow-in-right me-2"></i> ¿Ya tienes cuenta? Inicia sesión
+      </a>
+    </form>
+</div>

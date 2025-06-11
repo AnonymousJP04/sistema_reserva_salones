@@ -1,0 +1,223 @@
+/* Dashboard Container */
+.dashboard-container {
+  background-color: #f8f9fa;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+/* Card Styles */
+.card {
+  border: none;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Salon Cards */
+.salon-card {
+  border-radius: 15px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  background: white;
+}
+
+.salon-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Imagen del salón */
+.card-img-top-container {
+  position: relative;
+  height: 200px;
+  overflow: hidden;
+}
+
+.salon-imagen {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.salon-card:hover .salon-imagen {
+  transform: scale(1.05);
+}
+
+.card-img-overlay-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 2;
+}
+
+/* Header del salón */
+.salon-header {
+  border-bottom: 1px solid #e9ecef;
+  padding-bottom: 10px;
+}
+
+/* Información del salón */
+.salon-info p.card-text {
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+}
+
+/* Características y horarios */
+.caracteristicas .badge,
+.horarios .badge {
+  font-size: 0.75rem;
+  padding: 4px 8px;
+  margin: 2px;
+}
+
+.bg-outline-primary {
+  color: #0d6efd;
+  border: 1px solid #0d6efd;
+  background-color: transparent;
+}
+
+/* Filtros */
+.card-header {
+  border-bottom: 2px solid #dee2e6;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+.form-label {
+  font-weight: 600;
+  color: #495057;
+  font-size: 0.9rem;
+}
+
+.form-control,
+.form-select {
+  border-radius: 8px;
+  border: 1.5px solid #dee2e6;
+  transition: all 0.3s ease;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+  transform: translateY(-1px);
+}
+
+/* Badges */
+.badge {
+  font-size: 0.8rem;
+  padding: 6px 10px;
+  border-radius: 20px;
+}
+
+.badge.bg-info {
+  background-color: #17a2b8 !important;
+}
+
+.badge.bg-light {
+  color: #495057 !important;
+  border: 1px solid #dee2e6;
+}
+
+/* Botones */
+.btn {
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btn-group .btn {
+  border-radius: 0;
+}
+
+.btn-group .btn:first-child {
+  border-radius: 8px 0 0 8px;
+}
+
+.btn-group .btn:last-child {
+  border-radius: 0 8px 8px 0;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .dashboard-container {
+    padding: 10px;
+  }
+  
+  .card-img-top-container {
+    height: 160px;
+  }
+  
+  .btn-group {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .btn-group .btn {
+    border-radius: 8px !important;
+    margin-bottom: 5px;
+  }
+}
+
+/* Animaciones */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.salon-card {
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+/* Estados de disponibilidad */
+.badge.bg-success {
+  background-color: #28a745 !important;
+}
+
+.badge.bg-danger {
+  background-color: #dc3545 !important;
+}
+
+/* Efectos de hover en iconos */
+.bi {
+  transition: transform 0.2s ease;
+}
+
+.btn:hover .bi {
+  transform: scale(1.1);
+}
+
+/* Estilo para el contador de resultados */
+.badge.bg-info {
+  font-size: 0.9rem;
+  padding: 8px 12px;
+}
+
+/* Mensaje de no resultados */
+.alert-warning {
+  border-radius: 12px;
+  border: none;
+  background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+  color: #856404;
+}

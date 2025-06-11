@@ -1,0 +1,56 @@
+<div class="form-container">
+  <h2>Solicitud de Reserva de Salón</h2>
+
+  <div class="form-group">
+    <label for="salon">Selecciona Salón *</label>
+    <select id="salon" [(ngModel)]="selectedSalonId" class="form-control" required>
+      <option [ngValue]="undefined" disabled>-- Elige un salón --</option>
+      <option *ngFor="let salon of salones" [value]="salon.id">{{ salon.nombre }}</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="fecha">Fecha *</label>
+    <input type="date" id="fecha" [(ngModel)]="selectedDate" class="form-control" required />
+  </div>
+
+  <div class="form-group">
+    <label for="horaInicio">Hora Inicio *</label>
+    <input type="time" id="horaInicio" [(ngModel)]="horaInicio" class="form-control" required />
+  </div>
+
+  <div class="form-group">
+    <label for="horaFin">Hora Fin *</label>
+    <input type="time" id="horaFin" [(ngModel)]="horaFin" class="form-control" required />
+  </div>
+
+  <div class="form-group">
+    <label for="numPersonas">Número de Personas *</label>
+    <input type="number" id="numPersonas" [(ngModel)]="numeroPersonas" min="1" class="form-control" required />
+  </div>
+
+  <div class="form-group">
+    <label for="tipoEvento">Tipo de Evento</label>
+    <input type="text" id="tipoEvento" [(ngModel)]="tipoEvento" class="form-control" />
+  </div>
+
+  <div class="form-group">
+    <label for="observaciones">Observaciones</label>
+    <textarea id="observaciones" [(ngModel)]="observaciones" class="form-control"></textarea>
+  </div>
+
+  <div class="form-group">
+    <label for="comprobante">Comprobante de Pago</label>
+    <input type="file" id="comprobante" (change)="onFileSelected($event)" class="form-control" />
+  </div>
+
+  <button (click)="reservarSalon()">Reservar</button>
+
+  <div *ngIf="successMessage" class="alert alert-success">
+    {{ successMessage }}
+  </div>
+
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+</div>
