@@ -23,17 +23,30 @@ class MantenimientoController extends Controller
     }
 
     // Guarda un nuevo mantenimiento en la base de datos
-    public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'salon_id' => 'required|exists:admin_salones,id',
-            'descripcion' => 'required|string|max:255',
-            'fecha' => 'required|date',
-            'estado' => 'required|in:pendiente,realizado'
-        ]);
-        Mantenimiento::create($validated);
-        return redirect()->route('mantenimientos.index')->with('success', 'Mantenimiento registrado exitosamente');
-    }
+  public function store(Request $request)
+{
+    $validated = $request->validate([
+        'salon_id' => 'required|exists:admin_salones,id',
+        'fecha_inicio' => 'required|date',
+        'fecha_fin' => 'required|date|after_or_equal:fecha_inicio',
+        'hora_inicio' => 'nullable|date_format:H:i',
+        'hora_fin' => 'nullable|date_format:H:i|after_or_equal:hora_inicio',
+        'tipo_mantenimiento' => 'required|string|max:100',
+        'descripcion' => 'nullable|string',
+        'proveedor' => 'nullable|string|max:150',
+        'costo' => 'nullable|numeric|min:0',
+        'estado' => 'required|in:programado,en_proceso,completado,cancelado',
+    ]);
+
+    // Asignar el usuario que lo creó (si aplica)
+$validated['creado_por'] = auth('admin')->id();
+
+
+    Mantenimiento::create($validated);
+
+    return redirect()->route('mantenimientos.index')->with('success', 'Mantenimiento registrado exitosamente.');
+}
+
 
     // Muestra un mantenimiento específico
     public function show(Mantenimiento $mantenimiento)
