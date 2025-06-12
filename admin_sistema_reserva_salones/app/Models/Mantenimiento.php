@@ -10,10 +10,8 @@ class Mantenimiento extends Model
 {
     use HasFactory;
 
-    // Nombre de la tabla en la base de datos
     protected $table = 'admin_mantenimiento';
 
-    // Atributos que se pueden asignar masivamente
     protected $fillable = [
         'salon_id',
         'fecha_inicio',
@@ -25,10 +23,9 @@ class Mantenimiento extends Model
         'proveedor',
         'costo',
         'creado_por',
-        'estado'
+        'estado',
     ];
 
-    // Casts para atributos especiales
     protected $casts = [
         'fecha_inicio' => 'date',
         'fecha_fin' => 'date',
@@ -37,13 +34,12 @@ class Mantenimiento extends Model
         'costo' => 'float',
     ];
 
-    // Relación: Un mantenimiento pertenece a un salón
     public function salon(): BelongsTo
     {
-        return $this->belongsTo(Salon::class, 'salon_id');
+    return $this->belongsTo(Salon::class, 'salon_slug', 'slug');
     }
 
-    // Relación: Un mantenimiento fue creado por un usuario administrador
+
     public function creador(): BelongsTo
     {
         return $this->belongsTo(User::class, 'creado_por');
