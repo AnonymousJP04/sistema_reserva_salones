@@ -11,7 +11,7 @@
             </label>
             <div class="input-group">
                 <span class="input-group-text bg-light"><i class="bi bi-envelope"></i></span>
-                <input type="email" id="email" [(ngModel)]="credentials.correo" name="correo" class="form-control" required placeholder="usuario@correo.com">
+                <input type="email" id="email" [(ngModel)]="credentials.email" name="email" class="form-control" required placeholder="usuario@correo.com">
             </div>
         </div>
 
@@ -21,7 +21,7 @@
             </label>
             <div class="input-group">
                 <span class="input-group-text bg-light"><i class="bi bi-key"></i></span>
-                <input type="password" id="password" [(ngModel)]="credentials.contrasena" name="contrasena" class="form-control" required placeholder="Tu contraseña">
+                <input type="password" id="password" [(ngModel)]="credentials.password" name="password" class="form-control" required placeholder="Tu contraseña">
             </div>
         </div>
 
@@ -29,8 +29,10 @@
             <i class="bi bi-exclamation-triangle-fill me-2"></i> {{ errorMessage }}
         </div>
 
-        <button type="submit" class="btn btn-primary w-100 d-flex align-items-center justify-content-center mb-2">
-            <i class="bi bi-box-arrow-in-right me-2"></i> Iniciar Sesión
+        <button type="submit" class="btn btn-primary w-100 d-flex align-items-center justify-content-center mb-2" [disabled]="isLoading">
+            <span *ngIf="isLoading" class="spinner-border spinner-border-sm me-2" role="status"></span>
+            <i *ngIf="!isLoading" class="bi bi-box-arrow-in-right me-2"></i> 
+            {{ isLoading ? 'Iniciando...' : 'Iniciar Sesión' }}
         </button>
         <a class="btn btn-link w-100" (click)="register()">
             <i class="bi bi-person-plus me-2"></i>¿No tienes cuenta? Regístrate

@@ -4,7 +4,7 @@ import { RegisterComponent } from './pages/register/register.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { BienvenidaComponent } from './pages/bienvenida/bienvenida.component'; // Agregar esta importación
 import { ReservarSalonComponent } from './pages/reservar-salon/reservar-salon.component';
-import { MisReservasComponent } from './pages/mis-reservas/mis-reservas.component;'
+import { MisReservasComponent } from './pages/mis-reservas/mis-reservas.component'
 import { NotificacionesComponent } from './pages/notificaciones/notificaciones.component';
 import { authGuard } from './guards/auth.guard';
 

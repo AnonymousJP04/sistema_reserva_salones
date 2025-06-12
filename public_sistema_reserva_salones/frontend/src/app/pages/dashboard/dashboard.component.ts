@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { NotificacionesComponent } from '../notificaciones/notificaciones.component';
 
 export interface Salon {
   id: number;
@@ -21,7 +22,7 @@ export interface Salon {
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, NotificacionesComponent],
   standalone: true
 })
 export class DashboardComponent implements OnInit {
