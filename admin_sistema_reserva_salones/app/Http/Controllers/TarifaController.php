@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Tarifa;
 use Illuminate\Http\Request;
+use App\Models\Salon;
+
 
 class TarifaController extends Controller
 {
@@ -19,10 +21,12 @@ class TarifaController extends Controller
     }
 
     // Muestra el formulario para crear una nueva tarifa
-    public function create()
-    {
-        return view('tarifas.create');
-    }
+   public function create()
+{
+    $salones = Salon::all(); // O el modelo que uses para los salones
+    return view('tarifas.create', compact('salones'));
+}
+
 
     // Guarda una nueva tarifa en la base de datos
     public function store(Request $request)
