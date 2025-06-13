@@ -10,7 +10,7 @@
 
 .navbar-brand i {
   font-size: 1.5rem;
-  color: #0d6efd;
+  color: #2e7d32; /* verde oscuro */
 }
 
 .btn-primary, .btn-danger {
@@ -24,10 +24,28 @@
   font-size: 1.1rem;
 }
 
+/* Verde principal para btn-primary */
+.btn-primary {
+  background-color: #388e3c; /* verde */
+  border-color: #388e3c;
+  color: white;
+}
+
 .btn-primary:hover {
-  background: #0b5ed7;
+  background-color: #2e7d32; /* verde más oscuro */
+  border-color: #2e7d32;
+}
+
+/* Verde para btn-danger (usar un rojo suave o similar para mantener la función de alerta, pero adaptado a verdes) */
+/* O si quieres un verde más claro para el "peligro", por ejemplo para advertencia, podría ser un tono amarillento-verdoso */
+.btn-danger {
+  background-color: #a5d6a7; /* verde claro */
+  border-color: #a5d6a7;
+  color: #2e7d32; /* texto verde oscuro */
 }
 
 .btn-danger:hover {
-  background: #bb2d3b;
+  background-color: #81c784; /* verde medio */
+  border-color: #81c784;
+  color: white;
 }

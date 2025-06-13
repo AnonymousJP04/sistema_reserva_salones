@@ -1,54 +1,54 @@
 .login-container {
-  background: linear-gradient(135deg, #2e3a32 0%, #394a42 100%);
+  background: linear-gradient(135deg, #e9f7ef 0%, #f8f9fa 100%);
   border-radius: 18px;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
   padding: 32px 0;
-  color: #c3d1c3;
+  color: #198754; /* verde principal */
 }
 
 .icono-login {
   font-size: 3rem;
-  color: #2e7d32; /* verde oscuro */
+  color: #198754;
   margin-bottom: 8px;
 }
 
 .form-label {
   font-weight: 500;
-  color: #b8c8b8;
+  color: #198754;
 }
 
 .input-group-text {
   border-radius: 0.5rem 0 0 0.5rem;
-  background-color: #3c4e3a;
-  color: #d0e0d0;
-  border: 1px solid #556c55;
+  background-color: #d4edda; /* verde muy claro */
+  color: #198754;
+  border: 1px solid #c3e6cb;
 }
 
 .form-control {
-  background-color: #2e3a32;
-  color: #c3d1c3;
-  border: 1.5px solid #556c55;
+  background-color: #ffffff;
+  color: #198754;
+  border: 1.5px solid #198754;
   transition: all 0.3s ease;
 }
 
 .form-control:focus {
-  border-color: #4caf50;
-  box-shadow: 0 0 0 0.2rem rgba(76, 175, 80, 0.25);
-  background-color: #36503b;
-  color: #e6f1e6;
+  border-color: #157347;
+  box-shadow: 0 0 0 0.2rem rgba(21, 115, 71, 0.25);
+  background-color: #e9f7ef;
+  color: #198754;
 }
 
 .btn-primary {
   font-weight: 500;
   font-size: 1.1rem;
-  background-color: #2e7d32;
+  background-color: #198754;
   border: none;
-  color: #d0e0d0;
+  color: #ffffff;
   transition: background 0.2s;
 }
 
 .btn-primary:hover {
-  background: #4caf50;
+  background: #157347;
   color: #e6f1e6;
 }
 
