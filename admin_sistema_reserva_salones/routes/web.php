@@ -21,7 +21,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     //Nuevas rutas para el dashboard
     Route::get('/dashboard/data', [DashboardController::class, 'getData'])->name('dashboard.data');
     Route::get('/dashboard/notifications', [DashboardController::class, 'getNotifications'])->name('dashboard.notifications');
-    
+    Route::get('/dashboard/data', [DashboardController::class, 'filtrarDatos']);
+
 
     // Salones
 Route::get('/salones', [SalonController::class, 'index'])->name('salones.index');
@@ -38,7 +39,7 @@ Route::delete('/salones/{salon:slug}', [SalonController::class, 'destroy'])->nam
     Route::post('reservas/{reserva}/aprobar', [ReservaController::class, 'aprobar'])->name('reservas.aprobar');
     Route::post('reservas/{reserva}/rechazar', [ReservaController::class, 'rechazar'])->name('reservas.rechazar');
     Route::get('reservas/pendientes', [ReservaController::class, 'pendientes'])->name('reservas.pendientes');
-
+    Route::post('/reservas/{reserva}/update-status', [ReservaController::class, 'updateStatus'])->name('reservas.updateStatus');
 
     // Otros recursos
     Route::resource('tarifas', TarifaController::class);

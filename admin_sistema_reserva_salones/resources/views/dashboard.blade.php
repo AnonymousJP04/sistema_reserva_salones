@@ -455,7 +455,9 @@
                             </svg>
                         </div>
                         <div class="text-right">
-                            <p class="text-3xl font-bold text-emerald-300">{{ $stats['salones_activos'] ?? 0 }}</p>
+                                           <p class="text-3xl font-bold text-emerald-300" data-stat="salones_activos">
+                    {{ $stats['salones_activos'] ?? 0 }}
+                </p>
                             <div class="flex items-center text-emerald-400 text-sm">
                                 <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.293l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L9 9.414V13a1 1 0 102 0V9.414l1.293 1.293a1 1 0 001.414-1.414z" clip-rule="evenodd"/>
@@ -477,7 +479,9 @@
                             </svg>
                         </div>
                         <div class="text-right">
-                            <p class="text-3xl font-bold text-yellow-300">{{ $stats['reservas_pendientes'] ?? 0 }}</p>
+                                       <p class="text-3xl font-bold text-yellow-300" data-stat="reservas_pendientes">
+                {{ $stats['reservas_pendientes'] ?? 0 }}
+            </p>
                             <div class="flex items-center text-yellow-400 text-sm">
                                 <div class="w-2 h-2 bg-yellow-400 rounded-full animate-pulse mr-1"></div>
                                 Requieren atención
@@ -497,7 +501,9 @@
                             </svg>
                         </div>
                         <div class="text-right">
-                            <p class="text-3xl font-bold text-green-300">{{ $stats['reservas_hoy'] ?? 0 }}</p>
+                                        <p class="text-3xl font-bold text-green-300" data-stat="reservas_hoy">
+                {{ $stats['reservas_hoy'] ?? 0 }}
+            </p>
                             <div class="flex items-center text-green-400 text-sm">
                                 <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>
@@ -519,7 +525,9 @@
                             </svg>
                         </div>
                         <div class="text-right">
-                            <p class="text-3xl font-bold text-blue-300">${{ number_format($stats['ingresos_mes'] ?? 0, 0) }}</p>
+                                      <p class="text-3xl font-bold text-blue-300" data-stat="ingresos_mes">
+                Q{{ number_format($stats['ingresos_mes'] ?? 0, 2) }}
+            </p>
                             <div class="flex items-center text-blue-400 text-sm">
                                 <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M3 3a1 1 0 000 2v8a2 2 0 002 2h2.586l-1.293 1.293a1 1 0 101.414 1.414L10 15.414l2.293 2.293a1 1 0 001.414-1.414L12.414 15H15a2 2 0 002-2V5a1 1 0 100-2H3zm11.707 4.707a1 1 0 00-1.414-1.414L10 9.586 8.707 8.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
@@ -901,11 +909,6 @@
                     this.x += (dx / distance) * force * 0.3;
                     this.y += (dy / distance) * force * 0.3;
                     this.alpha = this.originalAlpha + force * 0.3;
-                if (distance < 120) {
-                    const force = (120 - distance) / 120;
-                    this.x += (dx / distance) * force * 0.3;
-                    this.y += (dy / distance) * force * 0.3;
-                    this.alpha = this.originalAlpha + force * 0.3;
                 } else {
                     this.alpha = this.originalAlpha;
                 }
@@ -926,7 +929,6 @@
                 if (this.y < -10) this.y = canvas.height + 10;
                 if (this.y > canvas.height + 10) this.y = -10;
             }
-            
             draw() {
                 ctx.save();
                 
@@ -1034,33 +1036,51 @@
         });
 
         // Función para actualizar datos del dashboard (ejemplo)
-        function fetchDashboardData(period) {
-            // Esta función se puede usar para hacer peticiones AJAX
-            // y actualizar las métricas según el período seleccionado
-            fetch(`/dashboard/data?period=${period}`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
-                }
-            })
-            .then(response => response.json())
-            .then(data => {
-                // Actualizar las métricas en el dashboard
-                updateMetrics(data);
-            })
-            .catch(error => {
-                console.error('Error:', error);
+// Reemplaza la función fetchDashboardData existente con esta:
+function fetchDashboardData(period) {
+        fetch(`/dashboard/data?period=${period}`, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Actualizar estadísticas
+                document.querySelector('[data-stat="salones_activos"]').textContent = data.stats.salones_activos;
+                document.querySelector('[data-stat="reservas_pendientes"]').textContent = data.stats.reservas_pendientes;
+                document.querySelector('[data-stat="reservas_hoy"]').textContent = data.stats.reservas_hoy;
+                document.querySelector('[data-stat="ingresos_mes"]').textContent = 
+                    'Q' + new Intl.NumberFormat('es-GT').format(data.stats.ingresos_mes);
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    }
+
+    // Event listener para los filtros de tiempo
+    document.addEventListener('DOMContentLoaded', () => {
+        const filterTabs = document.querySelectorAll('.filter-tab');
+        
+        filterTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                filterTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                const period = tab.dataset.period;
+                fetchDashboardData(period);
             });
-        }
+        });
+    });
 
         function updateMetrics(data) {
             // Actualizar las métricas con los nuevos datos
             if (data.stats) {
-                document.querySelector('.salones-activos').textContent = data.stats.salones_activos || 0;
-                document.querySelector('.reservas-pendientes').textContent = data.stats.reservas_pendientes || 0;
-                document.querySelector('.reservas-hoy').textContent = data.stats.reservas_hoy || 0;
-                document.querySelector('.ingresos-mes').textContent = ' + (data.stats.ingresos_mes || 0).toLocaleString();
+// Actualizar las métricas usando los data-stat
+document.querySelector('[data-stat="salones-activos"]').textContent = data.stats.salones_activos || 0;
+document.querySelector('[data-stat="reservas-pendientes"]').textContent = data.stats.reservas_pendientes || 0;
+document.querySelector('[data-stat="reservas-hoy"]').textContent = data.stats.reservas_hoy || 0;
+document.querySelector('[data-stat="ingresos-mes"]').textContent = 'Q' + (data.stats.ingresos_mes || 0).toLocaleString('es-GT');
             }
         }
 

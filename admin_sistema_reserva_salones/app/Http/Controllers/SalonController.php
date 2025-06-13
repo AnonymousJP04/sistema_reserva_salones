@@ -30,6 +30,7 @@ class SalonController extends Controller
 
         Salon::create($validated);
 
+        // CORRECCIÓN: redirigir a la ruta salones.index, que sí existe
         return redirect()->route('salones.index')->with('success', 'Salón creado exitosamente');
     }
 
@@ -63,6 +64,7 @@ class SalonController extends Controller
 
         $salon->update($validated);
 
+        // CORRECCIÓN: redirigir a salones.index
         return redirect()->route('salones.index')->with('success', 'Salón actualizado exitosamente');
     }
 
@@ -85,6 +87,7 @@ class SalonController extends Controller
 
         $salon->delete();
 
+        //Redirigir a salones.index
         return redirect()->route('salones.index')->with('success', 'Salón eliminado exitosamente');
     }
 
@@ -104,8 +107,8 @@ class SalonController extends Controller
             'tiene_cocina' => 'sometimes|boolean',
             'area_metros' => 'nullable|numeric|min:0',
             'estado' => 'required|in:activo,inactivo,mantenimiento',
-            'imagen_principal' => 'nullable|image|max:2048',
-            'galeria_imagenes.*' => 'image|max:2048',
+            'imagen_principal' => 'nullable|image|max:100000',
+            'galeria_imagenes.*' => 'image|max:100000',
         ]);
 
         foreach (['tiene_aire_acondicionado', 'tiene_proyector', 'tiene_sonido', 'tiene_cocina'] as $campo) {
@@ -149,11 +152,6 @@ class SalonController extends Controller
         }
 
         return json_encode($galeria);
-    }
-
-    public function getRouteKeyName()
-    {
-        return 'slug';
     }
 
 }

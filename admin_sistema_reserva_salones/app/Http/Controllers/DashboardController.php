@@ -8,6 +8,8 @@ use App\Models\Pago;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class DashboardController extends Controller
 {
@@ -22,17 +24,47 @@ class DashboardController extends Controller
     }
 
     // Método para obtener datos filtrados por período
-    public function getData(Request $request)
-    {
-        $period = $request->get('period', 'today');
-        $stats = $this->getStats($period);
+
+public function getData(Request $request)
+{
+    try {
+        $period = $request->query('period', 'today');
+        
+        // Estadísticas simples sin filtros complejos
+        $stats = [
+            'salones_activos' => Salon::where('estado', 'activo')->count(),
+            'reservas_pendientes' => Reserva::where('estado', 'pendiente')->count(),
+            'reservas_hoy' => Reserva::whereDate('fecha_reserva', today())->count(),
+            'ingresos_mes' => Pago::where('estado', 'verificado')
+                ->whereMonth('created_at', now()->month)
+                ->whereYear('created_at', now()->year)
+                ->sum('monto') ?? 0
+        ];
+
+        // Log para debugging
+        Log::info('Dashboard stats', [
+            'period' => $period,
+            'stats' => $stats
+        ]);
 
         return response()->json([
+            'success' => true,
             'stats' => $stats,
             'period' => $period
         ]);
+        
+    } catch (\Exception $e) {
+        Log::error('Error en getData', [
+            'period' => $period ?? 'unknown',
+            'error' => $e->getMessage()
+        ]);
+        
+        return response()->json([
+            'success' => false,
+            'message' => 'Error al obtener datos: ' . $e->getMessage()
+        ], 500);
     }
-
+}
     // Método para obtener notificaciones
     public function getNotifications()
     {
@@ -110,4 +142,6 @@ class DashboardController extends Controller
             ->limit(3)
             ->get();
     }
+
+    
 }

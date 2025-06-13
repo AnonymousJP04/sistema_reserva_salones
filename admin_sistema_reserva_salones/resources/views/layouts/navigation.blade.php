@@ -36,9 +36,6 @@
                 <x-nav-link :href="route('mantenimientos.index')" :active="request()->routeIs('mantenimientos.*')" class="aurora-nav-link">
                     {{ __('Mantenimientos') }}
                 </x-nav-link>
-                <x-nav-link :href="route('reservas.pendientes')" :active="request()->routeIs('reservas.pendientes')" class="aurora-nav-link">
-                    {{ __('Reservas Pendientes') }}
-                </x-nav-link>
             </div>
             <!-- User Dropdown -->
             <div class="hidden md:flex items-center gap-2">
