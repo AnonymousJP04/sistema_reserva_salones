@@ -209,14 +209,6 @@
       </div>
     </div>
   </div>
-  <div class="mb-3">
-  <button class="btn btn-outline-primary" (click)="vistaCalendario = !vistaCalendario">
-    {{ vistaCalendario ? 'Ver Tarjetas' : 'Ver Calendario' }}
-  </button>
-</div>
-
-
-
   <!-- ✅ Vista de Calendario -->
   <div *ngIf="vistaCalendario" class="mt-4">
     <app-calendario></app-calendario>

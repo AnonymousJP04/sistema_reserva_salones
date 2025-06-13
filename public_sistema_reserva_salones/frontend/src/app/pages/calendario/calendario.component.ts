@@ -8,7 +8,8 @@ import interactionPlugin from '@fullcalendar/interaction';
   selector: 'app-calendario',
   standalone: true,
   imports: [FullCalendarModule],
-  templateUrl: './calendario.component.html'
+  templateUrl: './calendario.component.html',
+  styleUrls: ['./calendario.component.css']
 })
 export class CalendarioComponent {
   calendarOptions = {
