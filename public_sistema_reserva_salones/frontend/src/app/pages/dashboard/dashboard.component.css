@@ -1,20 +1,23 @@
 /* Dashboard Container */
 .dashboard-container {
-  background-color: #f8f9fa;
+  background-color: #2e3a32; /* verde oscuro/gris */
   min-height: 100vh;
   padding: 20px;
+  color: #c3d1c3; /* texto claro */
 }
 
 /* Card Styles */
 .card {
   border: none;
   border-radius: 12px;
+  background-color: #394a42; /* verde grisáceo */
+  color: #d0e0d0;
   transition: all 0.3s ease;
 }
 
 .card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15) !important;
+  box-shadow: 0 8px 25px rgba(20, 40, 20, 0.5) !important;
 }
 
 /* Salon Cards */
@@ -22,12 +25,13 @@
   border-radius: 15px;
   overflow: hidden;
   transition: all 0.3s ease;
-  background: white;
+  background: #40534a; /* verde grisáceo medio */
+  color: #d3decf;
 }
 
 .salon-card:hover {
   transform: translateY(-8px);
-  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15) !important;
+  box-shadow: 0 12px 35px rgba(30, 60, 30, 0.6) !important;
 }
 
 /* Imagen del salón */
@@ -42,10 +46,12 @@
   height: 100%;
   object-fit: cover;
   transition: transform 0.3s ease;
+  filter: brightness(0.85);
 }
 
 .salon-card:hover .salon-imagen {
   transform: scale(1.05);
+  filter: brightness(1);
 }
 
 .card-img-overlay-badge {
@@ -57,14 +63,16 @@
 
 /* Header del salón */
 .salon-header {
-  border-bottom: 1px solid #e9ecef;
+  border-bottom: 1px solid #5a6a5a;
   padding-bottom: 10px;
+  color: #c3d1c3;
 }
 
 /* Información del salón */
 .salon-info p.card-text {
   margin-bottom: 8px;
   font-size: 0.9rem;
+  color: #b8c8b8;
 }
 
 /* Características y horarios */
@@ -73,37 +81,52 @@
   font-size: 0.75rem;
   padding: 4px 8px;
   margin: 2px;
+  background-color: transparent;
+  color: #a0b2a0;
+  border: 1px solid #7a8b7a;
+  border-radius: 12px;
 }
 
+/* Colores de badges específicos */
 .bg-outline-primary {
-  color: #0d6efd;
-  border: 1px solid #0d6efd;
+  color: #2e7d32; /* verde oscuro */
+  border: 1px solid #2e7d32;
   background-color: transparent;
 }
 
 /* Filtros */
 .card-header {
-  border-bottom: 2px solid #dee2e6;
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-bottom: 2px solid #556c55;
+  background: linear-gradient(135deg, #394a42 0%, #40534a 100%);
+  color: #c3d1c3;
 }
 
 .form-label {
   font-weight: 600;
-  color: #495057;
+  color: #b8c8b8;
   font-size: 0.9rem;
 }
 
 .form-control,
 .form-select {
   border-radius: 8px;
-  border: 1.5px solid #dee2e6;
+  border: 1.5px solid #5a6a5a;
+  background-color: #2e3a32;
+  color: #c3d1c3;
   transition: all 0.3s ease;
+}
+
+.form-control::placeholder,
+.form-select option {
+  color: #8f9a8f;
 }
 
 .form-control:focus,
 .form-select:focus {
-  border-color: #0d6efd;
-  box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+  border-color: #4caf50; /* verde medio */
+  box-shadow: 0 0 0 0.2rem rgba(76, 175, 80, 0.25);
+  background-color: #36503b;
+  color: #e6f1e6;
   transform: translateY(-1px);
 }
 
@@ -112,27 +135,37 @@
   font-size: 0.8rem;
   padding: 6px 10px;
   border-radius: 20px;
+  color: #d0e0d0;
+  background-color: #4a6351;
+  border: 1px solid #3c4e3a;
 }
 
 .badge.bg-info {
-  background-color: #17a2b8 !important;
+  background-color: #2e7d32 !important; /* verde oscuro */
+  color: #d0e0d0 !important;
 }
 
 .badge.bg-light {
-  color: #495057 !important;
-  border: 1px solid #dee2e6;
+  color: #a3b1a3 !important;
+  border: 1px solid #5a6a5a;
+  background-color: #394a42;
 }
 
 /* Botones */
 .btn {
   border-radius: 8px;
   font-weight: 500;
+  background-color: #2e7d32;
+  color: #d0e0d0;
+  border: none;
   transition: all 0.3s ease;
 }
 
 .btn:hover {
+  background-color: #4caf50;
+  color: #e6f1e6;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.6);
 }
 
 .btn-group .btn {
@@ -192,20 +225,22 @@
 
 /* Estados de disponibilidad */
 .badge.bg-success {
-  background-color: #28a745 !important;
+  background-color: #388e3c !important; /* verde oscuro */
 }
 
 .badge.bg-danger {
-  background-color: #dc3545 !important;
+  background-color: #a53939 !important; /* rojo oscuro */
 }
 
 /* Efectos de hover en iconos */
 .bi {
   transition: transform 0.2s ease;
+  color: #b8c8b8;
 }
 
 .btn:hover .bi {
   transform: scale(1.1);
+  color: #e6f1e6;
 }
 
 /* Estilo para el contador de resultados */
@@ -218,6 +253,6 @@
 .alert-warning {
   border-radius: 12px;
   border: none;
-  background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
-  color: #856404;
+  background: linear-gradient(135deg, #4a4a21 0%, #70704f 100%);
+  color: #c3c389;
 }

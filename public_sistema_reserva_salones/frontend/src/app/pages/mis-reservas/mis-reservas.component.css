@@ -1,25 +1,37 @@
 h2 {
   text-align: center;
   margin-bottom: 20px;
-  color: #2e7d32;
+  color: #81c784; /* verde claro */
 }
 
 .tabla-historial {
   margin: auto;
   width: 90%;
   border-collapse: collapse;
+  background-color: #2e3a32; /* verde oscuro para fondo tabla */
+  color: #d0f0c0; /* texto verde claro */
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  border-radius: 8px;
+  overflow: hidden;
 }
 
-.tabla-historial th, .tabla-historial td {
-  border: 1px solid #ccc;
+.tabla-historial th,
+.tabla-historial td {
+  border: 1px solid #4caf50; /* borde verde */
   padding: 10px;
   text-align: center;
 }
 
 .tabla-historial th {
-  background-color: #c8e6c9;
+  background-color: #4caf5080; /* verde con transparencia para cabecera */
+  font-weight: 700;
+  color: #1b5e20; /* verde oscuro */
 }
 
 .tabla-historial tr:nth-child(even) {
-  background-color: #f1f8e9;
+  background-color: #3c5a44; /* verde oscuro más claro */
+}
+
+.tabla-historial tr:nth-child(odd) {
+  background-color: #2e3a32; /* verde oscuro */
 }

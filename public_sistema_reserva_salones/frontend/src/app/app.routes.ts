@@ -5,6 +5,7 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { BienvenidaComponent } from './pages/bienvenida/bienvenida.component'; // Agregar esta importación
 import { ReservarSalonComponent } from './pages/reservar-salon/reservar-salon.component';
 import { MisReservasComponent } from './pages/mis-reservas/mis-reservas.component'
+import { CalendarioComponent } from './pages/calendario/calendario.component';
 import { NotificacionesComponent } from './pages/notificaciones/notificaciones.component';
 import { authGuard } from './guards/auth.guard';
 
@@ -16,6 +17,7 @@ export const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent, canActivate: [authGuard] },
   { path: 'reservar-salon', component: ReservarSalonComponent, canActivate: [authGuard] },
   { path: 'mis-reservas', component: MisReservasComponent, canActivate: [authGuard], title: 'Mis Reservas' },
+  { path: 'calendario', component: CalendarioComponent, canActivate: [authGuard], title: 'Calendario de Reservas' },
   { path: 'notificaciones', component: NotificacionesComponent },
   //{ path: '**', redirectTo: '' } // Cambiar para que redirija a bienvenida en caso de rutas no encontradas
 ];

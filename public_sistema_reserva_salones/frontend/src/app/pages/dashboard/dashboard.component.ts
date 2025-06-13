@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { NotificacionesComponent } from '../notificaciones/notificaciones.component';
 
 export interface Salon {
   id: number;
@@ -22,7 +21,7 @@ export interface Salon {
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],
-  imports: [CommonModule, FormsModule, NotificacionesComponent],
+  imports: [CommonModule, FormsModule],
   standalone: true
 })
 export class DashboardComponent implements OnInit {
@@ -33,6 +32,8 @@ export class DashboardComponent implements OnInit {
   // Variables para filtros
   salonesTotales: Salon[] = [];
   salonesFiltrados: Salon[] = [];
+
+  vistaCalendario: boolean = false;
   
   // Controles de filtros
   palabraClave: string = '';
