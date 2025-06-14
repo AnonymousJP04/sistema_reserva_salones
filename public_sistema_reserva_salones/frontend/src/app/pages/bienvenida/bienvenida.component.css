@@ -1,107 +1,135 @@
-/* Estilos para la página de bienvenida */
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+}
+body, html {
+  height: 100%;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #000; /* fallback */
+}
+
+/* Hero Section con fondo animado */
 .hero-section {
-  background: linear-gradient(135deg, #2f4f4f 0%, #6b6b6b 100%);
+  position: relative;
+  z-index: 1;
   min-height: 100vh;
   display: flex;
   align-items: center;
-  position: relative;
+  justify-content: center;
   overflow: hidden;
+  background: linear-gradient(135deg, #6aee9b, #047857, #6ee7b7);
+  background-size: 300% 300%; /* Más grande para efecto más pronunciado */
+  animation: aurora-flow 12s ease infinite; /* Más rápido que antes */
+  color: white;
+  padding: 2rem;
+  text-align: center;
 }
 
-/* Patrón de fondo decorativo */
+/* Capa radial difusa para profundidad */
 .hero-section::before {
-  content: '';
+  content: "";
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
-  opacity: 0.2;
+  top: -40%;
+  left: -40%;
+  width: 180%;
+  height: 180%;
+  background: radial-gradient(circle at center, rgba(227, 247, 239, 0.3), transparent 70%);
+  filter: blur(80px);
+  animation: aurora-flow 12s ease infinite; /* Igual que el fondo para sincronía */
+  pointer-events: none;
+  z-index: 0;
 }
 
-/* Animación del icono principal */
-.animated-icon {
-  animation: float 3s ease-in-out infinite;
-  filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.3));
+/* Animación del gradiente con mayor rango y movimiento más dinámico */
+@keyframes aurora-flow {
+  0% { background-position: 0% 50%; }
+  25% { background-position: 100% 30%; }
+  50% { background-position: 200% 50%; }
+  75% { background-position: 100% 70%; }
+  100% { background-position: 0% 50%; }
 }
 
-@keyframes float {
-  0%, 100% { 
-    transform: translateY(0px); 
-  }
-  50% { 
-    transform: translateY(-20px); 
-  }
-}
-
-/* Botón principal personalizado */
-.btn-warning {
-  background: linear-gradient(45deg, #1b3a2f, #254d38);
-  border: none;
-  transition: all 0.3s ease;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  color: #d0e8d0;
-}
-
-.btn-warning:hover {
-  background: linear-gradient(45deg, #3a6b48, #5a855a);
-  transform: translateY(-3px);
-  box-shadow: 0 15px 35px rgba(42, 94, 43, 0.6);
-  color: #e6f1e6;
-}
-
-/* Tarjetas de información */
+/* Glassmorphism card */
 .info-card {
-  background: rgba(70, 70, 70, 0.15);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(120, 120, 120, 0.3);
-  transition: transform 0.3s ease;
-  color: #cbd5cb;
-}
-
-.info-card:hover {
-  transform: translateY(-5px);
-  background: rgba(70, 70, 70, 0.25);
-  border-color: rgba(160, 160, 160, 0.5);
-  color: #e0e8e0;
-}
-
-/* Efectos de texto */
-.text-warning {
-  text-shadow: 2px 2px 4px rgba(10, 20, 10, 0.5);
-  color: #a8c1a8;
-}
-
-.text-white {
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
-  color: #f0f5f0;
-}
-
-/* Responsividad */
-@media (max-width: 768px) {
-  .display-3 {
-    font-size: 2.5rem;
-  }
-  
-  .lead {
-    font-size: 1.1rem;
-  }
-  
-  .btn-lg {
-    padding: 0.75rem 2rem;
-    font-size: 1.1rem;
-  }
-}
-
-/* Efectos adicionales */
-.container {
   position: relative;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  border: 1px solid #6ee7b7;
+  border-radius: 15px;
+  padding: 2rem;
+  max-width: 400px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+  color: white;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
   z-index: 1;
 }
+.info-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.4);
+}
 
-/* Animación suave para todos los elementos */
-* {
+/* Aurora Glow Effect */
+.aurora-glow {
+  animation: aurora-glow 3s ease-in-out infinite;
+  box-shadow: 0 0 20px #6ee7b7, 0 0 40px #22c55e, 0 0 60px #047857;
+}
+@keyframes aurora-glow {
+  0%, 100% { filter: drop-shadow(0 0 10px #22c55e); }
+  50% { filter: drop-shadow(0 0 20px #6ee7b7); }
+}
+
+/* Botón Aurora */
+.btn-aurora {
+  background: linear-gradient(45deg, #b0ffcd, #047857);
+  border: none;
+  color: #ffffff;
+  padding: 12px 24px;
+  border-radius: 8px;
+  position: relative;
+  overflow: hidden;
   transition: all 0.3s ease;
+  text-transform: uppercase;
+  font-weight: 600;
+  cursor: pointer;
+  user-select: none;
+  margin-top: 1.5rem;
+  display: inline-block;
+}
+.btn-aurora::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 200%;
+  height: 100%;
+  background: linear-gradient(90deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0.1) 100%);
+  transition: all 0.5s ease-in-out;
+}
+.btn-aurora:hover::before {
+  left: 100%;
+}
+.btn-aurora:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(34, 197, 94, 0.4);
+}
+
+/* Brillo deslizante en textos (opcional) */
+.badge-shine {
+  background: linear-gradient(270deg, #22c55e, #6ee7b7, #22c55e);
+  background-size: 600% 600%;
+  animation: shine 6s ease infinite;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  display: inline-block;
+  font-weight: 600;
+  margin-top: 1rem;
+}
+@keyframes shine {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }

@@ -1,37 +1,55 @@
-/* Dashboard Container */
+/* Fondo animado para dashboard */
 .dashboard-container {
-  background-color: #2e3a32; /* verde oscuro/gris */
+  background: linear-gradient(270deg, #1f2e26, #2e3a32, #1f2e26, #2e3a32);
+  background-size: 800% 800%;
+  animation: auroraBackground 30s ease infinite;
+  backdrop-filter: blur(8px);
   min-height: 100vh;
-  padding: 20px;
-  color: #c3d1c3; /* texto claro */
+  padding: 24px;
+  color: #d0e0d0;
+}
+
+/* Animación del fondo */
+@keyframes auroraBackground {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 /* Card Styles */
-.card {
-  border: none;
+.card, .salon-card {
+  background: rgba(57, 74, 66, 0.6);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(100, 150, 100, 0.2);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
   border-radius: 12px;
-  background-color: #394a42; /* verde grisáceo */
   color: #d0e0d0;
-  transition: all 0.3s ease;
+  transition: all 0.4s ease;
 }
 
-.card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 25px rgba(20, 40, 20, 0.5) !important;
+.card:hover, .salon-card:hover {
+  transform: translateY(-6px) scale(1.01);
+  box-shadow: 0 12px 35px rgba(34, 197, 94, 0.25);
 }
 
-/* Salon Cards */
+/* Salon Cards specifics */
 .salon-card {
-  border-radius: 15px;
   overflow: hidden;
-  transition: all 0.3s ease;
-  background: #40534a; /* verde grisáceo medio */
+  background: rgba(64, 83, 74, 0.6);
   color: #d3decf;
+  border-radius: 15px;
+  animation: aurora-fade 0.6s ease-out forwards;
 }
 
-.salon-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 12px 35px rgba(30, 60, 30, 0.6) !important;
+.salon-card:hover .salon-imagen {
+  transform: scale(1.05);
+  filter: brightness(1);
 }
 
 /* Imagen del salón */
@@ -45,15 +63,11 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, filter 0.3s ease;
   filter: brightness(0.85);
 }
 
-.salon-card:hover .salon-imagen {
-  transform: scale(1.05);
-  filter: brightness(1);
-}
-
+/* Overlay badge */
 .card-img-overlay-badge {
   position: absolute;
   top: 10px;
@@ -63,7 +77,7 @@
 
 /* Header del salón */
 .salon-header {
-  border-bottom: 1px solid #5a6a5a;
+  border-bottom: 1px solid rgba(90, 106, 90, 0.4);
   padding-bottom: 10px;
   color: #c3d1c3;
 }
@@ -89,15 +103,15 @@
 
 /* Colores de badges específicos */
 .bg-outline-primary {
-  color: #2e7d32; /* verde oscuro */
-  border: 1px solid #2e7d32;
+  color: #22c55e; /* verde esmeralda */
+  border: 1px solid #22c55e;
   background-color: transparent;
 }
 
 /* Filtros */
 .card-header {
-  border-bottom: 2px solid #556c55;
-  background: linear-gradient(135deg, #394a42 0%, #40534a 100%);
+  border-bottom: 2px solid rgba(85, 108, 85, 0.5);
+  background: linear-gradient(135deg, rgba(57, 74, 66, 0.7) 0%, rgba(64, 83, 74, 0.7) 100%);
   color: #c3d1c3;
 }
 
@@ -109,10 +123,11 @@
 
 .form-control,
 .form-select {
+  background: rgba(46, 58, 50, 0.6);
+  backdrop-filter: blur(6px);
+  border: 1.5px solid #22c55e;
+  color: #e6f1e6;
   border-radius: 8px;
-  border: 1.5px solid #5a6a5a;
-  background-color: #2e3a32;
-  color: #c3d1c3;
   transition: all 0.3s ease;
 }
 
@@ -123,49 +138,57 @@
 
 .form-control:focus,
 .form-select:focus {
-  border-color: #4caf50; /* verde medio */
-  box-shadow: 0 0 0 0.2rem rgba(76, 175, 80, 0.25);
-  background-color: #36503b;
+  box-shadow: 0 0 8px rgba(34, 197, 94, 0.4);
+  background-color: rgba(46, 90, 66, 0.8);
+  border-color: #16a34a;
   color: #e6f1e6;
   transform: translateY(-1px);
 }
 
 /* Badges */
 .badge {
-  font-size: 0.8rem;
-  padding: 6px 10px;
-  border-radius: 20px;
+  background: rgba(34, 197, 94, 0.1);
+  border: 1px solid #22c55e;
   color: #d0e0d0;
-  background-color: #4a6351;
-  border: 1px solid #3c4e3a;
+  font-size: 0.85rem;
+  padding: 6px 12px;
+  border-radius: 14px;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(6px);
+}
+
+.badge.bg-success {
+  background: #22c55e !important;
+  color: white !important;
+}
+
+.badge.bg-danger {
+  background: #b91c1c !important;
+  color: #ffeaea !important;
 }
 
 .badge.bg-info {
-  background-color: #2e7d32 !important; /* verde oscuro */
-  color: #d0e0d0 !important;
-}
-
-.badge.bg-light {
-  color: #a3b1a3 !important;
-  border: 1px solid #5a6a5a;
-  background-color: #394a42;
+  font-size: 0.9rem;
+  padding: 8px 12px;
 }
 
 /* Botones */
 .btn {
-  border-radius: 8px;
-  font-weight: 500;
-  background-color: #2e7d32;
-  color: #d0e0d0;
+  background: linear-gradient(135deg, #22c55e, #047857);
   border: none;
+  color: #ffffff;
+  font-weight: 600;
+  border-radius: 10px;
+  padding: 0.6rem 1.2rem;
+  box-shadow: 0 4px 14px rgba(34, 197, 94, 0.3);
   transition: all 0.3s ease;
 }
 
 .btn:hover {
-  background-color: #4caf50;
-  color: #e6f1e6;
+  background: linear-gradient(135deg, #16a34a, #065f46);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.6);
+  color: #e6f1e6;
+  box-shadow: 0 6px 18px rgba(22, 163, 74, 0.6);
 }
 
 .btn-group .btn {
@@ -173,11 +196,11 @@
 }
 
 .btn-group .btn:first-child {
-  border-radius: 8px 0 0 8px;
+  border-radius: 10px 0 0 10px;
 }
 
 .btn-group .btn:last-child {
-  border-radius: 0 8px 8px 0;
+  border-radius: 0 10px 10px 0;
 }
 
 .btn:disabled {
@@ -202,16 +225,16 @@
   }
   
   .btn-group .btn {
-    border-radius: 8px !important;
+    border-radius: 10px !important;
     margin-bottom: 5px;
   }
 }
 
 /* Animaciones */
-@keyframes fadeInUp {
+@keyframes aurora-fade {
   from {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(20px);
   }
   to {
     opacity: 1;
@@ -220,16 +243,7 @@
 }
 
 .salon-card {
-  animation: fadeInUp 0.6s ease forwards;
-}
-
-/* Estados de disponibilidad */
-.badge.bg-success {
-  background-color: #388e3c !important; /* verde oscuro */
-}
-
-.badge.bg-danger {
-  background-color: #a53939 !important; /* rojo oscuro */
+  animation: aurora-fade 0.6s ease-out forwards;
 }
 
 /* Efectos de hover en iconos */
@@ -241,12 +255,6 @@
 .btn:hover .bi {
   transform: scale(1.1);
   color: #e6f1e6;
-}
-
-/* Estilo para el contador de resultados */
-.badge.bg-info {
-  font-size: 0.9rem;
-  padding: 8px 12px;
 }
 
 /* Mensaje de no resultados */

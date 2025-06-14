@@ -1,51 +1,116 @@
+/* Navbar personalizado con fondo glassmorphism y glow intenso */
 .navbar-custom {
-  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  background: rgba(34, 197, 94, 0.12); /* verde esmeralda muy sutil */
+  backdrop-filter: blur(16px);
+  box-shadow: 0 6px 18px rgba(34, 197, 94, 0.25);
+  border-bottom: 1.5px solid rgba(34, 197, 94, 0.3);
+  z-index: 1000;
+  transition: background 0.4s ease;
 }
 
 .navbar-brand {
-  font-weight: 600;
-  font-size: 1.35rem;
-  letter-spacing: 0.5px;
+  font-weight: 700;
+  font-size: 1.5rem;
+  letter-spacing: 1.2px;
+  color: #22c55e;
+  text-shadow: 0 1.5px 3px rgba(0, 0, 0, 0.4);
+  user-select: none;
 }
 
 .navbar-brand i {
-  font-size: 1.5rem;
-  color: #2e7d32; /* verde oscuro */
+  font-size: 1.8rem;
+  color: #047857; /* verde oscuro */
+  margin-right: 8px;
+  animation: aurora-glow 4s ease-in-out infinite;
 }
 
+/* Animación glow más intensa */
+@keyframes aurora-glow {
+  0%, 100% {
+    text-shadow:
+      0 0 10px #6ee7b7,
+      0 0 20px #22c55e,
+      0 0 30px #047857,
+      0 0 40px #22c55e;
+  }
+  50% {
+    text-shadow:
+      0 0 20px #22c55e,
+      0 0 35px #6ee7b7,
+      0 0 45px #22c55e,
+      0 0 55px #047857;
+  }
+}
+
+/* Estilos generales para botones */
 .btn-primary, .btn-danger {
-  font-weight: 500;
-  font-size: 1rem;
-  border-radius: 0.4rem;
-  transition: background 0.2s;
+  font-weight: 600;
+  font-size: 1.1rem;
+  border-radius: 0.6rem;
+  padding: 0.55rem 1.2rem;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  user-select: none;
 }
 
 .btn-primary i, .btn-danger i {
-  font-size: 1.1rem;
+  font-size: 1.3rem;
+  margin-right: 6px;
+  transition: transform 0.3s ease;
 }
 
-/* Verde principal para btn-primary */
+/* Botón principal verde aurora */
 .btn-primary {
-  background-color: #388e3c; /* verde */
-  border-color: #388e3c;
-  color: white;
+  background: linear-gradient(45deg, #22c55e, #047857);
+  border: none;
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.4);
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 220%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.07),
+    rgba(255, 255, 255, 0.35),
+    rgba(255, 255, 255, 0.07)
+  );
+  transition: all 0.5s ease;
+  filter: drop-shadow(0 0 10px #22c55e);
+}
+
+.btn-primary:hover::before {
+  left: 120%;
 }
 
 .btn-primary:hover {
-  background-color: #2e7d32; /* verde más oscuro */
-  border-color: #2e7d32;
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 10px 30px rgba(34, 197, 94, 0.55);
 }
 
-/* Verde para btn-danger (usar un rojo suave o similar para mantener la función de alerta, pero adaptado a verdes) */
-/* O si quieres un verde más claro para el "peligro", por ejemplo para advertencia, podría ser un tono amarillento-verdoso */
+.btn-primary:hover i {
+  transform: scale(1.15);
+}
+
+/* Botón danger rojo aurora adaptado */
 .btn-danger {
-  background-color: #a5d6a7; /* verde claro */
-  border-color: #a5d6a7;
-  color: #2e7d32; /* texto verde oscuro */
+  background: linear-gradient(45deg, #ef4444, #b91c1c);
+  border: none;
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
 }
 
 .btn-danger:hover {
-  background-color: #81c784; /* verde medio */
-  border-color: #81c784;
-  color: white;
+  box-shadow: 0 10px 28px rgba(239, 68, 68, 0.6);
+  transform: translateY(-3px) scale(1.02);
+}
+
+.btn-danger:hover i {
+  transform: scale(1.1);
 }

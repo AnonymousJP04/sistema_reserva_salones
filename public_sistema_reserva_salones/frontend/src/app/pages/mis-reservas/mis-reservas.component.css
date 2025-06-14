@@ -1,18 +1,51 @@
+/* Fondo negro para toda la página */
+body, html {
+  height: 100%;
+  margin: 0;
+  background-color: #000000; /* fondo negro */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Título con animación de entrada y brillo */
 h2 {
   text-align: center;
   margin-bottom: 20px;
   color: #81c784; /* verde claro */
+  animation: fadeInGlow 3s ease-in-out infinite alternate;
 }
 
+@keyframes fadeInGlow {
+  0% {
+    color: #81c784;
+    text-shadow: none;
+  }
+  100% {
+    color: #a5d6a7;
+    text-shadow: 0 0 12px #81c784, 0 0 25px #a5d6a7;
+  }
+}
+
+/* Tabla con sombra y efecto hover para filas */
 .tabla-historial {
   margin: auto;
   width: 90%;
   border-collapse: collapse;
   background-color: #2e3a32; /* verde oscuro para fondo tabla */
   color: #d0f0c0; /* texto verde claro */
-  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  box-shadow: 0 0 15px #1b5e2080;
   border-radius: 8px;
   overflow: hidden;
+  animation: tablaGlow 6s ease-in-out infinite alternate;
+}
+
+/* Animación sutil de brillo en tabla */
+@keyframes tablaGlow {
+  0% {
+    box-shadow: 0 0 10px #1b5e2080;
+  }
+  100% {
+    box-shadow: 0 0 25px #4caf5080;
+  }
 }
 
 .tabla-historial th,
@@ -20,6 +53,7 @@ h2 {
   border: 1px solid #4caf50; /* borde verde */
   padding: 10px;
   text-align: center;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .tabla-historial th {
@@ -34,4 +68,13 @@ h2 {
 
 .tabla-historial tr:nth-child(odd) {
   background-color: #2e3a32; /* verde oscuro */
+}
+
+/* Efecto hover para filas */
+.tabla-historial tbody tr:hover {
+  background-color: #81c784cc;
+  color: #1b5e20;
+  cursor: pointer;
+  transform: scale(1.02);
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }

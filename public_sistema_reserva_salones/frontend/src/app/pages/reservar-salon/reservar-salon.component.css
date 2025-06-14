@@ -16,12 +16,59 @@
   width: 100%;
   border: 1px solid #4caf5080; /* borde verde semi transparente */
   color: #c3d1c3;
+  
+  /* Animación resplandor tipo aurora */
+  animation: aurora-glow 6s ease-in-out infinite;
+  position: relative;
+  overflow: hidden;
 }
 
+/* Animación de resplandor aurora */
+@keyframes aurora-glow {
+  0%, 100% {
+    box-shadow: 0 0 15px 4px rgba(34, 197, 94, 0.6);
+  }
+  50% {
+    box-shadow: 0 0 30px 8px rgba(110, 231, 183, 0.8);
+  }
+}
+
+/* Ícono flotante (crea un elemento con clase .icono-flotante en el HTML para usar esto) */
+.icono-flotante {
+  font-size: 4rem;
+  color: #22c55e;
+  margin-bottom: 20px;
+  animation: float 4s ease-in-out infinite;
+  text-align: center;
+}
+
+/* Movimiento flotante suave */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Etiquetas */
 h2 {
   text-align: center;
   color: #81c784; /* verde claro */
   margin-bottom: 20px;
+  text-shadow: 0 0 6px #a5d6a7;
+  animation: text-glow 4s ease-in-out infinite;
+}
+
+/* Glow animado para texto */
+@keyframes text-glow {
+  0%, 100% {
+    text-shadow: 0 0 8px #22c55e, 0 0 15px #6ee7b7;
+  }
+  50% {
+    text-shadow: 0 0 14px #4ade80, 0 0 30px #22c55e;
+  }
 }
 
 .form-group {
@@ -31,6 +78,7 @@ h2 {
 label {
   font-weight: 600;
   color: #a5d6a7; /* verde claro */
+  transition: color 0.3s ease;
 }
 
 input[type="text"],
@@ -46,7 +94,7 @@ textarea {
   box-sizing: border-box;
   color: #e6f1e6; /* verde muy claro */
   background-color: #36503b; /* verde oscuro */
-  transition: border-color 0.3s ease, background-color 0.3s ease;
+  transition: border-color 0.4s ease, background-color 0.4s ease, box-shadow 0.4s ease, color 0.4s ease;
 }
 
 input[type="text"]:focus,
@@ -59,6 +107,7 @@ textarea:focus {
   background-color: #3c5a44;
   outline: none;
   color: #f0f9f0;
+  box-shadow: 0 0 8px 2px rgba(34, 197, 94, 0.6);
 }
 
 input[type="file"] {
@@ -74,13 +123,35 @@ button {
   border-radius: 4px;
   cursor: pointer;
   font-weight: 700;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
   width: 100%;
   margin-top: 15px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Animación de brillo deslizante en botón */
+button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(120deg, rgba(255,255,255,0.25), rgba(255,255,255,0.6), rgba(255,255,255,0.25));
+  transform: skewX(-20deg);
+  transition: all 0.5s ease-in-out;
+  pointer-events: none;
+}
+
+button:hover::before {
+  left: 125%;
 }
 
 button:hover {
   background-color: #1b5e20;
+  box-shadow: 0 8px 20px rgba(34, 197, 94, 0.6);
+  transform: translateY(-3px);
 }
 
 .alert-success,
@@ -89,6 +160,17 @@ button:hover {
   padding: 12px;
   border-radius: 6px;
   font-weight: 600;
+  animation: alert-pulse 3s ease-in-out infinite;
+}
+
+/* Animación pulso para alertas */
+@keyframes alert-pulse {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(34, 197, 94, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(110, 231, 183, 0.7);
+  }
 }
 
 .alert-success {
