@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <div class="container-fluid mt-4 dashboard-container aurora-background">
 
   <!-- Header -->
@@ -82,12 +83,56 @@
             <label class="form-check-label text-white" for="soloDisponibles">
               Solo disponibles
             </label>
+=======
+<!-- Container principal del dashboard -->
+<div class="aurora-dashboard">
+  
+  <!-- Header y Navigation -->
+  <header class="aurora-header">
+    <div class="container-fluid">
+      <div class="row align-items-center">
+        <div class="col-md-6">
+          <div class="aurora-brand">
+            <i class="bi bi-lightning-charge-fill aurora-brand-icon"></i>
+            <h1 class="aurora-brand-title">Eventos Aurora</h1>
+>>>>>>> 2f5f380c0c8ebf0c4c913c7a06afaaa4ef391c36
           </div>
+        </div>
+        <div class="col-md-6">
+          <nav class="aurora-nav ms-auto">
+            <div class="aurora-nav-container">
+              <button 
+                class="aurora-nav-btn" 
+                [class.active]="vistaActiva === 'dashboard'"
+                (click)="cambiarVista('dashboard')">
+                <i class="bi bi-house-door-fill"></i>
+                <span>Salones</span>
+                <div class="aurora-nav-indicator"></div>
+              </button>
+              <button 
+                class="aurora-nav-btn" 
+                [class.active]="vistaActiva === 'perfil'"
+                (click)="cambiarVista('perfil')">
+                <i class="bi bi-person-circle"></i>
+                <span>Perfil</span>
+                <div class="aurora-nav-indicator"></div>
+              </button>
+              <button 
+                class="aurora-nav-btn" 
+                [class.active]="vistaCalendario"
+                (click)="toggleCalendario()">
+                <i class="bi bi-calendar-event"></i>
+                <span>Calendario</span>
+                <div class="aurora-nav-indicator"></div>
+              </button>
+            </div>
+          </nav>
         </div>
       </div>
     </div>
-  </div>
+  </header>
 
+<<<<<<< HEAD
   <div *ngIf="salonesFiltrados.length === 0" class="alert alert-warning d-flex align-items-center">
     <i class="bi bi-exclamation-triangle-fill me-2"></i>
     No se encontraron salones que coincidan con los filtros seleccionados.
@@ -103,3 +148,191 @@
     <app-calendario></app-calendario>
   </div>
 </div>
+=======
+  <!-- Main Content -->
+  <main class="aurora-main">
+    <div class="container-fluid">
+      
+      <!-- Vista Dashboard -->
+      <ng-container *ngIf="vistaActiva === 'dashboard'">
+        
+        <!-- Header de la sección -->
+        <div class="aurora-section-header mb-5">
+          <div class="row align-items-center">
+            <div class="col-md-8">
+              <div class="aurora-page-title">
+                <i class="bi bi-building aurora-title-icon"></i>
+                <div>
+                  <h2 class="aurora-title-main">Salones Disponibles</h2>
+                  <p class="aurora-title-subtitle">Descubre los mejores espacios para tus eventos</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4 text-end">
+              <button class="aurora-btn-refresh" (click)="cargarSalones()">
+                <i class="bi bi-arrow-clockwise"></i>
+                <span>Actualizar</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Estado de Carga -->
+        <div *ngIf="cargando" class="aurora-loading-container">
+          <div class="aurora-loading-card">
+            <div class="aurora-loading-spinner">
+              <div class="aurora-spinner-ring"></div>
+              <div class="aurora-spinner-ring"></div>
+              <div class="aurora-spinner-ring"></div>
+            </div>
+            <h3 class="aurora-loading-title">Cargando salones...</h3>
+            <p class="aurora-loading-subtitle">Estamos preparando los mejores espacios para ti</p>
+          </div>
+        </div>
+
+        <!-- Estado de Error -->
+        <div *ngIf="error" class="aurora-error-container">
+          <div class="aurora-error-card">
+            <div class="aurora-error-icon">
+              <i class="bi bi-exclamation-triangle-fill"></i>
+            </div>
+            <h3 class="aurora-error-title">Oops! Algo salió mal</h3>
+            <p class="aurora-error-message">{{ error }}</p>
+            <button class="aurora-btn-retry" (click)="cargarSalones()">
+              <i class="bi bi-arrow-repeat"></i>
+              <span>Reintentar</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Estado Vacío -->
+        <div *ngIf="!cargando && !error && salones.length === 0" class="aurora-empty-container">
+          <div class="aurora-empty-card">
+            <div class="aurora-empty-icon">
+              <i class="bi bi-building-x"></i>
+            </div>
+            <h3 class="aurora-empty-title">No hay salones disponibles</h3>
+            <p class="aurora-empty-message">En este momento no tenemos salones para mostrar. Inténtalo más tarde.</p>
+            <button class="aurora-btn-retry" (click)="cargarSalones()">
+              <i class="bi bi-plus-circle"></i>
+              <span>Buscar salones</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Lista de Salones -->
+        <div *ngIf="!cargando && salones.length > 0" class="aurora-salones-grid">
+          <div class="row g-4">
+            <div 
+              *ngFor="let salon of salones; trackBy: trackBySalonId" 
+              class="col-12 col-md-6 col-lg-4 col-xl-3">
+              
+              <div class="aurora-salon-card">
+                <!-- Imagen del salón -->
+                <div class="aurora-salon-image-container">
+                  <img 
+                    *ngIf="salon.imagen_principal; else placeholderImage"
+                    [src]="'http://localhost:8000/storage/' + salon.imagen_principal"
+                    [alt]="'Imagen del salón ' + salon.nombre"
+                    class="aurora-salon-image"
+                    loading="lazy" />
+                  
+                  <ng-template #placeholderImage>
+                    <div class="aurora-salon-placeholder">
+                      <i class="bi bi-image"></i>
+                      <span>Sin imagen</span>
+                    </div>
+                  </ng-template>
+
+                  <!-- Badge de disponibilidad -->
+                  <div class="aurora-salon-badge">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <span>Disponible</span>
+                  </div>
+
+                  <!-- Overlay con acciones -->
+                  <div class="aurora-salon-overlay">
+                    <div class="aurora-salon-actions">
+                      <button class="aurora-action-btn aurora-action-view" title="Ver detalles">
+                        <i class="bi bi-eye"></i>
+                      </button>
+                      <button class="aurora-action-btn aurora-action-book" title="Reservar">
+                        <i class="bi bi-calendar-plus"></i>
+                      </button>
+                      <button class="aurora-action-btn aurora-action-favorite" title="Favoritos">
+                        <i class="bi bi-heart"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Contenido de la tarjeta -->
+                <div class="aurora-salon-content">
+                  <div class="aurora-salon-header">
+                    <h3 class="aurora-salon-title">{{ salon.nombre }}</h3>
+                    <div class="aurora-salon-rating">
+                      <i class="bi bi-star-fill"></i>
+                      <span>4.8</span>
+                    </div>
+                  </div>
+
+                  <p class="aurora-salon-description">{{ salon.descripcion }}</p>
+
+                  <div class="aurora-salon-details">
+                    <div class="aurora-detail-item">
+                      <i class="bi bi-geo-alt-fill"></i>
+                      <span>{{ salon.ubicacion }}</span>
+                    </div>
+                    
+                    <div class="aurora-detail-item">
+                      <i class="bi bi-people-fill"></i>
+                      <span>{{ salon.capacidad_minima }} - {{ salon.capacidad_maxima }} personas</span>
+                    </div>
+                    
+                    <div *ngIf="salon.precio_base" class="aurora-detail-item aurora-price">
+                      <i class="bi bi-currency-dollar"></i>
+                      <span class="aurora-price-amount">Q{{ salon.precio_base }}</span>
+                      <small class="aurora-price-period">por evento</small>
+                    </div>
+                  </div>
+
+                  <!-- Footer de la tarjeta -->
+                  <div class="aurora-salon-footer">
+                    <button class="aurora-btn-outline-sm">
+                      <i class="bi bi-info-circle"></i>
+                      <span>Ver más</span>
+                    </button>
+                    <button class="aurora-btn-primary-sm">
+                      <i class="bi bi-calendar-check"></i>
+                      <span>Reservar</span>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Efectos decorativos -->
+                <div class="aurora-card-glow"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </ng-container>
+
+      <!-- Componentes adicionales -->
+      <app-perfil *ngIf="vistaActiva === 'perfil'" class="aurora-component-wrapper"></app-perfil>
+      <app-calendario *ngIf="vistaCalendario" class="aurora-component-wrapper"></app-calendario>
+
+    </div>
+  </main>
+
+  <!-- Partículas de fondo -->
+  <div class="aurora-bg-particles">
+    <div class="aurora-particle aurora-particle-1"></div>
+    <div class="aurora-particle aurora-particle-2"></div>
+    <div class="aurora-particle aurora-particle-3"></div>
+    <div class="aurora-particle aurora-particle-4"></div>
+    <div class="aurora-particle aurora-particle-5"></div>
+  </div>
+
+</div>
+>>>>>>> 2f5f380c0c8ebf0c4c913c7a06afaaa4ef391c36

@@ -11,4 +11,4 @@ const pool = mysql.createPool({
     queueLimit: 0               // Sin límite en la cola de espera
 });
 
-module.exports = pool; // Exporta el pool para usarlo en otros archivos
+module.exports = pool; // Exporta el pool para usarlo en otros archivoss

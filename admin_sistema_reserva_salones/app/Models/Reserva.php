@@ -50,4 +50,5 @@ class Reserva extends Model
     {
         return $query->where('estado', 'aprobada');
     }
+
 }
