@@ -389,31 +389,79 @@
                                 Galería de Imágenes
 
                                 
-                                @if(is_array($salon->galeria_imagenes) && count($salon->galeria_imagenes) > 0)
-                                    <span class="ml-auto bg-blue-500/20 text-blue-300 px-3 py-1 rounded-full text-sm font-medium">
-                                        {{ count($salon->galeria_imagenes) }} imagen{{ count($salon->galeria_imagenes) > 1 ? 'es' : '' }}
-                                    </span>
-                                @endif
-                            </h3>
-                        </div>
-                        <div class="p-6">
-                            @if(is_array($salon->galeria_imagenes) && count($salon->galeria_imagenes) > 0)
-                                <div class="grid grid-cols-2 md:grid-cols-3 gap-4 gallery-grid">
-                                    @foreach($salon->galeria_imagenes as $index => $imagen)
-                                        <div class="gallery-image rounded-lg overflow-hidden" style="animation-delay: {{ 0.1 * $index }}s;">
-                                            <img src="{{ asset('storage/' . $imagen) }}" 
-                                                 alt="Galería {{ $index + 1 }}" 
-                                                 class="w-full h-32 object-cover">
+                               {{-- Galería de imágenes --}}
+                            @php
+                                $galeria = is_array($salon->galeria_imagenes) 
+                                    ? $salon->galeria_imagenes 
+                                    : json_decode($salon->galeria_imagenes, true);
+                            @endphp
+
+                            @if(is_array($galeria) && count($galeria) > 0)
+                                <div class="grid grid-cols-2 md:grid-cols-3 gap-4 gallery-grid mt-6">
+                                    @foreach($galeria as $index => $imagen)
+                                        <div class="gallery-image rounded-lg overflow-hidden cursor-pointer" onclick="openCarousel({{ $index }})">
+                                            <img src="{{ asset('storage/' . $imagen) }}" class="w-full h-32 object-cover">
                                         </div>
                                     @endforeach
                                 </div>
+
+                                <!-- Carrusel Modal -->
+                                <div id="carouselModal" class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 hidden overflow-auto">
+                                    <span class="absolute top-4 right-8 text-white text-4xl cursor-pointer z-50" onclick="closeCarousel()">&times;</span>
+                                    <button id="prevBtn" onclick="changeImage(-1)" class="absolute left-4 top-1/2 -translate-y-1/2 text-white text-4xl px-2 py-1 bg-black bg-opacity-30 rounded-full z-50 hover:bg-opacity-60">&#8592;</button>
+                                    <img id="carouselImage"
+                                        src=""
+                                        class="object-contain max-h-screen max-w-screen bg-white rounded-lg shadow-2xl border-4 border-white"
+                                        style="display: block; margin: 0 auto;" />
+                                    <button id="nextBtn" onclick="changeImage(1)" class="absolute right-4 top-1/2 -translate-y-1/2 text-white text-4xl px-2 py-1 bg-black bg-opacity-30 rounded-full z-50 hover:bg-opacity-60">&#8594;</button>
+                                    <div id="carouselCounter" class="absolute bottom-6 left-1/2 -translate-x-1/2 text-white bg-black bg-opacity-40 px-4 py-1 rounded-lg text-lg"></div>
+                                </div>
+
+                                <script>
+                                    const galeria = @json(array_map(fn($img) => asset('storage/' . $img), $galeria));
+                                    let currentIndex = 0;
+
+                                    function openCarousel(index) {
+                                        currentIndex = index;
+                                        showCarouselImage();
+                                        document.getElementById('carouselModal').classList.remove('hidden');
+                                    }
+
+                                    function closeCarousel() {
+                                        document.getElementById('carouselModal').classList.add('hidden');
+                                    }
+
+                                    function changeImage(direction) {
+                                        currentIndex += direction;
+                                        if (currentIndex < 0) currentIndex = galeria.length - 1;
+                                        if (currentIndex >= galeria.length) currentIndex = 0;
+                                        showCarouselImage();
+                                    }
+
+                                    function showCarouselImage() {
+                                        document.getElementById('carouselImage').src = galeria[currentIndex];
+                                        document.getElementById('carouselCounter').innerText = (currentIndex + 1) + ' / ' + galeria.length;
+                                    }
+
+                                    // Cerrar modal al hacer clic fuera de la imagen
+                                    document.addEventListener('DOMContentLoaded', function() {
+                                        document.getElementById('carouselModal').addEventListener('click', function(e) {
+                                            if (e.target === this) closeCarousel();
+                                        });
+                                        // Navegación con flechas del teclado
+                                        document.addEventListener('keydown', function(e) {
+                                            const modal = document.getElementById('carouselModal');
+                                            if (!modal.classList.contains('hidden')) {
+                                                if (e.key === 'ArrowLeft') changeImage(-1);
+                                                if (e.key === 'ArrowRight') changeImage(1);
+                                                if (e.key === 'Escape') closeCarousel();
+                                            }
+                                        });
+                                    });
+                                </script>
                             @else
                                 <div class="text-center py-12">
-                                    <svg class="w-16 h-16 text-blue-300/50 mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
-                                    </svg>
-                                    <p class="text-blue-200/70 text-lg">No hay imágenes en la galería</p>
-                                    <p class="text-blue-300/50 text-sm mt-1">Las imágenes adicionales aparecerán aquí</p>
+                                    <p>No hay imágenes en la galería</p>
                                 </div>
                             @endif
                         </div>
@@ -661,9 +709,9 @@
                     @endphp
                     <p class="text-3xl font-bold text-white mb-1">{{ $tasaOcupacion }}%</p>
                     <p class="text-blue-300/70 text-sm">Promedio de días ocupados</p>
-                    <div class="mt-3 text-xs text-blue-200/60">
+                    {{-- <div class="mt-3 text-xs text-blue-200/60">
                         Basado en {{ $diasDesdeCreacion }} días activo
-                    </div>
+                    </div> --}}
                 </div>
 
                 <!-- Puntuación Administrativa -->

@@ -784,15 +784,7 @@
                     <p class="text-blue-200/70 text-xs mt-1">Administrar espacios</p>
                 </a>
                 
-                <a href="{{ route('reservas.pendientes') }}" class="aurora-card rounded-xl p-4 text-center hover:scale-105 transition-all duration-300 group block">
-                    <div class="w-12 h-12 bg-yellow-500/20 rounded-lg flex items-center justify-center mx-auto mb-3 group-hover:bg-yellow-500/30 transition-colors">
-                        <svg class="w-6 h-6 text-yellow-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 2m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                        </svg>
-                    </div>
-                    <span class="text-white font-semibold">Reservas Pendientes</span>
-                    <p class="text-yellow-200/70 text-xs mt-1">Revisar solicitudes</p>
-                </a>
+
                 
                 <a href="{{ route('pagos.index') }}" class="aurora-card rounded-xl p-4 text-center hover:scale-105 transition-all duration-300 group block">
                     <div class="w-12 h-12 bg-green-500/20 rounded-lg flex items-center justify-center mx-auto mb-3 group-hover:bg-green-500/30 transition-colors">

@@ -6,12 +6,12 @@
             <div class="relative">
                 <svg class="w-10 h-10 text-emerald-300 animate-aurora-pulse" fill="none" viewBox="0 0 24 24">
                     <defs>
-                        <linearGradient id="createGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <linearGradient id="editGradient" x1="0%" y1="0%" x2="100%" y2="100%">
                             <stop offset="0%" stop-color="#6ee7b7"/>
                             <stop offset="50%" stop-color="#22c55e"/>
                             <stop offset="100%" stop-color="#047857"/>
                         </linearGradient>
-                        <filter id="create-glow">
+                        <filter id="edit-glow">
                             <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
                             <feMerge> 
                                 <feMergeNode in="coloredBlur"/>
@@ -19,16 +19,16 @@
                             </feMerge>
                         </filter>
                     </defs>
-                    <path d="M12 6v6m0 0v6m0-6h6m-6 0H6" 
-                          stroke="url(#createGradient)" 
+                    <path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" 
+                          stroke="url(#editGradient)" 
                           stroke-width="2" 
                           stroke-linecap="round" 
                           stroke-linejoin="round"
-                          filter="url(#create-glow)" />
+                          filter="url(#edit-glow)" />
                 </svg>
                 <div class="absolute inset-0 w-10 h-10 bg-emerald-300/30 rounded-full animate-aurora-ring"></div>
             </div>
-            {{ __('Crear Mantenimiento') }}
+            {{ __('Editar Mantenimiento') }}
             <div class="ml-auto flex items-center gap-2 text-sm font-normal text-emerald-200/80">
                 <div class="w-2 h-2 bg-emerald-400 rounded-full animate-aurora-blink"></div>
                 Sistema Activo
@@ -142,32 +142,33 @@
         }
         
         .aurora-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(34, 197, 94, 0.2);
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(25px);
+            border: 1px solid rgba(34, 197, 94, 0.15);
             box-shadow: 
-                0 8px 32px rgba(0, 0, 0, 0.3),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1),
-                0 0 20px rgba(34, 197, 94, 0.1);
+                0 8px 32px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.08),
+                0 0 20px rgba(34, 197, 94, 0.08);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
         .aurora-card:hover {
             transform: translateY(-3px);
             box-shadow: 
-                0 16px 40px rgba(0, 0, 0, 0.4),
-                inset 0 1px 0 rgba(255, 255, 255, 0.2),
-                0 0 30px rgba(34, 197, 94, 0.2);
-            border-color: rgba(34, 197, 94, 0.4);
+                0 16px 40px rgba(0, 0, 0, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.12),
+                0 0 30px rgba(34, 197, 94, 0.15);
+            border-color: rgba(34, 197, 94, 0.25);
         }
         
         .aurora-btn {
-            background: linear-gradient(135deg, #22c55e 0%, #16a34a 50%, #15803d 100%);
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.8) 0%, rgba(22, 163, 74, 0.9) 50%, rgba(21, 128, 61, 0.95) 100%);
+            backdrop-filter: blur(10px);
             position: relative;
             overflow: hidden;
             transition: all 0.3s ease;
-            border: none;
-            box-shadow: 0 4px 15px rgba(34, 197, 94, 0.3);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            box-shadow: 0 4px 15px rgba(34, 197, 94, 0.2);
         }
         
         .aurora-btn::before {
@@ -179,7 +180,7 @@
             height: 100%;
             background: linear-gradient(90deg, 
                 transparent 0%,
-                rgba(255, 255, 255, 0.3) 50%,
+                rgba(255, 255, 255, 0.2) 50%,
                 transparent 100%);
             transition: left 0.5s ease;
         }
@@ -190,34 +191,51 @@
         
         .aurora-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(34, 197, 94, 0.4);
+            box-shadow: 0 8px 25px rgba(34, 197, 94, 0.3);
+            border-color: rgba(34, 197, 94, 0.5);
         }
         
         .aurora-btn-secondary {
-            background: linear-gradient(135deg, #6b7280 0%, #4b5563 50%, #374151 100%);
-            box-shadow: 0 4px 15px rgba(107, 114, 128, 0.3);
+            background: linear-gradient(135deg, rgba(107, 114, 128, 0.6) 0%, rgba(75, 85, 99, 0.8) 50%, rgba(55, 65, 81, 0.9) 100%);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(107, 114, 128, 0.3);
+            box-shadow: 0 4px 15px rgba(107, 114, 128, 0.2);
         }
         
         .aurora-btn-secondary:hover {
-            box-shadow: 0 8px 25px rgba(107, 114, 128, 0.4);
+            box-shadow: 0 8px 25px rgba(107, 114, 128, 0.3);
+            border-color: rgba(107, 114, 128, 0.5);
+        }
+        
+        .aurora-btn-danger {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.8) 0%, rgba(220, 38, 38, 0.9) 50%, rgba(185, 28, 28, 0.95) 100%);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.2);
+        }
+        
+        .aurora-btn-danger:hover {
+            box-shadow: 0 8px 25px rgba(239, 68, 68, 0.3);
+            border-color: rgba(239, 68, 68, 0.5);
         }
         
         .aurora-input {
-            background: rgba(31, 41, 55, 0.8);
-            border: 1px solid rgba(34, 197, 94, 0.3);
+            background: rgba(31, 41, 55, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(34, 197, 94, 0.2);
             color: #e5e7eb;
             transition: all 0.3s ease;
         }
         
         .aurora-input:focus {
-            background: rgba(31, 41, 55, 0.9);
-            border: 1px solid #22c55e;
-            box-shadow: 0 0 20px rgba(34, 197, 94, 0.3);
+            background: rgba(31, 41, 55, 0.8);
+            border: 1px solid rgba(34, 197, 94, 0.6);
+            box-shadow: 0 0 20px rgba(34, 197, 94, 0.2);
             outline: none;
         }
         
         .aurora-input::placeholder {
-            color: rgba(110, 231, 183, 0.5);
+            color: rgba(110, 231, 183, 0.4);
         }
 
         .fade-in {
@@ -244,6 +262,30 @@
             backdrop-filter: blur(20px);
         }
 
+        .estado-programado {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(37, 99, 235, 0.2));
+            color: #93c5fd;
+            border-color: rgba(59, 130, 246, 0.4);
+        }
+        
+        .estado-en_proceso {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(217, 119, 6, 0.2));
+            color: #fcd34d;
+            border-color: rgba(245, 158, 11, 0.4);
+        }
+        
+        .estado-completado {
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.2), rgba(22, 163, 74, 0.2));
+            color: #86efac;
+            border-color: rgba(34, 197, 94, 0.4);
+        }
+        
+        .estado-cancelado {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.2), rgba(220, 38, 38, 0.2));
+            color: #fca5a5;
+            border-color: rgba(239, 68, 68, 0.4);
+        }
+
         @media (max-width: 768px) {
             .aurora-bg {
                 background-size: 600% 600%;
@@ -264,31 +306,46 @@
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                     </svg>
-                    <span class="text-emerald-200">Crear Nuevo</span>
+                    <span class="text-emerald-200">Editar #{{ $mantenimiento->id }}</span>
                 </nav>
             </div>
 
-            <!-- Mensaje de fecha preseleccionada -->
-            @if(isset($fechaPreseleccionada) && $fechaPreseleccionada)
-                <div class="mb-6 fade-in fade-in-delay-1">
-                    <div class="success-alert p-4 rounded-xl flex items-center">
-                        <svg class="w-6 h-6 mr-3 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                        </svg>
-                        <span class="font-medium">Fecha preseleccionada desde el calendario: {{ \Carbon\Carbon::parse($fechaPreseleccionada)->format('d/m/Y') }}</span>
+            <!-- Información del mantenimiento -->
+            <div class="mb-6 fade-in fade-in-delay-1">
+                <div class="aurora-card rounded-xl p-6">
+                    <div class="flex items-center gap-4">
+                        <div class="w-16 h-16 bg-emerald-500/20 rounded-xl flex items-center justify-center backdrop-blur-sm border border-emerald-400/30">
+                            <svg class="w-8 h-8 text-emerald-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-white">{{ $mantenimiento->tipo_mantenimiento }}</h3>
+                            <p class="text-emerald-300">{{ $mantenimiento->salon?->nombre ?? 'Salón no disponible' }}</p>
+                            <p class="text-emerald-300/70 text-sm">
+                                {{ $mantenimiento->fecha_inicio ? $mantenimiento->fecha_inicio->format('d/m/Y') : 'N/D' }} - 
+                                {{ $mantenimiento->fecha_fin ? $mantenimiento->fecha_fin->format('d/m/Y') : 'N/D' }}
+                            </p>
+                        </div>
+                        <div class="ml-auto">
+                            <span class="estado-{{ $mantenimiento->estado }} inline-flex px-3 py-1 rounded-full text-xs font-semibold border backdrop-blur-sm">
+                                {{ ucfirst(str_replace('_', ' ', $mantenimiento->estado)) }}
+                            </span>
+                        </div>
                     </div>
                 </div>
-            @endif
+            </div>
 
-            <!-- Formulario Principal -->
+            <!-- Formulario de Edición -->
             <div class="aurora-card rounded-2xl p-8 fade-in fade-in-delay-2">
                 <div class="mb-6">
-                    <h1 class="text-2xl font-bold text-white mb-2">Registrar Nuevo Mantenimiento</h1>
-                    <p class="text-emerald-200/70">Complete la información para programar el mantenimiento</p>
+                    <h1 class="text-2xl font-bold text-white mb-2">Editar Mantenimiento</h1>
+                    <p class="text-emerald-200/70">Modifica la información del mantenimiento</p>
                 </div>
 
-                <form method="POST" action="{{ route('mantenimientos.store') }}" class="space-y-6">
+                <form method="POST" action="{{ route('mantenimientos.update', $mantenimiento) }}" class="space-y-6">
                     @csrf
+                    @method('PUT')
 
                     <!-- Salón -->
                     <div class="fade-in fade-in-delay-3">
@@ -301,7 +358,9 @@
                         <select name="salon_id" required class="aurora-input w-full px-4 py-3 rounded-lg focus:ring-2 focus:ring-emerald-400/20 transition-all">
                             <option value="">Seleccionar salón</option>
                             @foreach($salones ?? [] as $salon)
-                                <option value="{{ $salon->id }}">{{ $salon->nombre }}</option>
+                                <option value="{{ $salon->id }}" {{ $mantenimiento->salon_id == $salon->id ? 'selected' : '' }}>
+                                    {{ $salon->nombre }}
+                                </option>
                             @endforeach
                         </select>
                         @error('salon_id')
@@ -318,7 +377,10 @@
                                 </svg>
                                 Fecha de Inicio *
                             </label>
-                            <input type="date" name="fecha_inicio" required class="aurora-input w-full px-4 py-3 rounded-lg focus:ring-2 focus:ring-emerald-400/20 transition-all" value="{{ $fechaPreseleccionada ?? '' }}" min="{{ date('Y-m-d') }}">
+                            <input type="date" name="fecha_inicio" required 
+                                   class="aurora-input w-full px-4 py-3 rounded-lg focus:ring-2 focus:ring-emerald-400/20 transition-all" 
+                                   value="{{ $mantenimiento->fecha_inicio ? $mantenimiento->fecha_inicio->format('Y-m-d') : '' }}"
+                                   min="{{ date('Y-m-d') }}">
                             @error('fecha_inicio')
                                 <p class="text-red-400 text-sm mt-1">{{ $message }}</p>
                             @enderror
@@ -331,7 +393,10 @@
                                 </svg>
                                 Fecha de Fin *
                             </label>
-                            <input type="date" name="fecha_fin" required class="aurora-input w-full px-4 py-3 rounded-lg focus:ring-2 focus:ring-emerald-400/20 transition-all" value="{{ $fechaPreseleccionada ?? '' }}" min="{{ date('Y-m-d') }}">
+                            <input type="date" name="fecha_fin" required 
+                                   class="aurora-input w-full px-4 py-3 rounded-lg focus:ring-2 focus:ring-emerald-400/20 transition-all" 
+                                   value="{{ $mantenimiento->fecha_fin ? $mantenimiento->fecha_fin->format('Y-m-d') : '' }}"
+                                   min="{{ date('Y-m-d') }}">
                             @error('fecha_fin')
                                 <p class="text-red-400 text-sm mt-1">{{ $message }}</p>
                             @enderror
@@ -347,7 +412,7 @@
                                 </svg>
                                 Hora de Inicio
                             </label>
-                            <input type="time" name="hora_inicio" class="aurora-input w-full px-4 py-3 rounded-lg focus:ring-2 focus:ring-emerald-400/20 transition-all">
+                            <input type="time" name="hora_inicio" class="aurora-input w-full px-4 py-3 rounded-lg focus:ring-2 focus:ring-emerald-400/20 transition-all" value="{{ $mantenimiento->hora_inicio }}">
                             @error('hora_inicio')
                                 <p class="text-red-400 text-sm mt-1">{{ $message }}</p>
                             @enderror
@@ -360,7 +425,7 @@
                                 </svg>
                                 Hora de Fin
                             </label>
-                            <input type="time" name="hora_fin" class="aurora-input w-full px-4 py-3 rounded-lg focus:ring-2 focus:ring-emerald-400/20 transition-all">
+                            <input type="time" name="hora_fin" class="aurora-input w-full px-4 py-3 rounded-lg focus:ring-2 focus:ring-emerald-400/20 transition-all" value="{{ $mantenimiento->hora_fin }}">
                             @error('hora_fin')
                                 <p class="text-red-400 text-sm mt-1">{{ $message }}</p>
                             @enderror
@@ -378,15 +443,15 @@
                         </label>
                         <select name="tipo_mantenimiento" required class="aurora-input w-full px-4 py-3 rounded-lg focus:ring-2 focus:ring-emerald-400/20 transition-all">
                             <option value="">Seleccionar tipo</option>
-                            <option value="Limpieza General">Limpieza General</option>
-                            <option value="Mantenimiento Eléctrico">Mantenimiento Eléctrico</option>
-                            <option value="Reparación Climatización">Reparación Climatización</option>
-                            <option value="Pintura">Pintura</option>
-                            <option value="Reparación Mobiliario">Reparación Mobiliario</option>
-                            <option value="Mantenimiento Preventivo">Mantenimiento Preventivo</option>
-                            <option value="Plomería">Plomería</option>
-                            <option value="Jardinería">Jardinería</option>
-                            <option value="Otro">Otro</option>
+                            <option value="Limpieza General" {{ $mantenimiento->tipo_mantenimiento == 'Limpieza General' ? 'selected' : '' }}>Limpieza General</option>
+                            <option value="Mantenimiento Eléctrico" {{ $mantenimiento->tipo_mantenimiento == 'Mantenimiento Eléctrico' ? 'selected' : '' }}>Mantenimiento Eléctrico</option>
+                            <option value="Reparación Climatización" {{ $mantenimiento->tipo_mantenimiento == 'Reparación Climatización' ? 'selected' : '' }}>Reparación Climatización</option>
+                            <option value="Pintura" {{ $mantenimiento->tipo_mantenimiento == 'Pintura' ? 'selected' : '' }}>Pintura</option>
+                            <option value="Reparación Mobiliario" {{ $mantenimiento->tipo_mantenimiento == 'Reparación Mobiliario' ? 'selected' : '' }}>Reparación Mobiliario</option>
+                            <option value="Mantenimiento Preventivo" {{ $mantenimiento->tipo_mantenimiento == 'Mantenimiento Preventivo' ? 'selected' : '' }}>Mantenimiento Preventivo</option>
+                            <option value="Plomería" {{ $mantenimiento->tipo_mantenimiento == 'Plomería' ? 'selected' : '' }}>Plomería</option>
+                            <option value="Jardinería" {{ $mantenimiento->tipo_mantenimiento == 'Jardinería' ? 'selected' : '' }}>Jardinería</option>
+                            <option value="Otro" {{ $mantenimiento->tipo_mantenimiento == 'Otro' ? 'selected' : '' }}>Otro</option>
                         </select>
                         @error('tipo_mantenimiento')
                             <p class="text-red-400 text-sm mt-1">{{ $message }}</p>
@@ -401,7 +466,7 @@
                             </svg>
                             Descripción
                         </label>
-                        <textarea name="descripcion" rows="4" placeholder="Describe los detalles del mantenimiento..." class="aurora-input w-full px-4 py-3 rounded-lg focus:ring-2 focus:ring-emerald-400/20 transition-all resize-none"></textarea>
+                        <textarea name="descripcion" rows="4" placeholder="Describe los detalles del mantenimiento..." class="aurora-input w-full px-4 py-3 rounded-lg focus:ring-2 focus:ring-emerald-400/20 transition-all resize-none">{{ $mantenimiento->descripcion }}</textarea>
                         @error('descripcion')
                             <p class="text-red-400 text-sm mt-1">{{ $message }}</p>
                         @enderror
@@ -416,7 +481,7 @@
                                 </svg>
                                 Proveedor
                             </label>
-                            <input type="text" name="proveedor" maxlength="150" placeholder="Nombre del proveedor" class="aurora-input w-full px-4 py-3 rounded-lg focus:ring-2 focus:ring-emerald-400/20 transition-all">
+                            <input type="text" name="proveedor" maxlength="150" placeholder="Nombre del proveedor" class="aurora-input w-full px-4 py-3 rounded-lg focus:ring-2 focus:ring-emerald-400/20 transition-all" value="{{ $mantenimiento->proveedor }}">
                             @error('proveedor')
                                 <p class="text-red-400 text-sm mt-1">{{ $message }}</p>
                             @enderror
@@ -429,7 +494,7 @@
                                 </svg>
                                 Costo Estimado (Q)
                             </label>
-                            <input type="number" name="costo" step="0.01" min="0" placeholder="0.00" class="aurora-input w-full px-4 py-3 rounded-lg focus:ring-2 focus:ring-emerald-400/20 transition-all">
+                            <input type="number" name="costo" step="0.01" min="0" placeholder="0.00" class="aurora-input w-full px-4 py-3 rounded-lg focus:ring-2 focus:ring-emerald-400/20 transition-all" value="{{ $mantenimiento->costo }}">
                             @error('costo')
                                 <p class="text-red-400 text-sm mt-1">{{ $message }}</p>
                             @enderror
@@ -445,32 +510,53 @@
                             Estado *
                         </label>
                         <select name="estado" required class="aurora-input w-full px-4 py-3 rounded-lg focus:ring-2 focus:ring-emerald-400/20 transition-all">
-                            <option value="programado">Programado</option>
-                            <option value="en_proceso">En Proceso</option>
-                            <option value="completado">Completado</option>
-                            <option value="cancelado">Cancelado</option>
+                            <option value="programado" {{ $mantenimiento->estado == 'programado' ? 'selected' : '' }}>Programado</option>
+                            <option value="en_proceso" {{ $mantenimiento->estado == 'en_proceso' ? 'selected' : '' }}>En Proceso</option>
+                            <option value="completado" {{ $mantenimiento->estado == 'completado' ? 'selected' : '' }}>Completado</option>
+                            <option value="cancelado" {{ $mantenimiento->estado == 'cancelado' ? 'selected' : '' }}>Cancelado</option>
                         </select>
                         @error('estado')
                             <p class="text-red-400 text-sm mt-1">{{ $message }}</p>
                         @enderror
                     </div>
 
-                    <!-- Botones -->
-                    <div class="flex justify-end gap-4 pt-6 border-t border-emerald-500/20 fade-in fade-in-delay-3">
+                    <!-- Botones del formulario principal -->
+                    <div class="flex justify-between gap-4 pt-6 border-t border-emerald-500/20 fade-in fade-in-delay-3">
                         <a href="{{ route('mantenimientos.index') }}" class="aurora-btn-secondary text-white font-semibold px-6 py-3 rounded-lg flex items-center gap-2 hover:scale-105 transition-transform">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
                             </svg>
                             Cancelar
                         </a>
+
                         <button type="submit" class="aurora-btn text-white font-semibold px-6 py-3 rounded-lg flex items-center gap-2 hover:scale-105 transition-transform">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                             </svg>
-                            Crear Mantenimiento
+                            Actualizar Mantenimiento
                         </button>
                     </div>
                 </form>
+
+                <!-- Formulario separado para eliminar -->
+                <div class="mt-6 pt-6 border-t border-red-500/20">
+                    <div class="flex items-center justify-between p-4 bg-red-500/10 backdrop-blur-sm border border-red-500/20 rounded-lg">
+                        <div>
+                            <h3 class="text-red-300 font-semibold">Zona de Peligro</h3>
+                            <p class="text-red-200/70 text-sm">Esta acción eliminará permanentemente el mantenimiento</p>
+                        </div>
+                        <form action="{{ route('mantenimientos.destroy', $mantenimiento) }}" method="POST" class="inline-block" onsubmit="return confirmDelete('{{ $mantenimiento->tipo_mantenimiento }}');">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="aurora-btn-danger text-white font-semibold px-6 py-3 rounded-lg flex items-center gap-2 hover:scale-105 transition-transform">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                                </svg>
+                                Eliminar Mantenimiento
+                            </button>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -483,14 +569,30 @@
                 element.style.animationDelay = `${index * 0.1}s`;
             });
 
-            // Auto-llenar fecha fin cuando se cambia fecha inicio
+            // Validación de fechas - no permitir fechas anteriores a hoy
+            const today = new Date().toISOString().split('T')[0];
             const fechaInicioInput = document.querySelector('input[name="fecha_inicio"]');
             const fechaFinInput = document.querySelector('input[name="fecha_fin"]');
             
             if (fechaInicioInput && fechaFinInput) {
+                // Solo aplicar validación si la fecha actual es anterior a hoy
                 fechaInicioInput.addEventListener('change', function() {
+                    if (this.value < today) {
+                        this.value = today;
+                        showAlert('No se pueden programar mantenimientos en fechas pasadas', 'warning');
+                    }
                     if (!fechaFinInput.value || fechaFinInput.value < this.value) {
                         fechaFinInput.value = this.value;
+                    }
+                });
+
+                fechaFinInput.addEventListener('change', function() {
+                    if (this.value < today) {
+                        this.value = today;
+                        showAlert('No se pueden programar mantenimientos en fechas pasadas', 'warning');
+                    }
+                    if (this.value < fechaInicioInput.value) {
+                        this.value = fechaInicioInput.value;
                     }
                 });
             }
@@ -526,6 +628,41 @@
                 });
             });
         });
+
+        // Función para mostrar alertas
+        function showAlert(message, type = 'info') {
+            const alertDiv = document.createElement('div');
+            alertDiv.className = `fixed top-4 right-4 z-50 p-4 rounded-lg border backdrop-blur-sm transition-all duration-300 ${
+                type === 'warning' ? 'bg-yellow-500/20 border-yellow-400/50 text-yellow-200' :
+                type === 'error' ? 'bg-red-500/20 border-red-400/50 text-red-200' :
+                'bg-emerald-500/20 border-emerald-400/50 text-emerald-200'
+            }`;
+            alertDiv.innerHTML = `
+                <div class="flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.268 15.5c-.77.833.192 2.5 1.732 2.5z"></path>
+                    </svg>
+                    <span>${message}</span>
+                    <button onclick="this.parentElement.parentElement.remove()" class="ml-2 text-current opacity-70 hover:opacity-100">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+            `;
+            document.body.appendChild(alertDiv);
+            
+            setTimeout(() => {
+                alertDiv.style.opacity = '0';
+                alertDiv.style.transform = 'translateX(100%)';
+                setTimeout(() => alertDiv.remove(), 300);
+            }, 3000);
+        }
+
+        // Función de confirmación para eliminar
+        function confirmDelete(tipoMantenimiento) {
+            return confirm(`¿Estás seguro de que quieres eliminar el mantenimiento "${tipoMantenimiento}"?\n\nEsta acción no se puede deshacer.`);
+        }
     </script>
 
 </x-app-layout>

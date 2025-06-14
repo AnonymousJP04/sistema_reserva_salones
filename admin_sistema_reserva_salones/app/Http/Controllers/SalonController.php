@@ -22,15 +22,23 @@ class SalonController extends Controller
 
     public function store(Request $request)
     {
+        // Validación con regla unique para slug
         $validated = $this->validateSalon($request);
 
-        $validated['slug'] = $this->generateUniqueSlug($validated['nombre']);
+        // Generar slug único
+        $slug = Str::slug($validated['nombre']);
+        if (Salon::where('slug', $slug)->exists()) {
+            return back()
+                ->withInput()
+                ->withErrors(['nombre' => 'Ya existe un salón con ese nombre o slug. Por favor elige otro.']);
+        }
+        $validated['slug'] = $slug;
+
         $validated['imagen_principal'] = $this->handleImagenPrincipal($request);
         $validated['galeria_imagenes'] = $this->handleGaleriaImagenes($request);
 
         Salon::create($validated);
 
-        // CORRECCIÓN: redirigir a la ruta salones.index, que sí existe
         return redirect()->route('salones.index')->with('success', 'Salón creado exitosamente');
     }
 
@@ -43,7 +51,14 @@ class SalonController extends Controller
     {
         $validated = $this->validateSalon($request);
 
-        $validated['slug'] = $this->generateUniqueSlug($validated['nombre'], $salon->id);
+        // Generar slug único, ignorando el actual
+        $slug = Str::slug($validated['nombre']);
+        if (Salon::where('slug', $slug)->where('id', '!=', $salon->id)->exists()) {
+            return back()
+                ->withInput()
+                ->withErrors(['nombre' => 'Ya existe un salón con ese nombre o slug. Por favor elige otro.']);
+        }
+        $validated['slug'] = $slug;
 
         if ($request->hasFile('imagen_principal')) {
             if ($salon->imagen_principal) {
@@ -64,7 +79,6 @@ class SalonController extends Controller
 
         $salon->update($validated);
 
-        // CORRECCIÓN: redirigir a salones.index
         return redirect()->route('salones.index')->with('success', 'Salón actualizado exitosamente');
     }
 
@@ -87,7 +101,6 @@ class SalonController extends Controller
 
         $salon->delete();
 
-        //Redirigir a salones.index
         return redirect()->route('salones.index')->with('success', 'Salón eliminado exitosamente');
     }
 
@@ -118,21 +131,6 @@ class SalonController extends Controller
         return $validated;
     }
 
-    private function generateUniqueSlug(string $nombre, $salonId = null): string
-    {
-        $baseSlug = Str::slug($nombre);
-        $slug = $baseSlug;
-        $count = 1;
-
-        while (Salon::where('slug', $slug)
-            ->when($salonId, fn($q) => $q->where('id', '!=', $salonId))
-            ->exists()) {
-            $slug = $baseSlug . '-' . $count++;
-        }
-
-        return $slug;
-    }
-
     private function handleImagenPrincipal(Request $request): ?string
     {
         if ($request->hasFile('imagen_principal')) {
@@ -153,5 +151,4 @@ class SalonController extends Controller
 
         return json_encode($galeria);
     }
-
 }

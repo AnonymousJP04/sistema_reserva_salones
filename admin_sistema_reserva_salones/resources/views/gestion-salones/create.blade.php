@@ -285,14 +285,14 @@
                                        backdrop-blur-sm transition-all duration-300 @error('nombre') border-red-400 @enderror"
                                 placeholder="Ej: Salón Aurora Premium"
                                 required maxlength="150">
-                            @error('nombre')
+                            {{-- @error('nombre')
                                 <p class="text-red-400 text-sm mt-2 flex items-center space-x-1">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01"></path>
                                     </svg>
                                     <span>{{ $message }}</span>
                                 </p>
-                            @enderror
+                            @enderror --}}
                         </div>
 
                         <!-- Descripción -->

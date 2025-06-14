@@ -95,17 +95,17 @@
                                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                                     </svg>
-                                    ✅ Aprobada
+                                     Aprobada
                                 @elseif($reserva->estado === 'rechazada')
                                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                                     </svg>
-                                    ❌ Rechazada
+                                     Rechazada
                                 @elseif($reserva->estado === 'pendiente')
                                     <svg class="w-4 h-4 mr-2 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                     </svg>
-                                    ⏳ Pendiente
+                                    Pendiente
                                 @else
                                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
@@ -120,216 +120,185 @@
                 <!-- Contenido principal -->
                 <div class="p-8 bg-gradient-to-br from-slate-800/30 to-slate-900/50 space-y-8">
                     
-                    <!-- Grid de información -->
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                        
-                        <!-- Información General -->
-                        <div class="space-y-6">
-                            <div class="backdrop-blur-sm bg-white/5 p-6 rounded-xl border border-white/10 hover:bg-white/10 transition-all duration-300">
-                                <h4 class="text-green-300 font-bold text-xl mb-4 flex items-center space-x-2">
-                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                                    </svg>
-                                    <span>Información del Cliente</span>
-                                </h4>
-                                
-                                <div class="space-y-4">
-                                    <!-- Usuario -->
-                                    <div class="flex items-center space-x-4 p-4 backdrop-blur-sm bg-white/5 rounded-lg">
-                                        <div class="w-12 h-12 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center">
-                                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                                            </svg>
-                                        </div>
-                                        <div>
-                                            <p class="text-blue-300 font-semibold text-sm">Cliente</p>
-                                            <p class="text-white text-lg font-bold">{{ $reserva->usuario->name ?? 'N/A' }}</p>
-                                        </div>
-                                    </div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
 
-                                    <!-- Correo -->
-                                    <div class="flex items-center space-x-4 p-4 backdrop-blur-sm bg-white/5 rounded-lg">
-                                        <div class="w-12 h-12 bg-gradient-to-br from-purple-400 to-purple-600 rounded-full flex items-center justify-center">
-                                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 7.89a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-                                            </svg>
-                                        </div>
-                                        <div>
-                                            <p class="text-purple-300 font-semibold text-sm">Correo Electrónico</p>
-                                            <p class="text-white text-lg font-bold">{{ $reserva->usuario->email ?? 'N/A' }}</p>
-                                        </div>
-                                    </div>
+    <!-- Información General de la Reserva -->
+    <div class="backdrop-blur-xl bg-white/10 border border-green-400/30 shadow-2xl rounded-2xl overflow-hidden opacity-0 animate-fade-in">
+        <div class="bg-gradient-to-r from-green-600 via-green-500 to-green-600 text-white px-6 py-4">
+            <h3 class="text-xl font-bold flex items-center space-x-2">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3a2 2 0 012-2h4a2 2 0 012 2v4m-6 0V7a2 2 0 012-2h4a2 2 0 012 2v0M8 7v8a2 2 0 002 2h4a2 2 0 002-2V7m-6 0h6"></path>
+                </svg>
+                <span>Información de la Reserva</span>
+            </h3>
+        </div>
+        <div class="p-6 space-y-6">
+            <div class="flex items-center space-x-4 p-4 bg-white/5 rounded-xl border border-white/10">
+                <div class="w-12 h-12 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                    </svg>
+                </div>
+                <div class="flex-1">
+                    <p class="text-white/60 text-sm font-medium">Cliente</p>
+                    <p class="text-white text-xl font-bold break-words">{{ $reserva->usuario->name ?? 'N/A' }}</p>
+                </div>
+            </div>
+            <div class="flex items-center space-x-4 p-4 bg-white/5 rounded-xl border border-white/10">
+                <div class="w-12 h-12 bg-gradient-to-br from-purple-400 to-purple-600 rounded-full flex items-center justify-center">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 7.89a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                    </svg>
+                </div>
+                <div class="flex-1">
+                    <p class="text-white/60 text-sm font-medium">Correo Electrónico</p>
+                    <p class="text-white text-xl font-bold break-words">{{ $reserva->usuario->email ?? 'N/A' }}</p>
+                </div>
+            </div>
+            <div class="flex items-center space-x-4 p-4 bg-white/5 rounded-xl border border-white/10">
+                <div class="w-12 h-12 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5"></path>
+                    </svg>
+                </div>
+                <div class="flex-1">
+                    <p class="text-white/60 text-sm font-medium">Salón Reservado</p>
+                    <p class="text-white text-xl font-bold break-words">{{ $reserva->salon->nombre ?? 'N/A' }}</p>
+                </div>
+            </div>
+            <div class="flex items-center space-x-4 p-4 bg-white/5 rounded-xl border border-white/10">
+                <div class="w-12 h-12 bg-gradient-to-br from-purple-400 to-purple-600 rounded-full flex items-center justify-center">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
+                    </svg>
+                </div>
+                <div class="flex-1">
+                    <p class="text-white/60 text-sm font-medium">Código de Reserva</p>
+                    <p class="text-white text-xl font-bold break-words">{{ $reserva->codigo_reserva }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
-                                    <!-- Salón -->
-                                    <div class="flex items-center space-x-4 p-4 backdrop-blur-sm bg-white/5 rounded-lg">
-                                        <div class="w-12 h-12 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center">
-                                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5"></path>
-                                            </svg>
-                                        </div>
-                                        <div>
-                                            <p class="text-green-300 font-semibold text-sm">Salón Reservado</p>
-                                            <p class="text-white text-lg font-bold">{{ $reserva->salon->nombre ?? 'N/A' }}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Detalles de la Reserva -->
-                        <div class="space-y-6">
-                            <div class="backdrop-blur-sm bg-white/5 p-6 rounded-xl border border-white/10 hover:bg-white/10 transition-all duration-300">
-                                <h4 class="text-yellow-300 font-bold text-xl mb-4 flex items-center space-x-2">
-                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3a2 2 0 012-2h4a2 2 0 012 2v4m-6 0V7a2 2 0 012-2h4a2 2 0 012 2v0M8 7v8a2 2 0 002 2h4a2 2 0 002-2V7m-6 0h6"></path>
-                                    </svg>
-                                    <span>Detalles de la Reserva</span>
-                                </h4>
-                                
-                                <div class="space-y-4">
-                                    <!-- Código de Reserva -->
-                                    <div class="flex items-center space-x-4 p-4 backdrop-blur-sm bg-white/5 rounded-lg">
-                                        <div class="w-12 h-12 bg-gradient-to-br from-purple-400 to-purple-600 rounded-full flex items-center justify-center">
-                                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
-                                            </svg>
-                                        </div>
-                                        <div>
-                                            <p class="text-purple-300 font-semibold text-sm">Código de Reserva</p>
-                                            <p class="text-white text-lg font-bold">{{ $reserva->codigo_reserva }}</p>
-                                        </div>
-                                    </div>
-
-                                    <!-- Estado de la Reserva -->
-                                    <div class="flex items-center space-x-4 p-4 backdrop-blur-sm bg-white/5 rounded-lg">
-                                        <div class="w-12 h-12 bg-gradient-to-br 
-                                            {{ $reserva->estado === 'aprobada' ? 'from-green-400 to-green-600' : 
-                                               ($reserva->estado === 'rechazada' ? 'from-red-400 to-red-600' : 
-                                               ($reserva->estado === 'pendiente' ? 'from-yellow-400 to-yellow-600' : 
-                                               'from-blue-400 to-blue-600')) }} rounded-full flex items-center justify-center">
-                                            @if($reserva->estado === 'aprobada')
-                                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                                                </svg>
-                                            @elseif($reserva->estado === 'rechazada')
-                                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                                                </svg>
-                                            @else
-                                                <svg class="w-6 h-6 text-white animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                                </svg>
-                                            @endif
-                                        </div>
-                                        <div>
-                                            <p class="text-{{ $reserva->estado === 'aprobada' ? 'green' : ($reserva->estado === 'rechazada' ? 'red' : 'yellow') }}-300 font-semibold text-sm">Estado de la Reserva</p>
-                                            <p class="text-white text-lg font-bold">{{ ucfirst($reserva->estado) }}</p>
-                                        </div>
-                                    </div>
-
-                                    <!-- Fecha de Reserva -->
-                                    <div class="flex items-center space-x-4 p-4 backdrop-blur-sm bg-white/5 rounded-lg">
-                                        <div class="w-12 h-12 bg-gradient-to-br from-red-400 to-red-600 rounded-full flex items-center justify-center">
-                                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3a2 2 0 012-2h4a2 2 0 012 2v4m-6 0V7a2 2 0 012-2h4a2 2 0 012 2v0M8 7v8a2 2 0 002 2h4a2 2 0 002-2V7m-6 0h6"></path>
-                                            </svg>
-                                        </div>
-                                        <div>
-                                            <p class="text-red-300 font-semibold text-sm">Fecha de Reserva</p>
-                                            <p class="text-white text-lg font-bold">{{ \Carbon\Carbon::parse($reserva->fecha_reserva)->format('d M Y') }}</p>
-                                            <p class="text-white/60 text-sm">{{ \Carbon\Carbon::parse($reserva->fecha_reserva)->locale('es')->dayName }}</p>
-                                        </div>
-                                    </div>
-
-                                    <!-- Horario -->
-                                    <div class="grid grid-cols-2 gap-4">
-                                        <!-- Hora de Inicio -->
-                                        <div class="flex items-center space-x-4 p-4 backdrop-blur-sm bg-white/5 rounded-lg">
-                                            <div class="w-12 h-12 bg-gradient-to-br from-orange-400 to-orange-600 rounded-full flex items-center justify-center">
-                                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                                </svg>
-                                            </div>
-                                            <div>
-                                                <p class="text-orange-300 font-semibold text-sm">Hora de Inicio</p>
-                                                <p class="text-white text-lg font-bold">{{ \Carbon\Carbon::parse($reserva->hora_inicio)->format('H:i') }}</p>
-                                            </div>
-                                        </div>
-
-                                        <!-- Hora de Fin -->
-                                        <div class="flex items-center space-x-4 p-4 backdrop-blur-sm bg-white/5 rounded-lg">
-                                            <div class="w-12 h-12 bg-gradient-to-br from-pink-400 to-pink-600 rounded-full flex items-center justify-center">
-                                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                                </svg>
-                                            </div>
-                                            <div>
-                                                <p class="text-pink-300 font-semibold text-sm">Hora de Finalización</p>
-                                                <p class="text-white text-lg font-bold">{{ \Carbon\Carbon::parse($reserva->hora_fin)->format('H:i') }}</p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Número de Personas y Tipo de Evento -->
-                                    <div class="grid grid-cols-2 gap-4">
-                                        <!-- Número de Personas -->
-                                        <div class="flex items-center space-x-4 p-4 backdrop-blur-sm bg-white/5 rounded-lg">
-                                            <div class="w-12 h-12 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center">
-                                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
-                                                </svg>
-                                            </div>
-                                            <div>
-                                                <p class="text-blue-300 font-semibold text-sm">Número de Personas</p>
-                                                <p class="text-white text-lg font-bold">{{ $reserva->numero_personas }}</p>
-                                            </div>
-                                        </div>
-
-                                        <!-- Tipo de Evento -->
-                                        <div class="flex items-center space-x-4 p-4 backdrop-blur-sm bg-white/5 rounded-lg">
-                                            <div class="w-12 h-12 bg-gradient-to-br from-indigo-400 to-indigo-600 rounded-full flex items-center justify-center">
-                                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-                                                </svg>
-                                            </div>
-                                            <div>
-                                                <p class="text-indigo-300 font-semibold text-sm">Tipo de Evento</p>
-                                                <p class="text-white text-lg font-bold">{{ $reserva->tipo_evento ?? 'No especificado' }}</p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Total -->
-                                    <div class="flex items-center space-x-4 p-4 backdrop-blur-sm bg-white/5 rounded-lg">
-                                        <div class="w-12 h-12 bg-gradient-to-br from-emerald-400 to-emerald-600 rounded-full flex items-center justify-center">
-                                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                            </svg>
-                                        </div>
-                                        <div>
-                                            <p class="text-emerald-300 font-semibold text-sm">Total</p>
-                                            <p class="text-white text-lg font-bold">Q {{ number_format($reserva->total, 2) }}</p>
-                                        </div>
-                                    </div>
-
-                                    <!-- Observaciones -->
-                                    @if($reserva->observaciones)
-                                    <div class="flex items-center space-x-4 p-4 backdrop-blur-sm bg-white/5 rounded-lg">
-                                        <div class="w-12 h-12 bg-gradient-to-br from-teal-400 to-teal-600 rounded-full flex items-center justify-center">
-                                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"></path>
-                                            </svg>
-                                        </div>
-                                        <div>
-                                            <p class="text-teal-300 font-semibold text-sm">Observaciones</p>
-                                            <p class="text-white text-base">{{ $reserva->observaciones }}</p>
-                                        </div>
-                                    </div>
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+    <!-- Detalles del Evento -->
+    <div class="backdrop-blur-xl bg-white/10 border border-green-400/30 shadow-2xl rounded-2xl overflow-hidden opacity-0 animate-fade-in">
+        <div class="bg-gradient-to-r from-blue-600 via-blue-500 to-blue-600 text-white px-6 py-4">
+            <h3 class="text-xl font-bold flex items-center space-x-2">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3a2 2 0 012-2h4a2 2 0 012 2v4m-6 0V7a2 2 0 012-2h4a2 2 0 012 2v0M8 7v8a2 2 0 002 2h4a2 2 0 002-2V7m-6 0h6"></path>
+                </svg>
+                <span>Detalles del Evento</span>
+            </h3>
+        </div>
+        <div class="p-6 space-y-6">
+            <div class="flex items-center space-x-4 p-4 bg-white/5 rounded-xl border border-white/10">
+                <div class="w-12 h-12 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-full flex items-center justify-center">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                </div>
+                <div class="flex-1">
+                    <p class="text-white/60 text-sm font-medium">Fecha de Reserva</p>
+                    <p class="text-white text-xl font-bold break-words">{{ \Carbon\Carbon::parse($reserva->fecha_reserva)->format('d M Y') }}</p>
+                    <p class="text-white/60 text-sm">{{ \Carbon\Carbon::parse($reserva->fecha_reserva)->locale('es')->dayName }}</p>
+                </div>
+            </div>
+            <div class="flex items-center space-x-4 p-4 bg-white/5 rounded-xl border border-white/10">
+                <div class="w-12 h-12 bg-gradient-to-br from-orange-400 to-orange-600 rounded-full flex items-center justify-center">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                </div>
+                <div class="flex-1">
+                    <p class="text-white/60 text-sm font-medium">Hora de Inicio</p>
+                    <p class="text-white text-xl font-bold break-words">{{ \Carbon\Carbon::parse($reserva->hora_inicio)->format('H:i') }}</p>
+                </div>
+            </div>
+            <div class="flex items-center space-x-4 p-4 bg-white/5 rounded-xl border border-white/10">
+                <div class="w-12 h-12 bg-gradient-to-br from-pink-400 to-pink-600 rounded-full flex items-center justify-center">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                </div>
+                <div class="flex-1">
+                    <p class="text-white/60 text-sm font-medium">Hora de Finalización</p>
+                    <p class="text-white text-xl font-bold break-words">{{ \Carbon\Carbon::parse($reserva->hora_fin)->format('H:i') }}</p>
+                </div>
+            </div>
+            <div class="flex items-center space-x-4 p-4 bg-white/5 rounded-xl border border-white/10">
+                <div class="w-12 h-12 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                    </svg>
+                </div>
+                <div class="flex-1">
+                    <p class="text-white/60 text-sm font-medium">Número de Personas</p>
+                    <p class="text-white text-xl font-bold break-words">{{ $reserva->numero_personas }}</p>
+                </div>
+            </div>
+            <div class="flex items-center space-x-4 p-4 bg-white/5 rounded-xl border border-white/10">
+                <div class="w-12 h-12 bg-gradient-to-br from-indigo-400 to-indigo-600 rounded-full flex items-center justify-center">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                    </svg>
+                </div>
+                <div class="flex-1">
+                    <p class="text-white/60 text-sm font-medium">Tipo de Evento</p>
+                    <p class="text-white text-xl font-bold break-words">{{ $reserva->tipo_evento ?? 'No especificado' }}</p>
+                </div>
+            </div>
+            <div class="flex items-center space-x-4 p-4 bg-white/5 rounded-xl border border-white/10">
+                <div class="w-12 h-12 bg-gradient-to-br from-emerald-400 to-emerald-600 rounded-full flex items-center justify-center">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                </div>
+                <div class="flex-1">
+                    <p class="text-white/60 text-sm font-medium">Total</p>
+                    <p class="text-white text-xl font-bold break-words">Q {{ number_format($reserva->total, 2) }}</p>
+                </div>
+            </div>
+            <div class="flex items-center space-x-4 p-4 bg-white/5 rounded-xl border border-white/10">
+                <div class="w-12 h-12 bg-gradient-to-br from-teal-400 to-teal-600 rounded-full flex items-center justify-center">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"></path>
+                    </svg>
+                </div>
+                <div class="flex-1">
+                    <p class="text-white/60 text-sm font-medium">Observaciones</p>
+                    <p class="text-white text-base break-words">{{ $reserva->observaciones ?? 'Sin observaciones' }}</p>
+                </div>
+            </div>
+            <div class="flex items-center space-x-4 p-4 bg-white/5 rounded-xl border border-white/10">
+                <div class="w-12 h-12 bg-gradient-to-br 
+                    {{ $reserva->estado === 'aprobada' ? 'from-green-400 to-green-600' : 
+                       ($reserva->estado === 'rechazada' ? 'from-red-400 to-red-600' : 
+                       'from-yellow-400 to-yellow-600') }} 
+                    rounded-full flex items-center justify-center">
+                    @if($reserva->estado === 'aprobada')
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                    @elseif($reserva->estado === 'rechazada')
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    @else
+                        <svg class="w-6 h-6 text-white animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    @endif
+                </div>
+                <div class="flex-1">
+                    <p class="text-white/60 text-sm font-medium">Estado de la Reserva</p>
+                    <p class="text-white text-xl font-bold break-words">{{ ucfirst($reserva->estado) }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
 
                     <!-- Observaciones -->
                     @if ($reserva->observaciones)
@@ -695,9 +664,9 @@
         });
 
  <!-- Script para efectos y funcionalidades -->
-<script>
+
     // Variable global para el ID de la reserva
-    const reservaId = {{ $reserva->id }};
+
     
     document.addEventListener('DOMContentLoaded', function() {
         // Crear partículas dinámicamente
@@ -1021,8 +990,8 @@
         const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
         
         // Hacer la petición AJAX al servidor
-        fetch(`/reservas/${reservaId}`, {
-            method: 'PUT',
+        fetch(`/reservas/${reservaId}/update-status`, {
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'X-CSRF-TOKEN': csrfToken,
