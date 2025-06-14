@@ -1,107 +1,106 @@
-/* Estilos para la página de bienvenida */
+/* Fondo aurora animado */
 .hero-section {
-  background: linear-gradient(135deg, #2f4f4f 0%, #6b6b6b 100%);
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
+  background: linear-gradient(135deg, #0f172a, #1e293b);
   position: relative;
   overflow: hidden;
 }
 
-/* Patrón de fondo decorativo */
 .hero-section::before {
-  content: '';
+  content: "";
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
-  opacity: 0.2;
+  width: 200%;
+  height: 200%;
+  top: -50%;
+  left: -50%;
+  background: radial-gradient(circle at center, #22c55e33 0%, transparent 60%);
+  animation: aurora-flow 8s linear infinite alternate;
+  z-index: 0;
+  filter: blur(60px);
 }
 
-/* Animación del icono principal */
-.animated-icon {
-  animation: float 3s ease-in-out infinite;
-  filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.3));
-}
-
-@keyframes float {
-  0%, 100% { 
-    transform: translateY(0px); 
+@keyframes aurora-flow {
+  0% {
+    transform: rotate(0deg) scale(1.2);
   }
-  50% { 
-    transform: translateY(-20px); 
+  100% {
+    transform: rotate(360deg) scale(1.2);
   }
 }
 
-/* Botón principal personalizado */
-.btn-warning {
-  background: linear-gradient(45deg, #1b3a2f, #254d38);
-  border: none;
-  transition: all 0.3s ease;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  color: #d0e8d0;
-}
-
-.btn-warning:hover {
-  background: linear-gradient(45deg, #3a6b48, #5a855a);
-  transform: translateY(-3px);
-  box-shadow: 0 15px 35px rgba(42, 94, 43, 0.6);
-  color: #e6f1e6;
-}
-
-/* Tarjetas de información */
-.info-card {
-  background: rgba(70, 70, 70, 0.15);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(120, 120, 120, 0.3);
-  transition: transform 0.3s ease;
-  color: #cbd5cb;
-}
-
-.info-card:hover {
-  transform: translateY(-5px);
-  background: rgba(70, 70, 70, 0.25);
-  border-color: rgba(160, 160, 160, 0.5);
-  color: #e0e8e0;
-}
-
-/* Efectos de texto */
-.text-warning {
-  text-shadow: 2px 2px 4px rgba(10, 20, 10, 0.5);
-  color: #a8c1a8;
-}
-
-.text-white {
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
-  color: #f0f5f0;
-}
-
-/* Responsividad */
-@media (max-width: 768px) {
-  .display-3 {
-    font-size: 2.5rem;
-  }
-  
-  .lead {
-    font-size: 1.1rem;
-  }
-  
-  .btn-lg {
-    padding: 0.75rem 2rem;
-    font-size: 1.1rem;
-  }
-}
-
-/* Efectos adicionales */
-.container {
+/* Contenido principal */
+.hero-content {
   position: relative;
   z-index: 1;
 }
 
-/* Animación suave para todos los elementos */
-* {
+/* Marca aurora */
+.aurora-brand {
+  background: linear-gradient(90deg, #22c55e, #4ade80);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 8px rgba(34, 197, 94, 0.6);
+  animation: aurora-glow 4s ease-in-out infinite;
+}
+
+/* Botón principal */
+.btn-aurora {
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  color: white;
+  border: none;
+  box-shadow: 0 0 12px rgba(34, 197, 94, 0.6);
   transition: all 0.3s ease;
+}
+
+.btn-aurora:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px #4ade80;
+  color: #f0fdf4;
+}
+
+/* Título animado */
+.hero-title {
+  animation: float 5s ease-in-out infinite;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.15);
+}
+
+/* Descripción */
+.hero-description {
+  text-shadow: 0 0 6px rgba(255, 255, 255, 0.05);
+}
+
+/* Ícono animado */
+.animated-icon {
+  animation: pulse 4s infinite ease-in-out, float 6s ease-in-out infinite;
+  color: #6ee7b7;
+  text-shadow: 0 0 15px #22c55eaa;
+}
+
+/* Tarjetas informativas */
+.info-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 15px rgba(34, 197, 94, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.info-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 20px rgba(34, 197, 94, 0.3);
+}
+
+/* Reutilización de animaciones base */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.9; transform: scale(1.05); }
+}
+
+@keyframes aurora-glow {
+  0%, 100% { text-shadow: 0 0 8px #4ade80; }
+  50% { text-shadow: 0 0 16px #22c55e; }
 }

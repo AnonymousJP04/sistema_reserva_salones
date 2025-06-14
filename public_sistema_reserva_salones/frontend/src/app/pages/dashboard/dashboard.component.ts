@@ -1,142 +1,71 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
+import { PerfilComponent } from '../perfil/perfil.component';
 import { CalendarioComponent } from '../calendario/calendario.component';
-
-export interface Salon {
-  id: number;
-  nombre: string;
-  tipo: string;
-  capacidad: number;
-  ubicacion: string;
-  descripcion: string;
-  precio: number;
-  disponible: boolean;
-  horarios: string[];
-  fechasDisponibles: string[];
-  imagen: string;
-  caracteristicas: string[];
-}
+import { DashboardService, Salon } from '../../services/dashboard.service';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],
-  imports: [CommonModule, FormsModule, CalendarioComponent],
+  imports: [CommonModule, FormsModule, RouterModule, PerfilComponent, CalendarioComponent],
   standalone: true
 })
-export class DashboardComponent implements OnInit {
-  
-  // Array de salones (vacío - será llenado desde la BD)
+export class DashboardComponent implements OnInit, OnDestroy {
+
+  vistaActiva: 'dashboard' | 'perfil' = 'dashboard';
+  vistaCalendario: boolean = false;
+
   salones: Salon[] = [];
 
-  // Variables para filtros
-  salonesTotales: Salon[] = [];
-  salonesFiltrados: Salon[] = [];
+  cargando: boolean = false;
+  error: string | null = null;
 
-  vistaCalendario: boolean = false;
-  
-  // Controles de filtros
-  palabraClave: string = '';
-  tipoSeleccionado: string = '';
-  horarioSeleccionado: string = '';
-  fechaSeleccionada: string = '';
-  soloDisponibles: boolean = false;
-  
-  // Opciones para filtros
-  tiposSalon: string[] = ['Conferencias', 'Eventos', 'Reuniones', 'Capacitación'];
-  horariosDisponibles: string[] = [
-    '07:00-12:00', '08:00-12:00', '08:00-17:00', 
-    '09:00-13:00', '13:00-18:00', '14:00-18:00', '15:00-19:00'
-  ];
+  private destroy$ = new Subject<void>();
 
-  constructor() { }
+  constructor(private dashboardService: DashboardService) {}
 
   ngOnInit(): void {
     this.cargarSalones();
   }
 
-  // Cargar salones desde la base de datos
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
   cargarSalones(): void {
-    // TODO: Aquí irá la llamada al servicio para obtener salones de la BD
-    // Ejemplo: this.salonService.getSalones().subscribe(...)
-    console.log('Cargando salones desde la base de datos...');
-    this.aplicarFiltros();
+    this.cargando = true;
+    this.error = null;
+
+    this.dashboardService.getSalones()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (salones: Salon[]) => {
+          this.salones = salones;
+          this.cargando = false;
+          console.log('Salones cargados:', salones.length);
+        },
+        error: (error: any) => {
+          this.error = 'Error al cargar los salones.';
+          this.cargando = false;
+          console.error('Error al cargar salones:', error);
+        }
+      });
   }
 
-  // Método principal para aplicar todos los filtros
-  aplicarFiltros(): void {
-    this.salonesFiltrados = this.salonesTotales.filter(salon => {
-      return this.filtrarPorPalabraClave(salon) &&
-             this.filtrarPorTipo(salon) &&
-             this.filtrarPorHorario(salon) &&
-             this.filtrarPorFecha(salon) &&
-             this.filtrarPorDisponibilidad(salon);
-    });
+  cambiarVista(vista: 'dashboard' | 'perfil'): void {
+    this.vistaActiva = vista;
   }
 
-  // Filtro por palabra clave
-  filtrarPorPalabraClave(salon: Salon): boolean {
-    if (!this.palabraClave) return true;
-    
-    const palabraBusqueda = this.palabraClave.toLowerCase();
-    return salon.nombre.toLowerCase().includes(palabraBusqueda) ||
-           salon.descripcion.toLowerCase().includes(palabraBusqueda) ||
-           salon.ubicacion.toLowerCase().includes(palabraBusqueda) ||
-           salon.caracteristicas.some(c => c.toLowerCase().includes(palabraBusqueda));
+  toggleCalendario(): void {
+    this.vistaCalendario = !this.vistaCalendario;
   }
 
-  // Filtro por tipo de salón
-  filtrarPorTipo(salon: Salon): boolean {
-    if (!this.tipoSeleccionado) return true;
-    return salon.tipo === this.tipoSeleccionado;
-  }
-
-  // Filtro por horario
-  filtrarPorHorario(salon: Salon): boolean {
-    if (!this.horarioSeleccionado) return true;
-    return salon.horarios.includes(this.horarioSeleccionado);
-  }
-
-  // Filtro por fecha
-  filtrarPorFecha(salon: Salon): boolean {
-    if (!this.fechaSeleccionada) return true;
-    return salon.fechasDisponibles.includes(this.fechaSeleccionada);
-  }
-
-  // Filtro por disponibilidad
-  filtrarPorDisponibilidad(salon: Salon): boolean {
-    if (!this.soloDisponibles) return true;
-    return salon.disponible;
-  }
-
-  // Limpiar todos los filtros
-  limpiarFiltros(): void {
-    this.palabraClave = '';
-    this.tipoSeleccionado = '';
-    this.horarioSeleccionado = '';
-    this.fechaSeleccionada = '';
-    this.soloDisponibles = false;
-    this.aplicarFiltros();
-  }
-
-  // Acciones para los salones
-  verDetalles(salonId: number): void {
-    console.log('Ver detalles del salón:', salonId);
-    // TODO: Implementar navegación o modal
-  }
-
-  reservarSalon(salonId: number): void {
-    console.log('Reservar salón:', salonId);
-    // TODO: Implementar lógica de reserva
-  }
-
-  // Obtener clase CSS para el estado del salón
-  getEstadoClase(salon: Salon): string {
-    return salon.disponible ? 'badge bg-success' : 'badge bg-danger';
-  }
-
-  getEstadoTexto(salon: Salon): string {
-    return salon.disponible ? 'Disponible' : 'Ocupado';
+  trackBySalonId(index: number, salon: Salon): number {
+    return salon.id;
   }
 }

@@ -1,41 +1,94 @@
 <div class="container mt-5 login-container" style="max-width: 500px;">
+    <!-- Header del Login con efectos aurora -->
     <div class="text-center mb-4">
-        <i class="bi bi-person-circle icono-login"></i>
-        <h2 class="fw-bold">Iniciar Sesión</h2>
+        <div class="aurora-icon-container mb-3">
+            <i class="bi bi-shield-lock icono-login aurora-icon-large aurora-pulse"></i>
+            <div class="aurora-ring-effect"></div>
+        </div>
+        <h2 class="fw-bold text-white aurora-text-glow">Iniciar Sesión</h2>
+        <p class="text-white-50 mb-0">Accede a tu cuenta de Eventos Aurora</p>
     </div>
 
-    <form (ngSubmit)="login()" class="p-4 rounded bg-white shadow-sm">
-        <div class="mb-3">
-            <label for="email" class="form-label">
-                <i class="bi bi-envelope-at me-2 text-primary"></i>Email
+    <!-- Formulario con glassmorphism -->
+    <form (ngSubmit)="login()" class="aurora-card aurora-glass p-4 rounded aurora-form">
+        <!-- Campo Email -->
+        <div class="mb-4">
+            <label for="email" class="form-label text-white fw-semibold">
+                <i class="bi bi-at me-2 aurora-icon-small"></i>Email
             </label>
-            <div class="input-group">
-                <span class="input-group-text bg-light"><i class="bi bi-envelope"></i></span>
-                <input type="email" id="email" [(ngModel)]="credentials.email" name="email" class="form-control" required placeholder="usuario@correo.com">
+            <div class="aurora-input-group">
+                <span class="aurora-input-icon">
+                    <i class="bi bi-envelope-at aurora-icon-input"></i>
+                </span>
+                <input 
+                    type="email"    
+                    id="email" 
+                    [(ngModel)]="credentials.email" 
+                    name="email" 
+                    class="aurora-form-control" 
+                    required 
+                    placeholder="usuario@correo.com">
             </div>
         </div>
 
-        <div class="mb-3">
-            <label for="password" class="form-label">
-                <i class="bi bi-lock-fill me-2 text-primary"></i>Contraseña
+        <!-- Campo Contraseña -->
+        <div class="mb-4">
+            <label for="password" class="form-label text-white fw-semibold">
+                <i class="bi bi-key-fill me-2 aurora-icon-small"></i>Contraseña
             </label>
-            <div class="input-group">
-                <span class="input-group-text bg-light"><i class="bi bi-key"></i></span>
-                <input type="password" id="password" [(ngModel)]="credentials.password" name="password" class="form-control" required placeholder="Tu contraseña">
+            <div class="aurora-input-group">
+                <span class="aurora-input-icon">
+                    <i class="bi bi-shield-check aurora-icon-input"></i>
+                </span>
+                <input 
+                    type="password" 
+                    id="password" 
+                    [(ngModel)]="credentials.password" 
+                    name="password" 
+                    class="aurora-form-control" 
+                    required 
+                    placeholder="Tu contraseña">
             </div>
         </div>
 
-        <div *ngIf="errorMessage" class="alert alert-danger d-flex align-items-center">
-            <i class="bi bi-exclamation-triangle-fill me-2"></i> {{ errorMessage }}
+        <!-- Mensaje de Error -->
+        <div *ngIf="errorMessage" class="aurora-alert aurora-alert-danger mb-4">
+            <i class="bi bi-exclamation-diamond-fill me-2"></i>
+            <span>{{ errorMessage }}</span>
         </div>
 
-        <button type="submit" class="btn btn-primary w-100 d-flex align-items-center justify-content-center mb-2" [disabled]="isLoading">
-            <span *ngIf="isLoading" class="spinner-border spinner-border-sm me-2" role="status"></span>
-            <i *ngIf="!isLoading" class="bi bi-box-arrow-in-right me-2"></i> 
+        <!-- Botón Principal -->
+        <button 
+            type="submit" 
+            class="btn-aurora w-100 d-flex align-items-center justify-content-center mb-3 aurora-btn-primary" 
+            [disabled]="isLoading">
+            <span *ngIf="isLoading" class="aurora-spinner me-2"></span>
+            <i *ngIf="!isLoading" class="bi bi-arrow-right-circle-fill me-2"></i> 
             {{ isLoading ? 'Iniciando...' : 'Iniciar Sesión' }}
         </button>
-        <a class="btn btn-link w-100" (click)="register()">
-            <i class="bi bi-person-plus me-2"></i>¿No tienes cuenta? Regístrate
-        </a>
+
+        <!-- Botón Secundario -->
+        <button 
+            type="button"
+            class="btn-aurora-outline w-100 aurora-btn-secondary" 
+            (click)="register()">
+            <i class="bi bi-person-plus-fill me-2"></i>
+            ¿No tienes cuenta? Regístrate
+        </button>
+
+        <!-- Elementos decorativos -->
+        <div class="aurora-form-decoration">
+            <div class="aurora-particle-form aurora-particle-form-1"></div>
+            <div class="aurora-particle-form aurora-particle-form-2"></div>
+            <div class="aurora-particle-form aurora-particle-form-3"></div>
+        </div>
     </form>
+
+    <!-- Links adicionales -->
+    <div class="text-center mt-4">
+        <a href="#" class="aurora-link text-white-50 small">
+            <i class="bi bi-shield-exclamation me-1"></i>
+            ¿Olvidaste tu contraseña?
+        </a>
+    </div>
 </div>

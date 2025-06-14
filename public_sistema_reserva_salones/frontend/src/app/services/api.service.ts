@@ -2,6 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
+export interface Tarea {
+  id: number;
+  titulo: string;
+  descripcion?: string;
+  completada: boolean;
+  // otros campos que necesites
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -11,24 +19,28 @@ export class ApiService {
 
   constructor(private http: HttpClient) { }
 
-  getTareas(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl);
+  // Obtener todas las tareas
+  getTareas(): Observable<Tarea[]> {
+    return this.http.get<Tarea[]>(this.apiUrl);
   }
 
-  crearTarea(tarea: any): Observable<any> {
-    return this.http.post<any>(this.apiUrl, tarea);
+  // Crear una nueva tarea
+  crearTarea(tarea: Tarea): Observable<Tarea> {
+    return this.http.post<Tarea>(this.apiUrl, tarea);
   }
 
-  obtenerTareaPorId(id: number): Observable<any> {
-    return this.http.get(`${this.apiUrl}/${id}`);
+  // Obtener una tarea por ID
+  obtenerTareaPorId(id: number): Observable<Tarea> {
+    return this.http.get<Tarea>(`${this.apiUrl}/${id}`);
   }
 
-  actualizarTareaPorId(id: number, tarea: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}/${id}`, tarea);
+  // Actualizar una tarea por ID
+  actualizarTareaPorId(id: number, tarea: Tarea): Observable<Tarea> {
+    return this.http.put<Tarea>(`${this.apiUrl}/${id}`, tarea);
   }
 
-  eliminarTareaPorId(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/${id}`);
+  // Eliminar una tarea por ID
+  eliminarTareaPorId(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
-  
 }
