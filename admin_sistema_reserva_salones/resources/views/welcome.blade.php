@@ -39,78 +39,12 @@
                                     900: '#14532d',
                                 },
                                 cosmic: {
-                                    50: '#f8fafc',
-                                    100: '#f1f5f9',
-                                    200: '#e2e8f0',
-                                    300: '#cbd5e1',
-                                    400: '#94a3b8',
-                                    500: '#64748b',
-                                    600: '#475569',
-                                    700: '#334155',
                                     800: '#1e293b',
                                     900: '#0f172a',
                                 },
                                 electric: {
-                                    400: '#60a5fa',
                                     500: '#3b82f6',
                                     600: '#2563eb',
-                                }
-                            },
-                            animation: {
-                                'aurora': 'aurora 20s ease-in-out infinite',
-                                'float': 'float 6s ease-in-out infinite',
-                                'glow': 'glow 2s ease-in-out infinite alternate',
-                                'particle': 'particle 15s linear infinite',
-                                'shimmer': 'shimmer 2.5s ease-in-out infinite',
-                            },
-                            keyframes: {
-                                aurora: {
-                                    '0%, 100%': { 
-                                        'background-position': '0% 50%' 
-                                    },
-                                    '50%': { 
-                                        'background-position': '100% 50%' 
-                                    },
-                                },
-                                float: {
-                                    '0%, 100%': { 
-                                        transform: 'translateY(0px)' 
-                                    },
-                                    '50%': { 
-                                        transform: 'translateY(-20px)' 
-                                    },
-                                },
-                                glow: {
-                                    'from': { 
-                                        'box-shadow': '0 0 20px rgba(34, 197, 94, 0.5)' 
-                                    },
-                                    'to': { 
-                                        'box-shadow': '0 0 30px rgba(34, 197, 94, 0.8)' 
-                                    },
-                                },
-                                particle: {
-                                    '0%': { 
-                                        transform: 'translateY(100vh) rotate(0deg)',
-                                        opacity: '0' 
-                                    },
-                                    '10%': { 
-                                        opacity: '1' 
-                                    },
-                                    '90%': { 
-                                        opacity: '1' 
-                                    },
-                                    '100%': { 
-                                        transform: 'translateY(-100vh) rotate(360deg)',
-                                        opacity: '0' 
-                                    },
-                                },
-                                shimmer: {
-                                    '0%': { 
-                                        'background-position': '-200% 0' 
-                                    },
-                                    '100%': { 
-                                        'background-position': '200% 0' 
-                                    },
                                 }
                             }
                         }
@@ -118,43 +52,71 @@
                 }
             </script>
         @endif
+        
         <style>
             body {
                 font-family: 'Inter', sans-serif;
             }
+            
             .font-display {
                 font-family: 'Space Grotesk', sans-serif;
             }
+            
+            /* Fondo Aurora simplificado */
             .aurora-bg {
-                background: linear-gradient(-45deg, #1e293b, #0f172a, #134e4a, #064e3b, #1e293b);
+                background: linear-gradient(-45deg, #0f172a, #1e293b, #134e4a, #064e3b);
                 background-size: 400% 400%;
-                animation: aurora 20s ease-in-out infinite;
+                animation: aurora-flow 15s ease-in-out infinite;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+                z-index: -10;
             }
+            
+            @keyframes aurora-flow {
+                0%, 100% { background-position: 0% 50%; }
+                50% { background-position: 100% 50%; }
+            }
+            
+            /* Texto gradiente */
             .gradient-text {
-                background: linear-gradient(135deg, #22c55e, #10b981, #059669, #047857);
+                background: linear-gradient(135deg, #22c55e, #10b981, #059669);
                 background-size: 200% 200%;
                 background-clip: text;
                 -webkit-background-clip: text;
                 color: transparent;
-                animation: shimmer 2.5s ease-in-out infinite;
+                animation: gradient-shift 3s ease-in-out infinite;
             }
+            
+            @keyframes gradient-shift {
+                0%, 100% { background-position: 0% 50%; }
+                50% { background-position: 100% 50%; }
+            }
+            
+            /* Efecto glass */
             .glass-effect {
                 backdrop-filter: blur(20px);
-                background: rgba(255, 255, 255, 0.1);
-                border: 1px solid rgba(255, 255, 255, 0.2);
+                background: rgba(255, 255, 255, 0.08);
+                border: 1px solid rgba(34, 197, 94, 0.2);
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+                transition: all 0.3s ease;
             }
-            .particle {
-                position: absolute;
-                width: 4px;
-                height: 4px;
-                background: radial-gradient(circle, #22c55e, #10b981);
-                border-radius: 50%;
-                animation: particle 15s linear infinite;
+            
+            .glass-effect:hover {
+                background: rgba(255, 255, 255, 0.12);
+                border-color: rgba(34, 197, 94, 0.4);
+                transform: translateY(-2px);
             }
+            
+            /* Botones con efecto */
             .glow-button {
                 position: relative;
                 overflow: hidden;
+                transition: all 0.3s ease;
             }
+            
             .glow-button::before {
                 content: '';
                 position: absolute;
@@ -163,81 +125,139 @@
                 width: 100%;
                 height: 100%;
                 background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-                transition: left 0.5s;
+                transition: left 0.5s ease;
             }
+            
             .glow-button:hover::before {
                 left: 100%;
             }
-                
             
+            /* Animaciones suaves */
+            .animate-float {
+                animation: float 4s ease-in-out infinite;
+            }
+            
+            @keyframes float {
+                0%, 100% { transform: translateY(0px); }
+                50% { transform: translateY(-10px); }
+            }
+            
+            .fade-in {
+                opacity: 0;
+                transform: translateY(20px);
+                animation: fadeIn 0.8s ease forwards;
+            }
+            
+            @keyframes fadeIn {
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+            
+            /* Partículas simples */
+            .particles {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+                pointer-events: none;
+                z-index: -5;
+            }
+            
+            .particle {
+                position: absolute;
+                width: 2px;
+                height: 2px;
+                background: #22c55e;
+                border-radius: 50%;
+                opacity: 0.6;
+                animation: particle-float 12s linear infinite;
+            }
+            
+            @keyframes particle-float {
+                0% { 
+                    transform: translateY(100vh) translateX(0);
+                    opacity: 0;
+                }
+                10% { opacity: 1; }
+                90% { opacity: 1; }
+                100% { 
+                    transform: translateY(-10vh) translateX(100px);
+                    opacity: 0;
+                }
+            }
+            
+            /* Info cards mejoradas */
+            .info-card {
+                transition: all 0.3s ease;
+            }
+            
+            .info-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 20px 40px rgba(34, 197, 94, 0.1);
+            }
         </style>
     </head>
-    <body class="aurora-bg text-white antialiased flex flex-col min-h-screen overflow-x-hidden">
+    
+    <body class="text-white antialiased flex flex-col min-h-screen">
         
-        <!-- Animated Background Particles -->
-        <div class="fixed inset-0 pointer-events-none z-0">
+        <!-- Fondo Aurora -->
+        <div class="aurora-bg"></div>
+        
+        <!-- Partículas simples -->
+        <div class="particles">
             <div class="particle" style="left: 10%; animation-delay: 0s;"></div>
             <div class="particle" style="left: 20%; animation-delay: 2s;"></div>
             <div class="particle" style="left: 30%; animation-delay: 4s;"></div>
             <div class="particle" style="left: 40%; animation-delay: 6s;"></div>
             <div class="particle" style="left: 50%; animation-delay: 8s;"></div>
-            <div class="particle" style="left: 60%; animation-delay: 10s;"></div>
-            <div class="particle" style="left: 70%; animation-delay: 12s;"></div>
-            <div class="particle" style="left: 80%; animation-delay: 14s;"></div>
-            <div class="particle" style="left: 90%; animation-delay: 16s;"></div>
+            <div class="particle" style="left: 60%; animation-delay: 1s;"></div>
+            <div class="particle" style="left: 70%; animation-delay: 3s;"></div>
+            <div class="particle" style="left: 80%; animation-delay: 5s;"></div>
+            <div class="particle" style="left: 90%; animation-delay: 7s;"></div>
         </div>
 
         <!-- Navigation Bar -->
-        <nav class="glass-effect shadow-2xl w-full z-20 top-0 sticky">
+        <nav class="glass-effect shadow-lg w-full z-20 sticky top-0 fade-in">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="flex items-center justify-between h-20">
+                <div class="flex items-center justify-between h-16">
                     <div class="flex items-center">
-                        <a href="/" class="flex items-center space-x-3 text-2xl lg:text-3xl font-display font-bold gradient-text">
+                        <a href="/" class="flex items-center space-x-3 text-xl lg:text-2xl font-display font-bold gradient-text">
                             <!-- Aurora Icon -->
                             <div class="relative">
-                                <svg class="w-10 h-10 lg:w-12 lg:h-12 text-aurora-400 animate-float" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <svg class="w-8 h-8 lg:w-10 lg:h-10 text-aurora-400 animate-float" viewBox="0 0 24 24" fill="none">
                                     <defs>
-                                        <linearGradient id="auroraGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                                            <stop offset="0%" style="stop-color:#22c55e;stop-opacity:1" />
-                                            <stop offset="50%" style="stop-color:#10b981;stop-opacity:1" />
-                                            <stop offset="100%" style="stop-color:#059669;stop-opacity:1" />
+                                        <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                            <stop offset="0%" style="stop-color:#22c55e"/>
+                                            <stop offset="100%" style="stop-color:#059669"/>
                                         </linearGradient>
                                     </defs>
-                                    <path d="M12 2L13.09 8.26L19 7L14.74 12.5L21 14L13.59 16.41L16 22L12 18L8 22L10.41 16.41L3 14L9.26 12.5L5 7L10.91 8.26L12 2Z" fill="url(#auroraGradient)" />
-                                    <circle cx="12" cy="12" r="3" fill="rgba(255,255,255,0.3)" />
+                                    <path d="M12 2L13.09 8.26L19 7L14.74 12.5L21 14L13.59 16.41L16 22L12 18L8 22L10.41 16.41L3 14L9.26 12.5L5 7L10.91 8.26L12 2Z" 
+                                          fill="url(#logoGradient)" />
                                 </svg>
-                                <div class="absolute inset-0 animate-ping">
-                                    <svg class="w-10 h-10 lg:w-12 lg:h-12 text-aurora-400 opacity-30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M12 2L13.09 8.26L19 7L14.74 12.5L21 14L13.59 16.41L16 22L12 18L8 22L10.41 16.41L3 14L9.26 12.5L5 7L10.91 8.26L12 2Z" fill="currentColor" />
-                                    </svg>
-                                </div>
                             </div>
                             <span>Eventos Aurora</span>
                         </a>
                     </div>
                     <div class="hidden md:block">
-                        <div class="ml-4 flex items-center md:ml-6 space-x-6">
+                        <div class="ml-4 flex items-center space-x-4">
                             @if (Route::has('login'))
                                 @auth
-                                    <a href="{{ url('/dashboard') }}" class="glow-button bg-gradient-to-r from-aurora-500 to-aurora-600 hover:from-aurora-600 hover:to-aurora-700 text-white px-6 py-3 rounded-xl text-sm font-semibold shadow-lg hover:shadow-2xl transition-all duration-300 ease-in-out transform hover:scale-105 animate-glow">
+                                    <a href="{{ url('/dashboard') }}" class="glow-button bg-gradient-to-r from-aurora-500 to-aurora-600 hover:from-aurora-600 hover:to-aurora-700 text-white px-5 py-2.5 rounded-lg text-sm font-semibold shadow-lg transition-all duration-300">
                                         <svg class="w-4 h-4 inline-block mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path>
                                         </svg>
                                         Dashboard
                                     </a>
                                 @else
-                                    <a href="{{ route('login') }}" class="text-white/80 hover:text-aurora-300 px-4 py-2 rounded-md text-sm font-medium transition-colors duration-300 flex items-center space-x-2">
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path>
-                                        </svg>
-                                        <span>Iniciar Sesión</span>
+                                    <a href="{{ route('login') }}" class="text-white/80 hover:text-aurora-300 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300">
+                                        Iniciar Sesión
                                     </a>
                                     @if (Route::has('register'))
-                                        <a href="{{ route('register') }}" class="glow-button bg-gradient-to-r from-electric-500 to-electric-600 hover:from-electric-600 hover:to-electric-700 text-white px-5 py-2.5 rounded-lg text-sm font-semibold shadow-md hover:shadow-lg transition-all duration-300 ease-in-out transform hover:scale-105 flex items-center space-x-2">
-                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path>
-                                            </svg>
-                                            <span>Registro</span>
+                                        <a href="{{ route('register') }}" class="glow-button bg-gradient-to-r from-electric-500 to-electric-600 hover:from-electric-600 hover:to-electric-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-300">
+                                            Registro
                                         </a>
                                     @endif
                                 @endauth
@@ -245,13 +265,9 @@
                         </div>
                     </div>
                     <div class="-mr-2 flex md:hidden">
-                        <button type="button" class="glass-effect inline-flex items-center justify-center p-2 rounded-md text-white/80 hover:text-aurora-300 hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-aurora-400 transition-all duration-300" aria-controls="mobile-menu" aria-expanded="false" id="mobile-menu-button">
-                            <span class="sr-only">Abrir menú principal</span>
-                            <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                        <button type="button" class="glass-effect inline-flex items-center justify-center p-2 rounded-md text-white/80 hover:text-aurora-300 transition-all duration-300" id="mobile-menu-button">
+                            <svg class="block h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                            </svg>
-                            <svg class="hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                             </svg>
                         </button>
                     </div>
@@ -259,14 +275,14 @@
             </div>
 
             <div class="md:hidden hidden" id="mobile-menu">
-                <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 glass-effect">
+                <div class="px-2 pt-2 pb-3 space-y-1 glass-effect">
                     @if (Route::has('login'))
                         @auth
-                            <a href="{{ url('/dashboard') }}" class="bg-aurora-500 hover:bg-aurora-600 text-white block px-3 py-2 rounded-md text-base font-medium transition-colors duration-300">Ir al Dashboard</a>
+                            <a href="{{ url('/dashboard') }}" class="bg-aurora-500 hover:bg-aurora-600 text-white block px-3 py-2 rounded-md text-base font-medium">Dashboard</a>
                         @else
-                            <a href="{{ route('login') }}" class="text-white/80 hover:bg-white/10 block px-3 py-2 rounded-md text-base font-medium transition-colors duration-300">Iniciar Sesión</a>
+                            <a href="{{ route('login') }}" class="text-white/80 hover:bg-white/10 block px-3 py-2 rounded-md text-base font-medium">Iniciar Sesión</a>
                             @if (Route::has('register'))
-                                <a href="{{ route('register') }}" class="bg-electric-500 hover:bg-electric-600 text-white block px-3 py-2 rounded-md text-base font-medium transition-colors duration-300">Registrar Usuario</a>
+                                <a href="{{ route('register') }}" class="bg-electric-500 hover:bg-electric-600 text-white block px-3 py-2 rounded-md text-base font-medium">Registro</a>
                             @endif
                         @endauth
                     @endif
@@ -275,149 +291,194 @@
         </nav>
 
         <!-- Main Content -->
-        <main class="flex-grow flex items-center justify-center py-16 px-4 relative z-10">
-            <div class="max-w-5xl mx-auto text-center">
+        <main class="flex-grow py-16 px-4 relative z-10">
+            <div class="max-w-6xl mx-auto">
                 
-                <!-- Hero Icon -->
-                <div class="mb-12 relative">
-                    <div class="animate-float">
-                        <div class="relative inline-block">
-                            <svg class="w-40 h-40 sm:w-48 sm:h-48 mx-auto drop-shadow-2xl" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Hero Section -->
+                <div class="text-center mb-16 fade-in">
+                    <div class="mb-8">
+                        <div class="animate-float inline-block">
+                            <svg class="w-32 h-32 sm:w-40 sm:h-40 mx-auto" viewBox="0 0 200 200" fill="none">
                                 <defs>
                                     <linearGradient id="heroGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                                        <stop offset="0%" style="stop-color:#22c55e;stop-opacity:1" />
-                                        <stop offset="25%" style="stop-color:#10b981;stop-opacity:1" />
-                                        <stop offset="50%" style="stop-color:#059669;stop-opacity:1" />
-                                        <stop offset="75%" style="stop-color:#047857;stop-opacity:1" />
-                                        <stop offset="100%" style="stop-color:#065f46;stop-opacity:1" />
+                                        <stop offset="0%" style="stop-color:#22c55e"/>
+                                        <stop offset="50%" style="stop-color:#10b981"/>
+                                        <stop offset="100%" style="stop-color:#059669"/>
                                     </linearGradient>
-                                    <filter id="glow">
-                                        <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
-                                        <feMerge> 
-                                            <feMergeNode in="coloredBlur"/>
-                                            <feMergeNode in="SourceGraphic"/>
-                                        </feMerge>
-                                    </filter>
                                 </defs>
-                                
-                                <!-- Outer Aurora Ring -->
-                                <circle cx="100" cy="100" r="90" fill="none" stroke="url(#heroGradient)" stroke-width="2" opacity="0.3" />
-                                <circle cx="100" cy="100" r="75" fill="none" stroke="url(#heroGradient)" stroke-width="1" opacity="0.5" />
-                                
-                                <!-- Main Star/Aurora -->
-                                <path d="M100 20L110 65L150 60L115 100L170 110L120 125L130 165L100 140L70 165L80 125L30 110L85 100L50 60L90 65L100 20Z" fill="url(#heroGradient)" filter="url(#glow)" />
-                                
-                                <!-- Center Glow -->
-                                <circle cx="100" cy="100" r="15" fill="rgba(255,255,255,0.4)" />
-                                <circle cx="100" cy="100" r="8" fill="rgba(255,255,255,0.7)" />
-                                
-                                <!-- Decorative Elements -->
-                                <circle cx="60" cy="50" r="3" fill="#22c55e" opacity="0.8" />
-                                <circle cx="140" cy="70" r="2" fill="#10b981" opacity="0.6" />
-                                <circle cx="170" cy="140" r="3" fill="#059669" opacity="0.9" />
-                                <circle cx="40" cy="130" r="2" fill="#047857" opacity="0.7" />
-                                <circle cx="130" cy="40" r="2" fill="#22c55e" opacity="0.8" />
+                                <circle cx="100" cy="100" r="80" fill="none" stroke="url(#heroGradient)" stroke-width="2" opacity="0.3" />
+                                <path d="M100 30L108 65L140 60L115 90L150 100L115 110L140 140L108 135L100 170L92 135L60 140L85 110L50 100L85 90L60 60L92 65L100 30Z" 
+                                      fill="url(#heroGradient)" />
+                                <circle cx="100" cy="100" r="12" fill="rgba(255,255,255,0.6)" />
                             </svg>
-                            
-                            <!-- Rotating Halo -->
-                            <div class="absolute inset-0 animate-spin" style="animation-duration: 20s;">
-                                <svg class="w-40 h-40 sm:w-48 sm:h-48" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <circle cx="100" cy="100" r="95" fill="none" stroke="rgba(34, 197, 94, 0.2)" stroke-width="1" stroke-dasharray="10,10" />
-                                </svg>
-                            </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Hero Text -->
-                <div class="space-y-8">
-                    <h1 class="text-4xl sm:text-5xl lg:text-7xl font-display font-bold gradient-text leading-tight">
-                        ¡Bienvenido a 
-                        <span class="block mt-2">Eventos Aurora!</span>
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-display font-bold gradient-text leading-tight mb-6">
+                        Sistema Administrativo
+                        <span class="block text-3xl sm:text-4xl lg:text-5xl mt-2">Eventos Aurora</span>
                     </h1>
                     
-                    <p class="text-lg sm:text-xl lg:text-2xl text-white/80 max-w-3xl mx-auto leading-relaxed">
-                        Experimenta la <span class="text-aurora-300 font-semibold">magia</span> de organizar eventos extraordinarios con nuestra plataforma 
-                        <span class="text-aurora-300 font-semibold">innovadora y elegante</span>
+                    <p class="text-xl text-white/80 max-w-3xl mx-auto leading-relaxed mb-8">
+                        Panel de control interno para la gestión completa de salones, reservas y administración de eventos
                     </p>
 
-                    <!-- Feature Cards -->
-                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-12 mb-12">
-                        <div class="glass-effect p-6 rounded-2xl transform hover:scale-105 transition-all duration-300 hover:bg-white/20">
-                            <div class="text-aurora-400 mb-4">
-                                <svg class="w-12 h-12 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3a2 2 0 012-2h4a2 2 0 012 2v4m-6 0V7a2 2 0 012-2h4a2 2 0 012 2v0M8 7v8a2 2 0 002 2h4a2 2 0 002-2V7m-6 0h6m-6 0H6a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V9a2 2 0 00-2-2h-2"></path>
-                                </svg>
-                            </div>
-                            <h3 class="text-lg font-semibold text-white mb-2">Reservas Inteligentes</h3>
-                            <p class="text-white/70 text-sm">Sistema avanzado de gestión de reservas</p>
-                        </div>
-                        
-                        <div class="glass-effect p-6 rounded-2xl transform hover:scale-105 transition-all duration-300 hover:bg-white/20">
-                            <div class="text-aurora-400 mb-4">
-                                <svg class="w-12 h-12 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                                </svg>
-                            </div>
-                            <h3 class="text-lg font-semibold text-white mb-2">Experiencia Única</h3>
-                            <p class="text-white/70 text-sm">Interfaz moderna y fluida como una aurora</p>
-                        </div>
-                        
-                        <div class="glass-effect p-6 rounded-2xl transform hover:scale-105 transition-all duration-300 hover:bg-white/20">
-                            <div class="text-aurora-400 mb-4">
-                                <svg class="w-12 h-12 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
-                                </svg>
-                            </div>
-                            <h3 class="text-lg font-semibold text-white mb-2">Seguridad Total</h3>
-                            <p class="text-white/70 text-sm">Protección completa de tus datos</p>
-                        </div>
-                    </div>
-
                     <!-- Action Buttons -->
-                    <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
                         @auth
-                            <a href="{{ url('/dashboard') }}" class="glow-button group bg-gradient-to-r from-aurora-500 via-aurora-600 to-aurora-700 hover:from-aurora-600 hover:via-aurora-700 hover:to-aurora-800 text-white font-semibold py-4 px-12 rounded-2xl text-lg shadow-2xl hover:shadow-aurora-500/50 transition-all duration-500 ease-in-out transform hover:scale-110 flex items-center space-x-3">
-                                <svg class="w-6 h-6 group-hover:rotate-12 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <a href="{{ url('/dashboard') }}" class="glow-button group bg-gradient-to-r from-aurora-500 to-aurora-600 hover:from-aurora-600 hover:to-aurora-700 text-white font-semibold py-3 px-8 rounded-xl text-lg shadow-lg transition-all duration-300 flex items-center space-x-3">
+                                <span>Ir al Dashboard</span>
+                                <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
                                 </svg>
-                                <span>Acceder al Dashboard</span>
                             </a>
                         @else
-                            <a href="{{ route('login') }}" class="glow-button group bg-gradient-to-r from-aurora-500 via-aurora-600 to-aurora-700 hover:from-aurora-600 hover:via-aurora-700 hover:to-aurora-800 text-white font-semibold py-4 px-12 rounded-2xl text-lg shadow-2xl hover:shadow-aurora-500/50 transition-all duration-500 ease-in-out transform hover:scale-110 flex items-center space-x-3">
-                                <svg class="w-6 h-6 group-hover:rotate-12 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path>
-                                </svg>
+                            <a href="{{ route('login') }}" class="glow-button group bg-gradient-to-r from-aurora-500 to-aurora-600 hover:from-aurora-600 hover:to-aurora-700 text-white font-semibold py-3 px-8 rounded-xl text-lg shadow-lg transition-all duration-300 flex items-center space-x-3">
                                 <span>Iniciar Sesión</span>
+                                <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14"></path>
+                                </svg>
                             </a>
                             
                             @if (Route::has('register'))
-                                <a href="{{ route('register') }}" class="group glass-effect hover:bg-white/20 text-white font-semibold py-4 px-12 rounded-2xl text-lg border-2 border-aurora-400/50 hover:border-aurora-400 transition-all duration-500 ease-in-out transform hover:scale-105 flex items-center space-x-3">
-                                    <svg class="w-6 h-6 group-hover:rotate-12 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path>
-                                    </svg>
-                                    <span>Crear Cuenta</span>
+                                <a href="{{ route('register') }}" class="glass-effect hover:bg-white/15 text-white font-semibold py-3 px-8 rounded-xl text-lg border border-aurora-400/50 hover:border-aurora-400 transition-all duration-300">
+                                    Crear Cuenta
                                 </a>
                             @endif
                         @endauth
+                    </div>
+                </div>
+
+                <!-- Features Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+                    <!-- Reservas Inteligentes -->
+                    <div class="glass-effect info-card p-6 rounded-xl fade-in" style="animation-delay: 0.2s;">
+                        <div class="text-aurora-400 mb-4">
+                            <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3a2 2 0 012-2h4a2 2 0 012 2v4m-6 0V7a2 2 0 012-2h4a2 2 0 012 2v0M8 7v8a2 2 0 002 2h4a2 2 0 002-2V7m-6 0h6"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold text-white mb-3">Reservas Inteligentes</h3>
+                        <p class="text-white/70">Sistema avanzado para gestionar reservas de salones de manera eficiente y automática.</p>
+                    </div>
+
+                    <!-- Gestión de Eventos -->
+                    <div class="glass-effect info-card p-6 rounded-xl fade-in" style="animation-delay: 0.4s;">
+                        <div class="text-aurora-400 mb-4">
+                            <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7v8a2 2 0 002 2h4a2 2 0 002-2V7a2 2 0 00-2-2H6a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V9a2 2 0 00-2-2h-2"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold text-white mb-3">Gestión de Eventos</h3>
+                        <p class="text-white/70">Administra todos los aspectos de tus eventos desde una plataforma centralizada.</p>
+                    </div>
+
+                    <!-- Reportes y Analytics -->
+                    <div class="glass-effect info-card p-6 rounded-xl fade-in" style="animation-delay: 0.6s;">
+                        <div class="text-aurora-400 mb-4">
+                            <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold text-white mb-3">Reportes y Analytics</h3>
+                        <p class="text-white/70">Obtén insights valiosos sobre el rendimiento de tus salones y eventos.</p>
+                    </div>
+
+                    <!-- Gestión de Usuarios -->
+                    <div class="glass-effect info-card p-6 rounded-xl fade-in" style="animation-delay: 0.8s;">
+                        <div class="text-aurora-400 mb-4">
+                            <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold text-white mb-3">Gestión de Usuarios</h3>
+                        <p class="text-white/70">Administra permisos, roles y accesos del personal y clientes del sistema.</p>
+                    </div>
+
+                    <!-- Sistema de Configuración -->
+                    <div class="glass-effect info-card p-6 rounded-xl fade-in" style="animation-delay: 1s;">
+                        <div class="text-aurora-400 mb-4">
+                            <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold text-white mb-3">Configuración Avanzada</h3>
+                        <p class="text-white/70">Personaliza parámetros del sistema, tarifas, horarios y configuraciones globales.</p>
+                    </div>
+
+                    <!-- Auditoría y Logs -->
+                    <div class="glass-effect info-card p-6 rounded-xl fade-in" style="animation-delay: 1.2s;">
+                        <div class="text-aurora-400 mb-4">
+                            <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold text-white mb-3">Auditoría y Seguridad</h3>
+                        <p class="text-white/70">Monitoreo de actividades, logs del sistema y control de seguridad avanzado.</p>
+                    </div>
+                </div>
+
+                <!-- Admin Panel Overview -->
+                <div class="glass-effect p-8 rounded-2xl text-center fade-in" style="animation-delay: 1.4s;">
+                    <h2 class="text-3xl font-display font-bold gradient-text mb-6">
+                        Panel de Administración
+                    </h2>
+                    <p class="text-white/70 mb-8 max-w-2xl mx-auto">
+                        Sistema interno para la gestión completa de salones, reservas y eventos. 
+                        Herramientas profesionales para administradores y personal autorizado.
+                    </p>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                        <div>
+                            <div class="text-3xl font-bold text-aurora-300 mb-2">
+                                <svg class="w-8 h-8 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5"></path>
+                                </svg>
+                            </div>
+                            <div class="text-white/70">Gestión de Salones</div>
+                        </div>
+                        <div>
+                            <div class="text-3xl font-bold text-aurora-300 mb-2">
+                                <svg class="w-8 h-8 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3a2 2 0 012-2h4a2 2 0 012 2v4m-6 0V7a2 2 0 012-2h4a2 2 0 012 2v0M8 7v8a2 2 0 002 2h4a2 2 0 002-2V7"></path>
+                                </svg>
+                            </div>
+                            <div class="text-white/70">Control de Reservas</div>
+                        </div>
+                        <div>
+                            <div class="text-3xl font-bold text-aurora-300 mb-2">
+                                <svg class="w-8 h-8 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                                </svg>
+                            </div>
+                            <div class="text-white/70">Administrar Usuarios</div>
+                        </div>
+                        <div>
+                            <div class="text-3xl font-bold text-aurora-300 mb-2">
+                                <svg class="w-8 h-8 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10"></path>
+                                </svg>
+                            </div>
+                            <div class="text-white/70">Reportes Avanzados</div>
+                        </div>
                     </div>
                 </div>
             </div>
         </main>
 
         <!-- Footer -->
-        <footer class="glass-effect border-t border-white/20 mt-auto relative z-10">
-            <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8 text-center">
-                <div class="flex justify-center items-center space-x-4 mb-4">
-                    <div class="flex space-x-2">
-                        <div class="w-3 h-3 bg-aurora-600 rounded-full animate-pulse" style="animation-delay: 0.4s;"></div>
-                    </div>
+        <footer class="glass-effect border-t border-white/20 mt-16 relative z-10">
+            <div class="max-w-7xl mx-auto py-6 px-4 text-center">
+                <div class="flex justify-center items-center space-x-2 mb-3">
+                    <div class="w-2 h-2 bg-aurora-500 rounded-full animate-pulse"></div>
+                    <div class="w-2 h-2 bg-aurora-400 rounded-full animate-pulse" style="animation-delay: 0.2s;"></div>
+                    <div class="w-2 h-2 bg-aurora-300 rounded-full animate-pulse" style="animation-delay: 0.4s;"></div>
                 </div>
-                <p class="text-white/60 text-sm mb-2">
-                    &copy; {{ date('Y') }} Eventos Aurora. Sistema de Gestión de Eventos Premium.
+                <p class="text-white/60 text-sm mb-1">
+                    &copy; {{ date('Y') }} Eventos Aurora. Sistema de Gestión de Eventos.
                 </p>
-                <p class="text-aurora-300/80 text-xs font-medium">
-                    ✨ Creado con magia por Los Degradados ✨
+                <p class="text-aurora-300/80 text-xs">
+                    Creado con dedicación por Los Degradados
                 </p>
             </div>
         </footer>
@@ -426,92 +487,41 @@
             // Mobile menu toggle
             const mobileMenuButton = document.getElementById('mobile-menu-button');
             const mobileMenu = document.getElementById('mobile-menu');
+            
             if (mobileMenuButton && mobileMenu) {
                 mobileMenuButton.addEventListener('click', () => {
-                    const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
-                    mobileMenuButton.setAttribute('aria-expanded', !isExpanded);
                     mobileMenu.classList.toggle('hidden');
-                    mobileMenuButton.querySelectorAll('svg').forEach(svg => svg.classList.toggle('hidden'));
                 });
             }
 
-            // Dynamic particle creation
+            // Agregar partículas dinámicamente
             function createParticle() {
                 const particle = document.createElement('div');
                 particle.className = 'particle';
                 particle.style.left = Math.random() * 100 + '%';
                 particle.style.animationDelay = Math.random() * 2 + 's';
-                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
-                document.querySelector('.fixed.inset-0').appendChild(particle);
+                particle.style.animationDuration = (Math.random() * 8 + 8) + 's';
+                document.querySelector('.particles').appendChild(particle);
                 
                 setTimeout(() => {
                     particle.remove();
-                }, 15000);
+                }, 12000);
             }
 
-            // Create particles periodically
-            setInterval(createParticle, 3000);
+            // Crear partículas cada 4 segundos
+            setInterval(createParticle, 4000);
 
-            // Add smooth scrolling for anchor links
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const target = document.querySelector(this.getAttribute('href'));
-                    if (target) {
-                        target.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
-                    }
-                });
-            });
-
-            // Add intersection observer for animations
-            const observerOptions = {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
-            };
-
+            // Animación de entrada para elementos
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        entry.target.classList.add('animate-fadeInUp');
+                        entry.target.style.animationPlayState = 'running';
                     }
                 });
-            }, observerOptions);
-
-            // Observe all feature cards
-            document.querySelectorAll('.glass-effect').forEach(card => {
-                observer.observe(card);
             });
 
-            // Add some extra sparkle effects
-            function addSparkle(event) {
-                const sparkle = document.createElement('div');
-                sparkle.className = 'absolute w-2 h-2 bg-aurora-400 rounded-full pointer-events-none animate-ping';
-                sparkle.style.left = event.clientX + 'px';
-                sparkle.style.top = event.clientY + 'px';
-                sparkle.style.transform = 'translate(-50%, -50%)';
-                document.body.appendChild(sparkle);
-                
-                setTimeout(() => {
-                    sparkle.remove();
-                }, 1000);
-            }
-
-            // Add sparkle effect to buttons on hover
-            document.querySelectorAll('.glow-button').forEach(button => {
-                button.addEventListener('mouseenter', (e) => {
-                    const rect = button.getBoundingClientRect();
-                    for (let i = 0; i < 3; i++) {
-                        setTimeout(() => {
-                            addSparkle({
-                                clientX: rect.left + Math.random() * rect.width,
-                                clientY: rect.top + Math.random() * rect.height
-                            });
-                        }, i * 100);
-                    }
-                });
+            document.querySelectorAll('.fade-in').forEach(el => {
+                observer.observe(el);
             });
         </script>
 

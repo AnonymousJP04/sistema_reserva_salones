@@ -187,6 +187,22 @@ body, html {
   backdrop-filter: blur(10px);
   box-shadow: 0 0 12px #ef4444bb;
   animation: alert-pulse 5s ease-in-out infinite;
+<<<<<<< HEAD
+}
+
+@keyframes alert-pulse {
+  0%, 100% {
+    opacity: 1;
+    box-shadow: 0 0 12px #ef4444bb;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.85;
+    box-shadow: 0 0 25px #ef4444ee;
+    transform: scale(1.05);
+  }
+=======
+>>>>>>> 14e7957c7768c4f43d03484667cfd7e42c2715fb
 }
 
 @keyframes alert-pulse {
