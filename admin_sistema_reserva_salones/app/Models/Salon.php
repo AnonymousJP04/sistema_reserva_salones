@@ -28,7 +28,8 @@ class Salon extends Model
         'area_metros',
         'imagen_principal',
         'galeria_imagenes',
-        'estado'
+        'estado',
+        'slug'
     ];
 
     protected $casts = [
@@ -39,21 +40,31 @@ class Salon extends Model
         'tiene_cocina' => 'boolean'
     ];
 
-    // Relación: Un salón tiene muchas tarifas
     public function tarifas()
     {
         return $this->hasMany(Tarifa::class, 'salon_id');
     }
 
-    // Relación: Un salón tiene muchos mantenimientos
     public function mantenimientos()
     {
         return $this->hasMany(Mantenimiento::class, 'salon_id');
     }
 
-    // Relación: Un salón tiene muchas reservas
     public function reservas()
     {
         return $this->hasMany(Reserva::class, 'salon_id');
     }
+
+    // Buscar por slug en las rutas
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
+    // Accesor para asegurar que galeria_imagenes siempre sea array
+    public function getGaleriaImagenesAttribute($value)
+    {
+        return $value ? json_decode($value, true) : [];
+    }
+
 }
