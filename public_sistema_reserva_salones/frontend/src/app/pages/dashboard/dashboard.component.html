@@ -1,89 +1,3 @@
-<<<<<<< HEAD
-<div class="container-fluid mt-4 dashboard-container aurora-background">
-
-  <!-- Header -->
-  <div class="d-flex justify-content-between align-items-center mb-4">
-    <h3 class="text-white">
-      <i class="bi bi-building me-2 text-success"></i>
-      Dashboard de Salones
-    </h3>
-    <div class="d-flex align-items-center">
-
-      <button class="btn btn-outline-light btn-sm me-3" routerLink="/mis-reservas">
-        <i class="bi bi-person-check"></i> Mis Reservas
-      </button>
-
-      <span class="badge bg-info me-3">
-        <i class="bi bi-list-ul me-1"></i>
-        {{ salonesFiltrados.length }} salones encontrados
-      </span>
-
-      <button class="btn btn-outline-danger btn-sm" (click)="limpiarFiltros()">
-        <i class="bi bi-x-circle me-1"></i>
-        Limpiar Filtros
-      </button>
-    </div>
-  </div>
-
-  <!-- Filtros combinados -->
-  <div class="card aurora-card mb-4 shadow-lg">
-    <div class="card-header bg-light bg-opacity-25">
-      <h5 class="mb-0 text-white">
-        <i class="bi bi-funnel me-2 text-success"></i>Filtros de Búsqueda
-      </h5>
-    </div>
-    <div class="card-body">
-      <div class="row g-3">
-        <div class="col-md-6 col-lg-3">
-          <label class="form-label text-white">
-            <i class="bi bi-search me-1"></i>Buscar
-          </label>
-          <input type="text" class="form-control border-success bg-dark text-white"
-            placeholder="Nombre, descripción, ubicación..." [(ngModel)]="palabraClave"
-            (input)="aplicarFiltros()">
-        </div>
-
-        <div class="col-md-6 col-lg-2">
-          <label class="form-label text-white">
-            <i class="bi bi-tags me-1"></i>Tipo de Salón
-          </label>
-          <select class="form-select border-success bg-dark text-white" [(ngModel)]="tipoSeleccionado"
-            (change)="aplicarFiltros()">
-            <option value="">Todos los tipos</option>
-            <option *ngFor="let tipo of tiposSalon" [value]="tipo">{{ tipo }}</option>
-          </select>
-        </div>
-
-        <div class="col-md-6 col-lg-2">
-          <label class="form-label text-white">
-            <i class="bi bi-clock me-1"></i>Horario
-          </label>
-          <select class="form-select border-success bg-dark text-white" [(ngModel)]="horarioSeleccionado"
-            (change)="aplicarFiltros()">
-            <option value="">Todos los horarios</option>
-            <option *ngFor="let horario of horariosDisponibles" [value]="horario">{{ horario }}</option>
-          </select>
-        </div>
-
-        <div class="col-md-6 col-lg-3">
-          <label class="form-label text-white">
-            <i class="bi bi-calendar me-1"></i>Fecha Disponible
-          </label>
-          <input type="date" class="form-control border-success bg-dark text-white" [(ngModel)]="fechaSeleccionada"
-            (change)="aplicarFiltros()">
-        </div>
-
-        <div class="col-md-12 col-lg-2">
-          <label class="form-label text-white">
-            <i class="bi bi-check-circle me-1"></i>Disponibilidad
-          </label>
-          <div class="form-check">
-            <input class="form-check-input border-success" type="checkbox" id="soloDisponibles"
-              [(ngModel)]="soloDisponibles" (change)="aplicarFiltros()">
-            <label class="form-check-label text-white" for="soloDisponibles">
-              Solo disponibles
-            </label>
-=======
 <!-- Container principal del dashboard -->
 <div class="aurora-dashboard">
   
@@ -91,13 +5,15 @@
   <header class="aurora-header">
     <div class="container-fluid">
       <div class="row align-items-center">
+        <!-- Brand Section -->
         <div class="col-md-6">
           <div class="aurora-brand">
             <i class="bi bi-lightning-charge-fill aurora-brand-icon"></i>
             <h1 class="aurora-brand-title">Eventos Aurora</h1>
->>>>>>> 2f5f380c0c8ebf0c4c913c7a06afaaa4ef391c36
           </div>
         </div>
+        
+        <!-- Navigation Section -->
         <div class="col-md-6">
           <nav class="aurora-nav ms-auto">
             <div class="aurora-nav-container">
@@ -109,6 +25,7 @@
                 <span>Salones</span>
                 <div class="aurora-nav-indicator"></div>
               </button>
+
               <button 
                 class="aurora-nav-btn" 
                 [class.active]="vistaActiva === 'perfil'"
@@ -117,6 +34,7 @@
                 <span>Perfil</span>
                 <div class="aurora-nav-indicator"></div>
               </button>
+              
               <button 
                 class="aurora-nav-btn" 
                 [class.active]="vistaCalendario"
@@ -125,6 +43,16 @@
                 <span>Calendario</span>
                 <div class="aurora-nav-indicator"></div>
               </button>
+
+              <button 
+                class="aurora-nav-btn" 
+                [class.active]="vistaCalendario"
+                (click)="toggleCalendario()">
+                <i class="bi bi-calendar-event"></i>
+                <span>Mis Reservas</span>
+                <div class="aurora-nav-indicator"></div>
+              </button>
+
             </div>
           </nav>
         </div>
@@ -132,29 +60,12 @@
     </div>
   </header>
 
-<<<<<<< HEAD
-  <div *ngIf="salonesFiltrados.length === 0" class="alert alert-warning d-flex align-items-center">
-    <i class="bi bi-exclamation-triangle-fill me-2"></i>
-    No se encontraron salones que coincidan con los filtros seleccionados.
-  </div>
-
-  <!-- Vista de Tarjetas -->
-  <div *ngIf="!vistaCalendario">
-    <app-salones-grid [salones]="salonesFiltrados" (reservar)="reservarSalon($event)"></app-salones-grid>
-  </div>
-
-  <!-- Vista de Calendario -->
-  <div *ngIf="vistaCalendario" class="mt-4">
-    <app-calendario></app-calendario>
-  </div>
-</div>
-=======
   <!-- Main Content -->
   <main class="aurora-main">
     <div class="container-fluid">
       
       <!-- Vista Dashboard -->
-      <ng-container *ngIf="vistaActiva === 'dashboard'">
+      <div *ngIf="vistaActiva === 'dashboard' && !vistaCalendario" class="aurora-view">
         
         <!-- Header de la sección -->
         <div class="aurora-section-header mb-5">
@@ -191,7 +102,7 @@
         </div>
 
         <!-- Estado de Error -->
-        <div *ngIf="error" class="aurora-error-container">
+        <div *ngIf="error && !cargando" class="aurora-error-container">
           <div class="aurora-error-card">
             <div class="aurora-error-icon">
               <i class="bi bi-exclamation-triangle-fill"></i>
@@ -206,7 +117,7 @@
         </div>
 
         <!-- Estado Vacío -->
-        <div *ngIf="!cargando && !error && salones.length === 0" class="aurora-empty-container">
+        <div *ngIf="!cargando && !error && salonesFiltrados.length === 0" class="aurora-empty-container">
           <div class="aurora-empty-card">
             <div class="aurora-empty-icon">
               <i class="bi bi-building-x"></i>
@@ -221,21 +132,19 @@
         </div>
 
         <!-- Lista de Salones -->
-        <div *ngIf="!cargando && salones.length > 0" class="aurora-salones-grid">
+        <div *ngIf="!cargando && !error && salonesFiltrados.length > 0" class="aurora-salones-grid">
           <div class="row g-4">
-            <div 
-              *ngFor="let salon of salones; trackBy: trackBySalonId" 
-              class="col-12 col-md-6 col-lg-4 col-xl-3">
-              
+            
+            <!-- Tarjeta de salón dinámico -->
+            <div *ngFor="let salon of salonesFiltrados; trackBy: trackBySalonId" class="col-12 col-md-6 col-lg-4 col-xl-3">
               <div class="aurora-salon-card">
                 <!-- Imagen del salón -->
                 <div class="aurora-salon-image-container">
-                  <img 
-                    *ngIf="salon.imagen_principal; else placeholderImage"
-                    [src]="'http://localhost:8000/storage/' + salon.imagen_principal"
-                    [alt]="'Imagen del salón ' + salon.nombre"
-                    class="aurora-salon-image"
-                    loading="lazy" />
+                  <img *ngIf="salon.imagen_principal; else placeholderImage" 
+                       [src]="'http://localhost:8000/storage/' + salon.imagen_principal" 
+                       [alt]="salon.nombre" 
+                       class="aurora-salon-image" 
+                       loading="lazy" />
                   
                   <ng-template #placeholderImage>
                     <div class="aurora-salon-placeholder">
@@ -243,20 +152,25 @@
                       <span>Sin imagen</span>
                     </div>
                   </ng-template>
-
+                  
                   <!-- Badge de disponibilidad -->
-                  <div class="aurora-salon-badge">
-                    <i class="bi bi-check-circle-fill"></i>
-                    <span>Disponible</span>
+                  <div class="aurora-salon-badge" [ngClass]="getEstadoClase(salon)">
+                    <i class="bi bi-check-circle-fill" *ngIf="salon.disponible"></i>
+                    <i class="bi bi-x-circle-fill" *ngIf="!salon.disponible"></i>
+                    <span>{{ getEstadoTexto(salon) }}</span>
                   </div>
 
                   <!-- Overlay con acciones -->
                   <div class="aurora-salon-overlay">
                     <div class="aurora-salon-actions">
-                      <button class="aurora-action-btn aurora-action-view" title="Ver detalles">
+                      <button class="aurora-action-btn aurora-action-view" 
+                              (click)="verDetalles(salon.id)" 
+                              title="Ver detalles">
                         <i class="bi bi-eye"></i>
                       </button>
-                      <button class="aurora-action-btn aurora-action-book" title="Reservar">
+                      <button class="aurora-action-btn aurora-action-book" 
+                              (click)="reservarSalon(salon.id)" 
+                              title="Reservar">
                         <i class="bi bi-calendar-plus"></i>
                       </button>
                       <button class="aurora-action-btn aurora-action-favorite" title="Favoritos">
@@ -272,7 +186,7 @@
                     <h3 class="aurora-salon-title">{{ salon.nombre }}</h3>
                     <div class="aurora-salon-rating">
                       <i class="bi bi-star-fill"></i>
-                      <span>4.8</span>
+                      <span>4.5</span>
                     </div>
                   </div>
 
@@ -286,7 +200,7 @@
                     
                     <div class="aurora-detail-item">
                       <i class="bi bi-people-fill"></i>
-                      <span>{{ salon.capacidad_minima }} - {{ salon.capacidad_maxima }} personas</span>
+                      <span>{{ salon.capacidad_minima }} - {{ salon.capacidad_minima }} personas</span>
                     </div>
                     
                     <div *ngIf="salon.precio_base" class="aurora-detail-item aurora-price">
@@ -298,11 +212,11 @@
 
                   <!-- Footer de la tarjeta -->
                   <div class="aurora-salon-footer">
-                    <button class="aurora-btn-outline-sm">
+                    <button class="aurora-btn-outline-sm" (click)="verDetalles(salon.id)">
                       <i class="bi bi-info-circle"></i>
                       <span>Ver más</span>
                     </button>
-                    <button class="aurora-btn-primary-sm">
+                    <button class="aurora-btn-primary-sm" (click)="reservarSalon(salon.id)">
                       <i class="bi bi-calendar-check"></i>
                       <span>Reservar</span>
                     </button>
@@ -313,14 +227,27 @@
                 <div class="aurora-card-glow"></div>
               </div>
             </div>
+
           </div>
         </div>
 
-      </ng-container>
+      </div>
 
-      <!-- Componentes adicionales -->
-      <app-perfil *ngIf="vistaActiva === 'perfil'" class="aurora-component-wrapper"></app-perfil>
-      <app-calendario *ngIf="vistaCalendario" class="aurora-component-wrapper"></app-calendario>
+      <!-- Vista Perfil -->
+      <div *ngIf="vistaActiva === 'perfil'" class="aurora-view">
+        <div class="aurora-component-wrapper">
+          <h2>Perfil de Usuario</h2>
+          <p>Aquí va el contenido del perfil...</p>
+        </div>
+      </div>
+
+      <!-- Vista Calendario -->
+      <div *ngIf="vistaCalendario" class="aurora-view">
+        <div class="aurora-component-wrapper">
+          <h2>Calendario de Eventos</h2>
+          <p>Aquí va el contenido del calendario...</p>
+        </div>
+      </div>
 
     </div>
   </main>
@@ -335,4 +262,3 @@
   </div>
 
 </div>
->>>>>>> 2f5f380c0c8ebf0c4c913c7a06afaaa4ef391c36

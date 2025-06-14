@@ -1,58 +1,6 @@
-<<<<<<< HEAD
-/* Fondo animado para dashboard */
-.dashboard-container {
-  background: linear-gradient(270deg, #1f2e26, #2e3a32, #1f2e26, #2e3a32);
-  background-size: 800% 800%;
-  animation: auroraBackground 30s ease infinite;
-  backdrop-filter: blur(8px);
-  min-height: 100vh;
-  padding: 24px;
-  color: #d0e0d0;
-}
-
-/* Animación del fondo */
-@keyframes auroraBackground {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-/* Card Styles */
-.card, .salon-card {
-  background: rgba(57, 74, 66, 0.6);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(100, 150, 100, 0.2);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-  border-radius: 12px;
-  color: #d0e0d0;
-  transition: all 0.4s ease;
-}
-
-.card:hover, .salon-card:hover {
-  transform: translateY(-6px) scale(1.01);
-  box-shadow: 0 12px 35px rgba(34, 197, 94, 0.25);
-}
-
-/* Salon Cards specifics */
-.salon-card {
-  overflow: hidden;
-  background: rgba(64, 83, 74, 0.6);
-  color: #d3decf;
-  border-radius: 15px;
-  animation: aurora-fade 0.6s ease-out forwards;
-}
-
-.salon-card:hover .salon-imagen {
-  transform: scale(1.05);
-  filter: brightness(1);
-=======
-/* Variables del tema Aurora Dashboard */
+/* ========================================
+   VARIABLES DEL TEMA AURORA DASHBOARD
+======================================== */
 :root {
     --aurora-primary: #00ff88;
     --aurora-secondary: #0066ff;
@@ -78,7 +26,24 @@
     --aurora-error: #ef4444;
 }
 
-/* Contenedor principal del dashboard */
+/* ========================================
+   CONFIGURACIÓN BASE
+======================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    height: 100%;
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* ========================================
+   CONTENEDOR PRINCIPAL DEL DASHBOARD
+======================================== */
 .aurora-dashboard {
     min-height: 100vh;
     background: linear-gradient(135deg, 
@@ -88,12 +53,13 @@
         #1a1a2e 75%, 
         var(--aurora-dark) 100%);
     color: var(--aurora-text);
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     position: relative;
     overflow-x: hidden;
 }
 
-/* Partículas de fondo */
+/* ========================================
+   PARTÍCULAS DE FONDO
+======================================== */
 .aurora-bg-particles {
     position: fixed;
     top: 0;
@@ -175,7 +141,9 @@
     }
 }
 
-/* Header */
+/* ========================================
+   HEADER Y BRAND
+======================================== */
 .aurora-header {
     background: var(--aurora-glass);
     backdrop-filter: blur(20px);
@@ -200,8 +168,14 @@
 }
 
 @keyframes brandPulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.1); }
+    0%, 100% { 
+        transform: scale(1);
+        filter: drop-shadow(0 0 10px var(--aurora-primary));
+    }
+    50% { 
+        transform: scale(1.1);
+        filter: drop-shadow(0 0 20px var(--aurora-primary));
+    }
 }
 
 .aurora-brand-title {
@@ -214,7 +188,9 @@
     background-clip: text;
 }
 
-/* Navegación */
+/* ========================================
+   NAVEGACIÓN
+======================================== */
 .aurora-nav-container {
     display: flex;
     gap: 0.5rem;
@@ -222,6 +198,7 @@
     padding: 0.5rem;
     border-radius: 16px;
     border: 1px solid var(--aurora-border);
+    backdrop-filter: blur(10px);
 }
 
 .aurora-nav-btn {
@@ -237,6 +214,7 @@
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
+    cursor: pointer;
 }
 
 .aurora-nav-btn i {
@@ -252,6 +230,7 @@
 .aurora-nav-btn:hover:not(.active) {
     background: var(--aurora-glass-strong);
     color: var(--aurora-text);
+    transform: translateY(-1px);
 }
 
 .aurora-nav-indicator {
@@ -269,14 +248,33 @@
     transform: scaleX(1);
 }
 
-/* Main Content */
+/* ========================================
+   MAIN CONTENT
+======================================== */
 .aurora-main {
     padding: 2rem 0;
     position: relative;
     z-index: 1;
 }
 
-/* Section Header */
+.aurora-view {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ========================================
+   SECTION HEADER
+======================================== */
 .aurora-section-header {
     margin-bottom: 2rem;
 }
@@ -294,6 +292,7 @@
     padding: 1rem;
     border-radius: 16px;
     border: 1px solid var(--aurora-border);
+    backdrop-filter: blur(10px);
 }
 
 .aurora-title-main {
@@ -320,6 +319,7 @@
     gap: 0.5rem;
     transition: all 0.3s ease;
     backdrop-filter: blur(10px);
+    cursor: pointer;
 }
 
 .aurora-btn-refresh:hover {
@@ -327,9 +327,12 @@
     border-color: var(--aurora-primary);
     color: var(--aurora-primary);
     transform: translateY(-2px);
+    box-shadow: var(--aurora-shadow-md);
 }
 
-/* Estados de carga, error y vacío */
+/* ========================================
+   ESTADOS DE CARGA, ERROR Y VACÍO
+======================================== */
 .aurora-loading-container,
 .aurora-error-container,
 .aurora-empty-container {
@@ -351,9 +354,12 @@
     text-align: center;
     max-width: 400px;
     width: 100%;
+    box-shadow: var(--aurora-shadow);
 }
 
-/* Spinner de carga */
+/* ========================================
+   SPINNER DE CARGA
+======================================== */
 .aurora-loading-spinner {
     position: relative;
     width: 80px;
@@ -405,9 +411,12 @@
 .aurora-empty-message {
     color: var(--aurora-text-muted);
     margin-bottom: 2rem;
+    line-height: 1.5;
 }
 
-/* Iconos de estados */
+/* ========================================
+   ICONOS DE ESTADOS
+======================================== */
 .aurora-error-icon,
 .aurora-empty-icon {
     font-size: 4rem;
@@ -422,7 +431,9 @@
     color: var(--aurora-text-muted);
 }
 
-/* Botones de retry */
+/* ========================================
+   BOTONES DE RETRY
+======================================== */
 .aurora-btn-retry {
     background: linear-gradient(135deg, var(--aurora-primary), var(--aurora-secondary));
     border: none;
@@ -436,6 +447,7 @@
     margin: 0 auto;
     transition: all 0.3s ease;
     box-shadow: 0 4px 15px rgba(0, 255, 136, 0.3);
+    cursor: pointer;
 }
 
 .aurora-btn-retry:hover {
@@ -443,23 +455,16 @@
     box-shadow: 0 8px 25px rgba(0, 255, 136, 0.4);
 }
 
-/* Grid de salones */
+/* ========================================
+   GRID DE SALONES
+======================================== */
 .aurora-salones-grid {
     animation: fadeInUp 0.6s ease-out;
 }
 
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* Tarjetas de salones */
+/* ========================================
+   TARJETAS DE SALONES
+======================================== */
 .aurora-salon-card {
     background: var(--aurora-glass);
     backdrop-filter: blur(20px);
@@ -471,6 +476,7 @@
     height: 100%;
     display: flex;
     flex-direction: column;
+    box-shadow: var(--aurora-shadow);
 }
 
 .aurora-salon-card:hover {
@@ -497,196 +503,17 @@
     transition: opacity 0.3s ease;
     pointer-events: none;
     border-radius: 20px;
->>>>>>> 14e7957c7768c4f43d03484667cfd7e42c2715fb
 }
 
-/* Imagen del salón */
+/* ========================================
+   IMAGEN DEL SALÓN
+======================================== */
 .aurora-salon-image-container {
     position: relative;
     height: 200px;
     overflow: hidden;
 }
 
-<<<<<<< HEAD
-.salon-imagen {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.3s ease, filter 0.3s ease;
-  filter: brightness(0.85);
-}
-
-/* Overlay badge */
-.card-img-overlay-badge {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  z-index: 2;
-}
-
-/* Header del salón */
-.salon-header {
-  border-bottom: 1px solid rgba(90, 106, 90, 0.4);
-  padding-bottom: 10px;
-  color: #c3d1c3;
-}
-
-/* Información del salón */
-.salon-info p.card-text {
-  margin-bottom: 8px;
-  font-size: 0.9rem;
-  color: #b8c8b8;
-}
-
-/* Características y horarios */
-.caracteristicas .badge,
-.horarios .badge {
-  font-size: 0.75rem;
-  padding: 4px 8px;
-  margin: 2px;
-  background-color: transparent;
-  color: #a0b2a0;
-  border: 1px solid #7a8b7a;
-  border-radius: 12px;
-}
-
-/* Colores de badges específicos */
-.bg-outline-primary {
-  color: #22c55e; /* verde esmeralda */
-  border: 1px solid #22c55e;
-  background-color: transparent;
-}
-
-/* Filtros */
-.card-header {
-  border-bottom: 2px solid rgba(85, 108, 85, 0.5);
-  background: linear-gradient(135deg, rgba(57, 74, 66, 0.7) 0%, rgba(64, 83, 74, 0.7) 100%);
-  color: #c3d1c3;
-}
-
-.form-label {
-  font-weight: 600;
-  color: #b8c8b8;
-  font-size: 0.9rem;
-}
-
-.form-control,
-.form-select {
-  background: rgba(46, 58, 50, 0.6);
-  backdrop-filter: blur(6px);
-  border: 1.5px solid #22c55e;
-  color: #e6f1e6;
-  border-radius: 8px;
-  transition: all 0.3s ease;
-}
-
-.form-control::placeholder,
-.form-select option {
-  color: #8f9a8f;
-}
-
-.form-control:focus,
-.form-select:focus {
-  box-shadow: 0 0 8px rgba(34, 197, 94, 0.4);
-  background-color: rgba(46, 90, 66, 0.8);
-  border-color: #16a34a;
-  color: #e6f1e6;
-  transform: translateY(-1px);
-}
-
-/* Badges */
-.badge {
-  background: rgba(34, 197, 94, 0.1);
-  border: 1px solid #22c55e;
-  color: #d0e0d0;
-  font-size: 0.85rem;
-  padding: 6px 12px;
-  border-radius: 14px;
-  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(6px);
-}
-
-.badge.bg-success {
-  background: #22c55e !important;
-  color: white !important;
-}
-
-.badge.bg-danger {
-  background: #b91c1c !important;
-  color: #ffeaea !important;
-}
-
-.badge.bg-info {
-  font-size: 0.9rem;
-  padding: 8px 12px;
-}
-
-/* Botones */
-.btn {
-  background: linear-gradient(135deg, #22c55e, #047857);
-  border: none;
-  color: #ffffff;
-  font-weight: 600;
-  border-radius: 10px;
-  padding: 0.6rem 1.2rem;
-  box-shadow: 0 4px 14px rgba(34, 197, 94, 0.3);
-  transition: all 0.3s ease;
-}
-
-.btn:hover {
-  background: linear-gradient(135deg, #16a34a, #065f46);
-  transform: translateY(-2px);
-  color: #e6f1e6;
-  box-shadow: 0 6px 18px rgba(22, 163, 74, 0.6);
-}
-
-.btn-group .btn {
-  border-radius: 0;
-}
-
-.btn-group .btn:first-child {
-  border-radius: 10px 0 0 10px;
-}
-
-.btn-group .btn:last-child {
-  border-radius: 0 10px 10px 0;
-}
-
-.btn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-  transform: none !important;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .dashboard-container {
-    padding: 10px;
-  }
-  
-  .card-img-top-container {
-    height: 160px;
-  }
-  
-  .btn-group {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .btn-group .btn {
-    border-radius: 10px !important;
-    margin-bottom: 5px;
-  }
-}
-
-/* Animaciones */
-@keyframes aurora-fade {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-=======
 .aurora-salon-image {
     width: 100%;
     height: 100%;
@@ -714,7 +541,9 @@
     margin-bottom: 0.5rem;
 }
 
-/* Badge de disponibilidad */
+/* ========================================
+   BADGE DE DISPONIBILIDAD
+======================================== */
 .aurora-salon-badge {
     position: absolute;
     top: 1rem;
@@ -729,9 +558,12 @@
     align-items: center;
     gap: 0.25rem;
     box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3);
+    backdrop-filter: blur(10px);
 }
 
-/* Overlay con acciones */
+/* ========================================
+   OVERLAY CON ACCIONES
+======================================== */
 .aurora-salon-overlay {
     position: absolute;
     top: 0;
@@ -747,14 +579,9 @@
 }
 
 .aurora-salon-card:hover .aurora-salon-overlay {
->>>>>>> 14e7957c7768c4f43d03484667cfd7e42c2715fb
     opacity: 1;
 }
 
-<<<<<<< HEAD
-.salon-card {
-  animation: aurora-fade 0.6s ease-out forwards;
-=======
 .aurora-salon-actions {
     display: flex;
     gap: 1rem;
@@ -771,12 +598,12 @@
     font-size: 1.2rem;
     transition: all 0.3s ease;
     backdrop-filter: blur(10px);
+    cursor: pointer;
 }
 
 .aurora-action-view {
     background: var(--aurora-glass-strong);
     color: var(--aurora-text);
->>>>>>> 14e7957c7768c4f43d03484667cfd7e42c2715fb
 }
 
 .aurora-action-book {
@@ -789,19 +616,13 @@
     color: var(--aurora-accent);
 }
 
-<<<<<<< HEAD
-/* Mensaje de no resultados */
-.alert-warning {
-  border-radius: 12px;
-  border: none;
-  background: linear-gradient(135deg, #4a4a21 0%, #70704f 100%);
-  color: #c3c389;
-=======
 .aurora-action-btn:hover {
     transform: scale(1.1);
 }
 
-/* Contenido de la tarjeta */
+/* ========================================
+   CONTENIDO DE LA TARJETA
+======================================== */
 .aurora-salon-content {
     padding: 1.5rem;
     flex: 1;
@@ -844,7 +665,9 @@
     overflow: hidden;
 }
 
-/* Detalles del salón */
+/* ========================================
+   DETALLES DEL SALÓN
+======================================== */
 .aurora-salon-details {
     flex: 1;
     margin-bottom: 1.5rem;
@@ -862,6 +685,7 @@
 .aurora-detail-item i {
     color: var(--aurora-primary);
     width: 16px;
+    flex-shrink: 0;
 }
 
 .aurora-detail-item.aurora-price {
@@ -877,9 +701,12 @@
 .aurora-price-period {
     color: var(--aurora-text-muted);
     font-weight: 400;
+    margin-left: 0.25rem;
 }
 
-/* Footer de la tarjeta */
+/* ========================================
+   FOOTER DE LA TARJETA
+======================================== */
 .aurora-salon-footer {
     display: flex;
     gap: 0.75rem;
@@ -898,6 +725,7 @@
     justify-content: center;
     gap: 0.5rem;
     transition: all 0.3s ease;
+    cursor: pointer;
 }
 
 .aurora-btn-outline-sm {
@@ -924,5 +752,182 @@
     border-color: var(--aurora-primary-dark);
     transform: translateY(-1px);
     box-shadow: var(--aurora-shadow-md);
->>>>>>> 14e7957c7768c4f43d03484667cfd7e42c2715fb
+}
+
+/* ========================================
+   COMPONENTES ADICIONALES
+======================================== */
+.aurora-component-wrapper {
+    background: var(--aurora-glass);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--aurora-border);
+    border-radius: 20px;
+    padding: 2rem;
+    margin: 2rem 0;
+    box-shadow: var(--aurora-shadow);
+}
+
+.aurora-component-wrapper h2 {
+    color: var(--aurora-text);
+    margin-bottom: 1rem;
+}
+
+.aurora-component-wrapper p {
+    color: var(--aurora-text-muted);
+    line-height: 1.6;
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+======================================== */
+@media (max-width: 992px) {
+    .aurora-page-title {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+    
+    .aurora-title-icon {
+        font-size: 2rem;
+        padding: 0.75rem;
+    }
+    
+    .aurora-title-main {
+        font-size: 1.75rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .aurora-brand {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+    
+    .aurora-brand-title {
+        font-size: 1.25rem;
+    }
+    
+    .aurora-nav-container {
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+    
+    .aurora-nav-btn {
+        padding: 0.75rem 1rem;
+        justify-content: flex-start;
+    }
+    
+    .aurora-main {
+        padding: 1rem 0;
+    }
+    
+    .aurora-section-header .row {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .aurora-section-header .col-md-4 {
+        text-align: left !important;
+    }
+    
+    .aurora-salon-image-container {
+        height: 180px;
+    }
+    
+    .aurora-salon-actions {
+        gap: 0.75rem;
+    }
+    
+    .aurora-action-btn {
+        width: 45px;
+        height: 45px;
+    }
+}
+
+@media (max-width: 576px) {
+    .aurora-header {
+        padding: 1rem 0;
+    }
+    
+    .aurora-brand-icon {
+        font-size: 1.5rem;
+    }
+    
+    .aurora-brand-title {
+        font-size: 1.1rem;
+    }
+    
+    .aurora-nav-btn {
+        font-size: 0.9rem;
+        padding: 0.5rem 0.75rem;
+    }
+    
+    .aurora-title-main {
+        font-size: 1.5rem;
+    }
+    
+    .aurora-title-subtitle {
+        font-size: 1rem;
+    }
+    
+    .aurora-salon-content {
+        padding: 1rem;
+    }
+    
+    .aurora-salon-footer {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .aurora-btn-outline-sm,
+    .aurora-btn-primary-sm {
+        font-size: 0.85rem;
+        padding: 0.5rem;
+    }
+}
+
+/* ========================================
+   UTILIDADES Y ANIMACIONES ADICIONALES
+======================================== */
+.aurora-fade-in {
+    animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.aurora-slide-up {
+    animation: slideUp 0.6s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Scroll personalizado */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--aurora-dark);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--aurora-primary);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--aurora-primary-dark);
 }

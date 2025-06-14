@@ -3,23 +3,14 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
-<<<<<<< HEAD
-//import { PerfilComponent } from '../perfil/perfil.component';
-import { CalendarioComponent } from '../calendario/calendario.component';
-import { SalonesGridComponent } from '../../components/salones-grid/salones-grid.component';
-=======
-import { PerfilComponent } from '../perfil/perfil.component';
-import { CalendarioComponent } from '../calendario/calendario.component';
->>>>>>> 2f5f380c0c8ebf0c4c913c7a06afaaa4ef391c36
 import { DashboardService, Salon } from '../../services/dashboard.service';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],
-<<<<<<< HEAD
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule, CalendarioComponent, SalonesGridComponent]
+  imports: [CommonModule, FormsModule, RouterModule]
 })
 export class DashboardComponent implements OnInit, OnDestroy {
 
@@ -42,24 +33,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
   horariosDisponibles: string[] = [];
 
   private destroy$ = new Subject<void>();
-
-=======
-  imports: [CommonModule, FormsModule, RouterModule, PerfilComponent, CalendarioComponent],
-  standalone: true
-})
-export class DashboardComponent implements OnInit, OnDestroy {
-
-  vistaActiva: 'dashboard' | 'perfil' = 'dashboard';
-  vistaCalendario: boolean = false;
-
-  salones: Salon[] = [];
-
-  cargando: boolean = false;
-  error: string | null = null;
-
-  private destroy$ = new Subject<void>();
-
->>>>>>> 2f5f380c0c8ebf0c4c913c7a06afaaa4ef391c36
   constructor(private dashboardService: DashboardService) {}
 
   ngOnInit(): void {
@@ -80,11 +53,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (salones: Salon[]) => {
           this.salones = salones;
-<<<<<<< HEAD
           this.salonesFiltrados = salones;
           this.extraerFiltros(salones);
-=======
->>>>>>> 2f5f380c0c8ebf0c4c913c7a06afaaa4ef391c36
           this.cargando = false;
           console.log('Salones cargados:', salones.length);
         },
@@ -94,7 +64,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
           console.error('Error al cargar salones:', error);
         }
       });
-<<<<<<< HEAD
   }
 
   cambiarVista(vista: 'dashboard' | 'perfil'): void {
@@ -161,19 +130,5 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   reservarSalon(id: number): void {
     console.log('Reservar salón:', id);
-=======
-  }
-
-  cambiarVista(vista: 'dashboard' | 'perfil'): void {
-    this.vistaActiva = vista;
-  }
-
-  toggleCalendario(): void {
-    this.vistaCalendario = !this.vistaCalendario;
-  }
-
-  trackBySalonId(index: number, salon: Salon): number {
-    return salon.id;
->>>>>>> 2f5f380c0c8ebf0c4c913c7a06afaaa4ef391c36
   }
 }
