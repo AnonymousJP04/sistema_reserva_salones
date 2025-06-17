@@ -19,6 +19,7 @@ class MantenimientoController extends Controller
         // Agregar salones para el filtro
         $salones = Salon::all();
 
+        // Usar la vista existente mantenimiento.index
         return view('mantenimiento.index', compact('mantenimientos', 'salones'));
     }
 
@@ -34,6 +35,7 @@ class MantenimientoController extends Controller
             $fechaPreseleccionada = Carbon::today()->format('Y-m-d');
         }
         
+        // Usar la vista existente mantenimiento.create
         return view('mantenimiento.create', compact('salones', 'fechaPreseleccionada'));
     }
 
@@ -96,16 +98,26 @@ class MantenimientoController extends Controller
             ->with('success', 'Mantenimiento registrado exitosamente.');
     }
 
-    public function show(Mantenimiento $mantenimiento)
-    {
-        $mantenimiento->load(['salon', 'creador']);
-        return view('mantenimiento.show', compact('mantenimiento'));
-    }
+    // ELIMINADO: método show() ya que no lo vas a usar
 
     public function edit(Mantenimiento $mantenimiento)
     {
         $salones = Salon::all();
-        return view('mantenimiento.edit', compact('mantenimiento', 'salones'));
+        
+        // ALTERNATIVA: Solo obtener las estadísticas sin paginación
+        $estadisticas = [
+            'programados' => Mantenimiento::where('estado', 'programado')->count(),
+            'en_proceso' => Mantenimiento::where('estado', 'en_proceso')->count(),
+            'completados' => Mantenimiento::where('estado', 'completado')->count(),
+        ];
+        
+        // Para que la vista funcione, crear una colección vacía paginada
+        $mantenimientos = new \Illuminate\Pagination\LengthAwarePaginator(
+            collect([]), 0, 15, 1, ['path' => request()->url()]
+        );
+        
+        // Usar la vista existente mantenimiento.edit
+        return view('mantenimientos.edit', compact('mantenimiento', 'salones', 'mantenimientos', 'estadisticas'));
     }
 
     public function update(Request $request, Mantenimiento $mantenimiento)
@@ -203,32 +215,5 @@ class MantenimientoController extends Controller
         
         return redirect()->route('mantenimientos.index')
             ->with('success', 'Mantenimiento eliminado exitosamente');
-    }
-
-    /**
-     * Método para verificar disponibilidad de un salón
-     * Útil para la integración con el sistema de reservas Angular
-     */
-    public function checkAvailability(Request $request)
-    {
-        $salon_id = $request->get('salon_id');
-        $fecha = $request->get('fecha');
-        
-        if (!$salon_id || !$fecha) {
-            return response()->json(['available' => false, 'message' => 'Parámetros requeridos']);
-        }
-        
-        $mantenimientos = Mantenimiento::where('salon_id', $salon_id)
-            ->where(function ($query) use ($fecha) {
-                $query->where('fecha_inicio', '<=', $fecha)
-                      ->where('fecha_fin', '>=', $fecha);
-            })
-            ->whereIn('estado', ['programado', 'en_proceso'])
-            ->exists();
-        
-        return response()->json([
-            'available' => !$mantenimientos,
-            'message' => $mantenimientos ? 'Salón en mantenimiento en esta fecha' : 'Salón disponible'
-        ]);
     }
 }

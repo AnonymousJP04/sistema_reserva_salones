@@ -433,12 +433,12 @@
 
             <!-- Filtros de Tiempo -->
             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 animate-fadeInUp" style="animation-delay:0.1s;">
-                <div class="filter-tabs mb-4 sm:mb-0">
+                <!-- <div class="filter-tabs mb-4 sm:mb-0">
                     <div class="filter-tab active" data-period="today">Hoy</div>
                     <div class="filter-tab" data-period="week">Esta Semana</div>
                     <div class="filter-tab" data-period="month">Este Mes</div>
                     <div class="filter-tab" data-period="year">Este Año</div>
-                </div>
+                </div> -->
                 <div class="text-emerald-200/70 text-sm">
                     Última actualización: {{ now()->format('d/m/Y H:i') }}
                 </div>
@@ -651,11 +651,7 @@
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
                                                     </svg>
                                                 </a>
-                                                <a href="{{ route('reservas.edit', $reserva->id) }}" class="text-blue-400 hover:text-blue-300 transition-colors">
-                                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
-                                                    </svg>
-                                                </a>
+
                                             </div>
                                         </td>
                                     </tr>

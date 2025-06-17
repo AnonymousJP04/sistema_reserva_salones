@@ -18,21 +18,19 @@ Route::get('/', function () {
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', DashboardController::class)->name('dashboard');
 
-    //Nuevas rutas para el dashboard
+    // Rutas del dashboard (CORREGIDAS - eliminar duplicados)
     Route::get('/dashboard/data', [DashboardController::class, 'getData'])->name('dashboard.data');
     Route::get('/dashboard/notifications', [DashboardController::class, 'getNotifications'])->name('dashboard.notifications');
-    Route::get('/dashboard/data', [DashboardController::class, 'filtrarDatos']);
-
+    // ELIMINADO: Route::get('/dashboard/data', [DashboardController::class, 'filtrarDatos']); (duplicado)
 
     // Salones
-Route::get('/salones', [SalonController::class, 'index'])->name('salones.index');
-Route::get('/salones/create', [SalonController::class, 'create'])->name('salones.create');
-Route::post('/salones', [SalonController::class, 'store'])->name('salones.store');
-Route::get('/salones/{salon:slug}', [SalonController::class, 'show'])->name('salones.show');
-Route::get('/salones/{salon:slug}/edit', [SalonController::class, 'edit'])->name('salones.edit');
-Route::put('/salones/{salon:slug}', [SalonController::class, 'update'])->name('salones.update');
-Route::delete('/salones/{salon:slug}', [SalonController::class, 'destroy'])->name('salones.destroy');
-
+    Route::get('/salones', [SalonController::class, 'index'])->name('salones.index');
+    Route::get('/salones/create', [SalonController::class, 'create'])->name('salones.create');
+    Route::post('/salones', [SalonController::class, 'store'])->name('salones.store');
+    Route::get('/salones/{salon:slug}', [SalonController::class, 'show'])->name('salones.show');
+    Route::get('/salones/{salon:slug}/edit', [SalonController::class, 'edit'])->name('salones.edit');
+    Route::put('/salones/{salon:slug}', [SalonController::class, 'update'])->name('salones.update');
+    Route::delete('/salones/{salon:slug}', [SalonController::class, 'destroy'])->name('salones.destroy');
 
     // Reservas
     Route::resource('reservas', ReservaController::class);
@@ -41,12 +39,13 @@ Route::delete('/salones/{salon:slug}', [SalonController::class, 'destroy'])->nam
     Route::get('reservas/pendientes', [ReservaController::class, 'pendientes'])->name('reservas.pendientes');
     Route::post('/reservas/{reserva}/update-status', [ReservaController::class, 'updateStatus'])->name('reservas.updateStatus');
 
+    // Mantenimientos (SIMPLIFICADO - solo las rutas necesarias)
+    Route::resource('mantenimientos', MantenimientoController::class)->except(['show']);
+    
     // Otros recursos
     Route::resource('tarifas', TarifaController::class);
-    Route::resource('mantenimientos', MantenimientoController::class);
     Route::resource('pagos', PagoController::class);
-   Route::patch('/pagos/{pago}/verificar', [PagoController::class, 'verificar'])->name('pagos.verificar');
-
+    Route::patch('/pagos/{pago}/verificar', [PagoController::class, 'verificar'])->name('pagos.verificar');
 
     // Perfil
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

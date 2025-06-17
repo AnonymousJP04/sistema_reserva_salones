@@ -202,10 +202,20 @@
             </svg>
             <span>Comprobante</span>
         </p>
-        <p class="text-white font-semibold bg-white/5 px-3 py-2 rounded-lg border border-white/10">
-            {{ $pago->comprobante ? 'Adjunto disponible' : 'Sin comprobante' }}
-        </p>
+         
+    @if($pago->comprobante && $pago->comprobante->ruta_archivo)
+        <div class="flex items-center">
+            <img src="{{ asset('storage/' . $pago->comprobante->ruta_archivo) }}"
+                 alt="Comprobante"
+                 class="rounded-lg shadow-lg max-w-xs max-h-64 border border-white/20">
+        </div>
+    @else
+        <p class="text-red-400">No hay comprobante adjunto.</p>
+       
+    @endif
+       
     </div>
+
     
     <!-- Verificado Por -->
     <div class="space-y-2">

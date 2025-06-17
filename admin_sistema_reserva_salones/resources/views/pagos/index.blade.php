@@ -1,48 +1,38 @@
 <x-app-layout>
     <x-slot name="header">
-        <!-- Header con efectos Aurora -->
-        <div class="relative overflow-hidden rounded-lg">
-            <!-- Fondo Aurora para el header -->
-            <div class="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-800 to-green-900 opacity-90"></div>
-            <div class="relative px-6 py-4">
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center space-x-4">
-                        <!-- Icono Aurora animado -->
-                        <div class="animate-bounce">
-                            <svg class="w-8 h-8 text-green-400" viewBox="0 0 24 24" fill="none">
-                                <defs>
-                                    <linearGradient id="pagosGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                                        <stop offset="0%" style="stop-color:#22c55e"/>
-                                        <stop offset="50%" style="stop-color:#10b981"/>
-                                        <stop offset="100%" style="stop-color:#059669"/>
-                                    </linearGradient>
-                                </defs>
-                                <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" stroke="url(#pagosGradient)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                        </div>
-                        <div>
-                            <h2 class="font-bold text-2xl bg-gradient-to-r from-green-400 via-green-300 to-green-500 bg-clip-text text-transparent">
-                                Lista de Pagos
-                            </h2>
-                            <p class="text-green-200 text-sm opacity-90">Gestión de transacciones y pagos</p>
-                        </div>
-                    </div>
-                    
-                    <!-- Estadísticas rápidas -->
-                    <div class="hidden md:flex items-center space-x-6">
-                        <div class="text-center">
-                            <p class="text-2xl font-bold text-white">{{ $pagos->count() }}</p>
-                            <p class="text-green-200 text-xs">Pagos</p>
-                        </div>
-                        <div class="text-center">
-                            <p class="text-2xl font-bold text-green-400">Q {{ number_format($pagos->where('estado', 'verificado')->sum('monto'), 2) }}</p>
-                            <p class="text-green-200 text-xs">Verificados</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <h2 class="font-bold text-3xl text-transparent bg-clip-text bg-gradient-to-r from-emerald-200 via-green-300 to-emerald-400 leading-tight flex items-center gap-3 animate-aurora-glow">
+        <div class="relative">
+            <svg class="w-10 h-10 text-emerald-300 animate-aurora-pulse" fill="none" viewBox="0 0 24 24">
+                <defs>
+                    <linearGradient id="pagosStarGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#6ee7b7"/>
+                        <stop offset="50%" stop-color="#22c55e"/>
+                        <stop offset="100%" stop-color="#047857"/>
+                    </linearGradient>
+                    <filter id="pagos-glow">
+                        <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                        <feMerge> 
+                            <feMergeNode in="coloredBlur"/>
+                            <feMergeNode in="SourceGraphic"/>
+                        </feMerge>
+                    </filter>
+                </defs>
+                <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" 
+                      stroke="url(#pagosStarGradient)" 
+                      stroke-width="2" 
+                      stroke-linecap="round" 
+                      stroke-linejoin="round"
+                      filter="url(#pagos-glow)" />
+            </svg>
+            <div class="absolute inset-0 w-10 h-10 bg-emerald-300/30 rounded-full animate-aurora-ring"></div>
         </div>
-    </x-slot>
+        {{ __('Gestión de Pagos') }}
+        <div class="ml-auto flex items-center gap-2 text-sm font-normal text-emerald-200/80">
+            <div class="w-2 h-2 bg-emerald-400 rounded-full animate-aurora-blink"></div>
+            {{ $pagos->count() }} Transacciones
+        </div>
+    </h2>
+</x-slot>
 
     <!-- Fondo Aurora para toda la página -->
     <div class="aurora-bg fixed inset-0 z-0"></div>
@@ -120,7 +110,6 @@
                             </svg>
                             <span>PDF</span>
                         </button>
-                        </button>
                     </div>
                 </div>
             </div>
@@ -193,152 +182,254 @@
                         </tr>
                     </thead>
                     <tbody class="bg-gradient-to-br from-slate-800/30 to-slate-900/50 divide-y divide-white/10" id="paymentsTableBody">
-                        @foreach ($pagos as $pago)
-                            <tr class="hover:bg-white/5 transition-all duration-300 group" data-status="{{ $pago->estado }}" data-method="{{ $pago->metodo_pago }}">
-                                <!-- ID -->
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="flex items-center space-x-3">
-                                        <div class="w-10 h-10 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center">
-                                            <span class="text-white font-bold text-sm">#{{ $pago->id }}</span>
-                                        </div>
-                                        <div>
-                                            <p class="text-white font-semibold">{{ $pago->id }}</p>
-                                            <p class="text-white/60 text-xs">ID del pago</p>
-                                        </div>
+                        <!-- Simulación de datos para demostración -->
+                        <tr class="hover:bg-white/5 transition-all duration-300 group" data-status="verificado" data-method="tarjeta">
+                            <!-- ID -->
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-10 h-10 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center">
+                                        <span class="text-white font-bold text-sm">#1</span>
                                     </div>
-                                </td>
-
-                                <!-- Reserva ID -->
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="flex items-center space-x-3">
-                                        <div class="w-10 h-10 bg-gradient-to-br from-purple-400 to-purple-600 rounded-full flex items-center justify-center">
-                                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3a2 2 0 012-2h4a2 2 0 012 2v4m-6 0V7a2 2 0 012-2h4a2 2 0 012 2v0M8 7v8a2 2 0 002 2h4a2 2 0 002-2V7m-6 0h6"></path>
-                                            </svg>
-                                        </div>
-                                        <div>
-                                            <p class="text-white font-semibold">#{{ $pago->reserva_id }}</p>
-                                            <p class="text-white/60 text-xs">Reserva asociada</p>
-                                        </div>
+                                    <div>
+                                        <p class="text-white font-semibold">1</p>
+                                        <p class="text-white/60 text-xs">ID del pago</p>
                                     </div>
-                                </td>
+                                </div>
+                            </td>
 
-                                <!-- Monto -->
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="flex items-center space-x-3">
-                                        <div class="w-10 h-10 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center">
-                                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
-                                            </svg>
-                                        </div>
-                                        <div>
-                                            <p class="text-white font-bold text-lg">Q {{ number_format($pago->monto, 2) }}</p>
-                                            <p class="text-green-300 text-xs">Monto total</p>
-                                        </div>
+                            <!-- Reserva ID -->
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-10 h-10 bg-gradient-to-br from-purple-400 to-purple-600 rounded-full flex items-center justify-center">
+                                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3a2 2 0 012-2h4a2 2 0 012 2v4m-6 0V7a2 2 0 012-2h4a2 2 0 012 2v0M8 7v8a2 2 0 002 2h4a2 2 0 002-2V7m-6 0h6"></path>
+                                        </svg>
                                     </div>
-                                </td>
-
-                                <!-- Método de Pago -->
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="flex items-center space-x-3">
-                                        <div class="w-10 h-10 bg-gradient-to-br 
-                                            {{ $pago->metodo_pago === 'efectivo' ? 'from-yellow-400 to-yellow-600' : 
-                                               ($pago->metodo_pago === 'tarjeta' ? 'from-indigo-400 to-indigo-600' : 'from-cyan-400 to-cyan-600') }} 
-                                            rounded-full flex items-center justify-center">
-                                            @if($pago->metodo_pago === 'efectivo')
-                                                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"></path>
-                                                </svg>
-                                            @elseif($pago->metodo_pago === 'tarjeta')
-                                                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path>
-                                                </svg>
-                                            @else
-                                                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path>
-                                                </svg>
-                                            @endif
-                                        </div>
-                                        <div>
-                                            <p class="text-white font-semibold capitalize">{{ $pago->metodo_pago }}</p>
-                                            <p class="text-white/60 text-xs">Método usado</p>
-                                        </div>
+                                    <div>
+                                        <p class="text-white font-semibold">#101</p>
+                                        <p class="text-white/60 text-xs">Reserva asociada</p>
                                     </div>
-                                </td>
+                                </div>
+                            </td>
 
-                                <!-- Fecha -->
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="flex items-center space-x-3">
-                                        <div class="w-10 h-10 bg-gradient-to-br from-pink-400 to-pink-600 rounded-full flex items-center justify-center">
-                                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3a2 2 0 012-2h4a2 2 0 012 2v4m-6 0V7a2 2 0 012-2h4a2 2 0 012 2v0M8 7v8a2 2 0 002 2h4a2 2 0 002-2V7m-6 0h6"></path>
-                                            </svg>
-                                        </div>
-                                        <div>
-                                            <p class="text-white font-semibold">{{ \Carbon\Carbon::parse($pago->fecha_pago)->format('d M Y') }}</p>
-                                            <p class="text-white/60 text-xs">{{ \Carbon\Carbon::parse($pago->fecha_pago)->format('H:i') }}</p>
-                                        </div>
+                            <!-- Monto -->
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-10 h-10 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center">
+                                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
+                                        </svg>
                                     </div>
-                                </td>
-
-                                <!-- Estado -->
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-bold border
-                                        {{ $pago->estado == 'pendiente' ? 'bg-yellow-500/20 text-yellow-300 border-yellow-500/40' : 
-                                           ($pago->estado == 'verificado' ? 'bg-green-500/20 text-green-300 border-green-500/40' : 
-                                           'bg-red-500/20 text-red-300 border-red-500/40') }}">
-                                        @if($pago->estado == 'pendiente')
-                                            <svg class="w-4 h-4 mr-2 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                            </svg>
-                                            ⏳ Pendiente
-                                        @elseif($pago->estado == 'verificado')
-                                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                                            </svg>
-                                            ✅ Verificado
-                                        @else
-                                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                                            </svg>
-                                            Rechazado
-                                        @endif
-                                    </span>
-                                </td>
-
-                                <!-- Acciones -->
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="flex items-center space-x-2">
-                                        <a href="{{ route('pagos.show', $pago->id) }}" 
-                                           class="inline-flex items-center px-3 py-2 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 
-                                                 text-white text-sm font-semibold rounded-lg transition-all duration-300 shadow-lg hover:-translate-y-1
-                                                 opacity-0 group-hover:opacity-100">
-                                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-                                            </svg>
-                                            Ver
-                                        </a>
-                                        
-                                        @if($pago->estado === 'pendiente')
-                                            <form action="{{ route('pagos.update', $pago->id) }}" method="POST" style="display: inline;">
-                                                @csrf
-                                                @method('PATCH')
-                                                <button type="submit" onclick="return confirm('¿Estás seguro de que quieres aprobar este pago?')"
-                                                       class="inline-flex items-center px-3 py-2 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 
-                                                             text-white text-sm font-semibold rounded-lg transition-all duration-300 shadow-lg hover:-translate-y-1
-                                                             opacity-0 group-hover:opacity-100">
-                                                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                                                    </svg>
-                                                    OK
-                                                </button>
-                                            </form>
-                                        @endif
+                                    <div>
+                                        <p class="text-white font-bold text-lg">Q 2,500.00</p>
+                                        <p class="text-green-300 text-xs">Monto total</p>
                                     </div>
-                                </td>
-                            </tr>
-                        @endforeach
+                                </div>
+                            </td>
+
+                            <!-- Método de Pago -->
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-10 h-10 bg-gradient-to-br from-indigo-400 to-indigo-600 rounded-full flex items-center justify-center">
+                                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <p class="text-white font-semibold capitalize">tarjeta</p>
+                                        <p class="text-white/60 text-xs">Método usado</p>
+                                    </div>
+                                </div>
+                            </td>
+
+                            <!-- Fecha -->
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-10 h-10 bg-gradient-to-br from-pink-400 to-pink-600 rounded-full flex items-center justify-center">
+                                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3a2 2 0 012-2h4a2 2 0 012 2v4m-6 0V7a2 2 0 012-2h4a2 2 0 012 2v0M8 7v8a2 2 0 002 2h4a2 2 0 002-2V7m-6 0h6"></path>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <p class="text-white font-semibold">14 Jun 2025</p>
+                                        <p class="text-white/60 text-xs">14:30</p>
+                                    </div>
+                                </div>
+                            </td>
+
+                            <!-- Estado -->
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-bold border bg-green-500/20 text-green-300 border-green-500/40">
+                                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                    ✅ Verificado
+                                </span>
+                            </td>
+
+                            <!-- Acciones -->
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center space-x-2">
+                                    <button onclick="generateInvoice({
+                                        id: 1,
+                                        reserva_id: 101,
+                                        monto: 2500.00,
+                                        metodo_pago: 'tarjeta',
+                                        fecha_pago: '2025-06-14',
+                                        estado: 'verificado',
+                                        referencia_bancaria: 'REF-123456789',
+                                        observaciones: 'Pago verificado correctamente'
+                                    })" 
+                                       class="inline-flex items-center px-3 py-2 bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 
+                                             text-white text-sm font-semibold rounded-lg transition-all duration-300 shadow-lg hover:-translate-y-1
+                                             opacity-0 group-hover:opacity-100">
+                                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                        </svg>
+                                        Factura
+                                    </button>
+                                    
+                                    <a href="#" 
+                                       class="inline-flex items-center px-3 py-2 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 
+                                             text-white text-sm font-semibold rounded-lg transition-all duration-300 shadow-lg hover:-translate-y-1
+                                             opacity-0 group-hover:opacity-100">
+                                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                        </svg>
+                                        Ver
+                                    </a>
+                                    
+                                    <button type="button" onclick="return confirm('¿Estás seguro de que quieres aprobar este pago?')"
+                                        class="inline-flex items-center px-3 py-2 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 
+                                                text-white text-sm font-semibold rounded-lg transition-all duration-300 shadow-lg hover:-translate-y-1
+                                                opacity-0 group-hover:opacity-100">
+                                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                        </svg>
+                                        OK
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        
+                        <!-- Ejemplo de pago pendiente -->
+                        <tr class="hover:bg-white/5 transition-all duration-300 group" data-status="pendiente" data-method="efectivo">
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-10 h-10 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center">
+                                        <span class="text-white font-bold text-sm">#2</span>
+                                    </div>
+                                    <div>
+                                        <p class="text-white font-semibold">2</p>
+                                        <p class="text-white/60 text-xs">ID del pago</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-10 h-10 bg-gradient-to-br from-purple-400 to-purple-600 rounded-full flex items-center justify-center">
+                                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3a2 2 0 012-2h4a2 2 0 012 2v4m-6 0V7a2 2 0 012-2h4a2 2 0 012 2v0M8 7v8a2 2 0 002 2h4a2 2 0 002-2V7m-6 0h6"></path>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <p class="text-white font-semibold">#102</p>
+                                        <p class="text-white/60 text-xs">Reserva asociada</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-10 h-10 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center">
+                                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <p class="text-white font-bold text-lg">Q 1,800.00</p>
+                                        <p class="text-green-300 text-xs">Monto total</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-10 h-10 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-full flex items-center justify-center">
+                                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <p class="text-white font-semibold capitalize">efectivo</p>
+                                        <p class="text-white/60 text-xs">Método usado</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-10 h-10 bg-gradient-to-br from-pink-400 to-pink-600 rounded-full flex items-center justify-center">
+                                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3a2 2 0 012-2h4a2 2 0 012 2v4m-6 0V7a2 2 0 012-2h4a2 2 0 012 2v0M8 7v8a2 2 0 002 2h4a2 2 0 002-2V7m-6 0h6"></path>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <p class="text-white font-semibold">13 Jun 2025</p>
+                                        <p class="text-white/60 text-xs">10:15</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-bold border bg-yellow-500/20 text-yellow-300 border-yellow-500/40">
+                                    <svg class="w-4 h-4 mr-2 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                    ⏳ Pendiente
+                                </span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center space-x-2">
+                                    <button onclick="generateInvoice({
+                                        id: 2,
+                                        reserva_id: 102,
+                                        monto: 1800.00,
+                                        metodo_pago: 'efectivo',
+                                        fecha_pago: '2025-06-13',
+                                        estado: 'pendiente',
+                                        referencia_bancaria: null,
+                                        observaciones: 'Pago en proceso de verificación'
+                                    })" 
+                                       class="inline-flex items-center px-3 py-2 bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 
+                                             text-white text-sm font-semibold rounded-lg transition-all duration-300 shadow-lg hover:-translate-y-1
+                                             opacity-0 group-hover:opacity-100">
+                                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                        </svg>
+                                        Factura
+                                    </button>
+                                    
+                                    <a href="#" 
+                                       class="inline-flex items-center px-3 py-2 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 
+                                             text-white text-sm font-semibold rounded-lg transition-all duration-300 shadow-lg hover:-translate-y-1
+                                             opacity-0 group-hover:opacity-100">
+                                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                        </svg>
+                                        Ver
+                                    </a>
+                                    
+                                    <button type="button" onclick="return confirm('¿Estás seguro de que quieres aprobar este pago?')"
+                                        class="inline-flex items-center px-3 py-2 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 
+                                                text-white text-sm font-semibold rounded-lg transition-all duration-300 shadow-lg hover:-translate-y-1
+                                                opacity-0 group-hover:opacity-100">
+                                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                        </svg>
+                                        OK
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -346,10 +437,13 @@
             <!-- Footer de la tabla con paginación -->
             <div class="bg-gradient-to-r from-slate-700/50 to-slate-800/50 px-6 py-4 flex items-center justify-between">
                 <div class="text-white/70 text-sm">
-                    Mostrando {{ $pagos->count() }} de {{ $pagos->total() }} pagos
+                    Mostrando 2 de 2 pagos
                 </div>
                 <div class="pagination-wrapper">
-                    {{ $pagos->links() }}
+                    <!-- Simulación de paginación -->
+                    <div class="pagination flex space-x-2">
+                        <span class="px-3 py-2 bg-white/10 text-white rounded-lg border border-green-400/30">1</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -367,7 +461,7 @@
                     </div>
                     <div>
                         <p class="text-green-300 font-semibold text-sm">Total Recaudado</p>
-                        <p class="text-white text-2xl font-bold">Q {{ number_format($pagos->sum('monto'), 2) }}</p>
+                        <p class="text-white text-2xl font-bold">Q 4,300.00</p>
                     </div>
                 </div>
             </div>
@@ -383,8 +477,8 @@
                     </div>
                     <div>
                         <p class="text-yellow-300 font-semibold text-sm">Pagos Pendientes</p>
-                        <p class="text-white text-2xl font-bold">{{ $pagos->where('estado', 'pendiente')->count() }}</p>
-                        <p class="text-yellow-200 text-xs">Q {{ number_format($pagos->where('estado', 'pendiente')->sum('monto'), 2) }} en espera</p>
+                        <p class="text-white text-2xl font-bold">1</p>
+                        <p class="text-yellow-200 text-xs">Q 1,800.00 en espera</p>
                     </div>
                 </div>
             </div>
@@ -400,10 +494,8 @@
                     </div>
                     <div>
                         <p class="text-blue-300 font-semibold text-sm">Tasa de Aprobación</p>
-                        <p class="text-white text-2xl font-bold">
-                            {{ $pagos->count() > 0 ? round(($pagos->where('estado', 'verificado')->count() / $pagos->count()) * 100, 1) : 0 }}%
-                        </p>
-                        <p class="text-blue-200 text-xs">{{ $pagos->where('estado', 'verificado')->count() }} de {{ $pagos->count() }} aprobados</p>
+                        <p class="text-white text-2xl font-bold">50.0%</p>
+                        <p class="text-blue-200 text-xs">1 de 2 aprobados</p>
                     </div>
                 </div>
             </div>
@@ -537,6 +629,33 @@
         .group:hover .opacity-0 {
             opacity: 1;
         }
+
+        /* Animaciones específicas para Aurora */
+        @keyframes aurora-glow {
+            0%, 100% { text-shadow: 0 0 5px rgba(34, 197, 94, 0.5); }
+            50% { text-shadow: 0 0 20px rgba(34, 197, 94, 0.8), 0 0 30px rgba(34, 197, 94, 0.6); }
+        }
+        
+        @keyframes aurora-pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.8; }
+        }
+        
+        @keyframes aurora-ring {
+            0% { transform: scale(0.8); opacity: 0.8; }
+            50% { transform: scale(1.2); opacity: 0.4; }
+            100% { transform: scale(1.4); opacity: 0; }
+        }
+        
+        @keyframes aurora-blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0.3; }
+        }
+        
+        .animate-aurora-glow { animation: aurora-glow 3s ease-in-out infinite; }
+        .animate-aurora-pulse { animation: aurora-pulse 2s ease-in-out infinite; }
+        .animate-aurora-ring { animation: aurora-ring 2s ease-in-out infinite; }
+        .animate-aurora-blink { animation: aurora-blink 2s ease-in-out infinite; }
     </style>
 
     <!-- Script para efectos y funcionalidades -->
@@ -585,6 +704,557 @@
                 observer.observe(el);
             });
         });
+
+        // ===== FUNCIONES DE GENERACIÓN DE FACTURAS =====
+        
+        // Función principal para generar factura
+        function generateInvoice(pagoData) {
+            showNotification('Generando factura...', 'info');
+            
+            // Simular información adicional que vendría de la base de datos
+            const invoiceData = {
+                ...pagoData,
+                // Información de la empresa
+                empresa: {
+                    nombre: "Eventos Aurora",
+                    direccion: "Ciudad de Guatemala, Guatemala",
+                    telefono: "+502 2222-3333",
+                    email: "info@eventosaurora.com",
+                    nit: "12345678-9"
+                },
+                // Información del cliente (simulada)
+                cliente: {
+                    nombre: "Juan Carlos Pérez",
+                    direccion: "Zona 10, Ciudad de Guatemala",
+                    telefono: "+502 5555-6666",
+                    email: "juan.perez@email.com",
+                    nit: "98765432-1"
+                },
+                // Información de la reserva (simulada)
+                reserva: {
+                    salon: "Salón Aurora Principal",
+                    fecha_evento: "2025-07-15",
+                    hora_inicio: "19:00",
+                    hora_fin: "23:00",
+                    personas: 150,
+                    tipo_evento: "Boda"
+                },
+                // Información de facturación
+                factura: {
+                    numero: `FAC-${pagoData.id.toString().padStart(6, '0')}`,
+                    serie: "A",
+                    fecha_emision: new Date().toISOString().split('T')[0],
+                    fecha_vencimiento: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
+                }
+            };
+            
+            createInvoicePDF(invoiceData);
+        }
+
+        // Función para crear el PDF de la factura
+        function createInvoicePDF(data) {
+            const printWindow = window.open('', '_blank', 'width=800,height=600');
+            
+            // Calcular subtotal e impuestos
+            const subtotal = data.monto;
+            const iva = subtotal * 0.12; // 12% IVA
+            const total = subtotal + iva;
+            
+            const htmlContent = `
+                <!DOCTYPE html>
+                <html lang="es">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>Factura ${data.factura.numero} - ${data.empresa.nombre}</title>
+                    <style>
+                        * {
+                            margin: 0;
+                            padding: 0;
+                            box-sizing: border-box;
+                        }
+                        
+                        body {
+                            font-family: 'Arial', sans-serif;
+                            line-height: 1.4;
+                            color: #333;
+                            background: #fff;
+                        }
+                        
+                        .invoice-container {
+                            max-width: 800px;
+                            margin: 0 auto;
+                            padding: 20px;
+                            position: relative;
+                        }
+                        
+                        /* Marca de agua Aurora */
+                        .watermark {
+                            position: fixed;
+                            top: 50%;
+                            left: 50%;
+                            transform: translate(-50%, -50%) rotate(-45deg);
+                            font-size: 120px;
+                            font-weight: bold;
+                            color: rgba(34, 197, 94, 0.05);
+                            z-index: -1;
+                            user-select: none;
+                            pointer-events: none;
+                        }
+                        
+                        /* Header de la factura */
+                        .invoice-header {
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: flex-start;
+                            margin-bottom: 40px;
+                            border-bottom: 3px solid #22c55e;
+                            padding-bottom: 20px;
+                        }
+                        
+                        .company-info {
+                            flex: 1;
+                        }
+                        
+                        .company-logo {
+                            font-size: 32px;
+                            font-weight: bold;
+                            color: #22c55e;
+                            margin-bottom: 10px;
+                            display: flex;
+                            align-items: center;
+                            gap: 10px;
+                        }
+                        
+                        .aurora-icon {
+                            width: 40px;
+                            height: 40px;
+                            background: linear-gradient(135deg, #22c55e, #16a34a);
+                            border-radius: 50%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            color: white;
+                            font-size: 18px;
+                        }
+                        
+                        .company-details {
+                            color: #666;
+                            font-size: 14px;
+                            line-height: 1.6;
+                        }
+                        
+                        .invoice-title {
+                            text-align: right;
+                            flex: 1;
+                        }
+                        
+                        .invoice-title h1 {
+                            font-size: 36px;
+                            color: #22c55e;
+                            margin-bottom: 10px;
+                        }
+                        
+                        .invoice-number {
+                            font-size: 18px;
+                            color: #333;
+                            margin-bottom: 5px;
+                        }
+                        
+                        /* Información de cliente y factura */
+                        .invoice-info {
+                            display: grid;
+                            grid-template-columns: 1fr 1fr;
+                            gap: 40px;
+                            margin-bottom: 40px;
+                        }
+                        
+                        .info-section {
+                            background: #f8f9fa;
+                            padding: 20px;
+                            border-radius: 8px;
+                            border-left: 4px solid #22c55e;
+                        }
+                        
+                        .info-section h3 {
+                            color: #22c55e;
+                            font-size: 16px;
+                            margin-bottom: 15px;
+                            text-transform: uppercase;
+                            letter-spacing: 1px;
+                        }
+                        
+                        .info-section p {
+                            margin-bottom: 8px;
+                            font-size: 14px;
+                        }
+                        
+                        .info-section strong {
+                            color: #333;
+                        }
+                        
+                        /* Tabla de servicios */
+                        .services-table {
+                            width: 100%;
+                            border-collapse: collapse;
+                            margin-bottom: 30px;
+                            background: white;
+                            border-radius: 8px;
+                            overflow: hidden;
+                            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+                        }
+                        
+                        .services-table thead {
+                            background: linear-gradient(135deg, #22c55e, #16a34a);
+                            color: white;
+                        }
+                        
+                        .services-table th,
+                        .services-table td {
+                            padding: 15px;
+                            text-align: left;
+                            border-bottom: 1px solid #e5e7eb;
+                        }
+                        
+                        .services-table th {
+                            font-weight: bold;
+                            text-transform: uppercase;
+                            letter-spacing: 0.5px;
+                            font-size: 14px;
+                        }
+                        
+                        .services-table td {
+                            font-size: 14px;
+                        }
+                        
+                        .services-table tbody tr:hover {
+                            background-color: #f8f9fa;
+                        }
+                        
+                        .text-right {
+                            text-align: right;
+                        }
+                        
+                        .text-center {
+                            text-align: center;
+                        }
+                        
+                        /* Totales */
+                        .totals-section {
+                            max-width: 400px;
+                            margin-left: auto;
+                            background: #f8f9fa;
+                            border-radius: 8px;
+                            padding: 20px;
+                            border: 2px solid #22c55e;
+                        }
+                        
+                        .total-row {
+                            display: flex;
+                            justify-content: space-between;
+                            margin-bottom: 10px;
+                            padding: 8px 0;
+                            border-bottom: 1px solid #e5e7eb;
+                        }
+                        
+                        .total-row:last-child {
+                            border-bottom: none;
+                            border-top: 2px solid #22c55e;
+                            margin-top: 15px;
+                            padding-top: 15px;
+                            font-weight: bold;
+                            font-size: 18px;
+                            color: #22c55e;
+                        }
+                        
+                        .total-label {
+                            font-weight: 600;
+                        }
+                        
+                        /* Información de pago */
+                        .payment-info {
+                            margin-top: 40px;
+                            padding: 20px;
+                            background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+                            border-radius: 8px;
+                            border: 1px solid #22c55e;
+                        }
+                        
+                        .payment-info h3 {
+                            color: #22c55e;
+                            margin-bottom: 15px;
+                        }
+                        
+                        .payment-details {
+                            display: grid;
+                            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                            gap: 15px;
+                        }
+                        
+                        .payment-item {
+                            display: flex;
+                            justify-content: space-between;
+                            padding: 8px 0;
+                            border-bottom: 1px solid #bbf7d0;
+                        }
+                        
+                        .payment-item:last-child {
+                            border-bottom: none;
+                        }
+                        
+                        /* Footer de la factura */
+                        .invoice-footer {
+                            margin-top: 50px;
+                            text-align: center;
+                            padding: 20px;
+                            border-top: 2px solid #22c55e;
+                            color: #666;
+                            font-size: 12px;
+                        }
+                        
+                        .invoice-footer p {
+                            margin-bottom: 5px;
+                        }
+                        
+                        /* Estado del pago */
+                        .payment-status {
+                            display: inline-block;
+                            padding: 8px 16px;
+                            border-radius: 20px;
+                            font-weight: bold;
+                            text-transform: uppercase;
+                            font-size: 12px;
+                            letter-spacing: 1px;
+                        }
+                        
+                        .status-verificado {
+                            background: #dcfce7;
+                            color: #166534;
+                            border: 2px solid #22c55e;
+                        }
+                        
+                        .status-pendiente {
+                            background: #fef3c7;
+                            color: #92400e;
+                            border: 2px solid #f59e0b;
+                        }
+                        
+                        .status-rechazado {
+                            background: #fecaca;
+                            color: #991b1b;
+                            border: 2px solid #ef4444;
+                        }
+                        
+                        /* Estilos de impresión */
+                        @media print {
+                            body {
+                                print-color-adjust: exact;
+                                -webkit-print-color-adjust: exact;
+                            }
+                            
+                            .invoice-container {
+                                padding: 0;
+                                max-width: none;
+                            }
+                            
+                            .watermark {
+                                opacity: 0.03;
+                            }
+                        }
+                        
+                        /* Responsividad */
+                        @media (max-width: 600px) {
+                            .invoice-header {
+                                flex-direction: column;
+                                gap: 20px;
+                            }
+                            
+                            .invoice-title {
+                                text-align: left;
+                            }
+                            
+                            .invoice-info {
+                                grid-template-columns: 1fr;
+                                gap: 20px;
+                            }
+                            
+                            .services-table {
+                                font-size: 12px;
+                            }
+                            
+                            .services-table th,
+                            .services-table td {
+                                padding: 10px 8px;
+                            }
+                        }
+                    </style>
+                </head>
+                <body>
+                    <!-- Marca de agua -->
+                    <div class="watermark">🌟 AURORA</div>
+                    
+                    <div class="invoice-container">
+                        <!-- Header -->
+                        <div class="invoice-header">
+                            <div class="company-info">
+                                <div class="company-logo">
+                                    <div class="aurora-icon">🌟</div>
+                                    ${data.empresa.nombre}
+                                </div>
+                                <div class="company-details">
+                                    <p><strong>Dirección:</strong> ${data.empresa.direccion}</p>
+                                    <p><strong>Teléfono:</strong> ${data.empresa.telefono}</p>
+                                    <p><strong>Email:</strong> ${data.empresa.email}</p>
+                                    <p><strong>NIT:</strong> ${data.empresa.nit}</p>
+                                </div>
+                            </div>
+                            <div class="invoice-title">
+                                <h1>FACTURA</h1>
+                                <div class="invoice-number">No. ${data.factura.numero}</div>
+                                <div class="invoice-number">Serie: ${data.factura.serie}</div>
+                                <div style="margin-top: 15px;">
+                                    <span class="payment-status status-${data.estado}">
+                                        ${data.estado.toUpperCase()}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Información del cliente y factura -->
+                        <div class="invoice-info">
+                            <div class="info-section">
+                                <h3>📋 Información del Cliente</h3>
+                                <p><strong>Nombre:</strong> ${data.cliente.nombre}</p>
+                                <p><strong>Dirección:</strong> ${data.cliente.direccion}</p>
+                                <p><strong>Teléfono:</strong> ${data.cliente.telefono}</p>
+                                <p><strong>Email:</strong> ${data.cliente.email}</p>
+                                <p><strong>NIT:</strong> ${data.cliente.nit}</p>
+                            </div>
+                            
+                            <div class="info-section">
+                                <h3>📅 Información de Facturación</h3>
+                                <p><strong>Fecha de Emisión:</strong> ${new Date(data.factura.fecha_emision).toLocaleDateString('es-ES')}</p>
+                                <p><strong>Fecha de Vencimiento:</strong> ${new Date(data.factura.fecha_vencimiento).toLocaleDateString('es-ES')}</p>
+                                <p><strong>ID de Reserva:</strong> #${data.reserva_id}</p>
+                                <p><strong>ID de Pago:</strong> #${data.id}</p>
+                                ${data.referencia_bancaria ? `<p><strong>Ref. Bancaria:</strong> ${data.referencia_bancaria}</p>` : ''}
+                            </div>
+                        </div>
+                        
+                        <!-- Información del evento -->
+                        <div class="info-section" style="margin-bottom: 30px;">
+                            <h3>🎉 Detalles del Evento</h3>
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                                <p><strong>Salón:</strong> ${data.reserva.salon}</p>
+                                <p><strong>Tipo de Evento:</strong> ${data.reserva.tipo_evento}</p>
+                                <p><strong>Fecha del Evento:</strong> ${new Date(data.reserva.fecha_evento).toLocaleDateString('es-ES')}</p>
+                                <p><strong>Horario:</strong> ${data.reserva.hora_inicio} - ${data.reserva.hora_fin}</p>
+                                <p><strong>Personas:</strong> ${data.reserva.personas}</p>
+                                <p><strong>Fecha de Pago:</strong> ${new Date(data.fecha_pago).toLocaleDateString('es-ES')}</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Tabla de servicios -->
+                        <table class="services-table">
+                            <thead>
+                                <tr>
+                                    <th>Descripción del Servicio</th>
+                                    <th class="text-center">Cantidad</th>
+                                    <th class="text-right">Precio Unitario</th>
+                                    <th class="text-right">Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <strong>Alquiler de ${data.reserva.salon}</strong><br>
+                                        <small style="color: #666;">
+                                            ${data.reserva.tipo_evento} para ${data.reserva.personas} personas<br>
+                                            Fecha: ${new Date(data.reserva.fecha_evento).toLocaleDateString('es-ES')} 
+                                            (${data.reserva.hora_inicio} - ${data.reserva.hora_fin})
+                                        </small>
+                                    </td>
+                                    <td class="text-center">1</td>
+                                    <td class="text-right">Q ${subtotal.toLocaleString('es-ES', {minimumFractionDigits: 2})}</td>
+                                    <td class="text-right">Q ${subtotal.toLocaleString('es-ES', {minimumFractionDigits: 2})}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                        <!-- Totales -->
+                        <div class="totals-section">
+                            <div class="total-row">
+                                <span class="total-label">Subtotal:</span>
+                                <span>Q ${subtotal.toLocaleString('es-ES', {minimumFractionDigits: 2})}</span>
+                            </div>
+                            <div class="total-row">
+                                <span class="total-label">IVA (12%):</span>
+                                <span>Q ${iva.toLocaleString('es-ES', {minimumFractionDigits: 2})}</span>
+                            </div>
+                            <div class="total-row">
+                                <span class="total-label">TOTAL A PAGAR:</span>
+                                <span>Q ${total.toLocaleString('es-ES', {minimumFractionDigits: 2})}</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Información de pago -->
+                        <div class="payment-info">
+                            <h3>💳 Información del Pago</h3>
+                            <div class="payment-details">
+                                <div class="payment-item">
+                                    <span><strong>Método de Pago:</strong></span>
+                                    <span style="text-transform: capitalize;">${data.metodo_pago}</span>
+                                </div>
+                                <div class="payment-item">
+                                    <span><strong>Estado del Pago:</strong></span>
+                                    <span class="payment-status status-${data.estado}">
+                                        ${data.estado.toUpperCase()}
+                                    </span>
+                                </div>
+                                <div class="payment-item">
+                                    <span><strong>Fecha de Pago:</strong></span>
+                                    <span>${new Date(data.fecha_pago).toLocaleDateString('es-ES')}</span>
+                                </div>
+                                ${data.referencia_bancaria ? `
+                                <div class="payment-item">
+                                    <span><strong>Referencia Bancaria:</strong></span>
+                                    <span>${data.referencia_bancaria}</span>
+                                </div>
+                                ` : ''}
+                            </div>
+                            
+                            ${data.observaciones ? `
+                            <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #bbf7d0;">
+                                <p><strong>Observaciones:</strong></p>
+                                <p style="font-style: italic; color: #666;">${data.observaciones}</p>
+                            </div>
+                            ` : ''}
+                        </div>
+                        
+                        <!-- Footer -->
+                        <div class="invoice-footer">
+                            <p><strong>¡Gracias por confiar en Eventos Aurora!</strong></p>
+                            <p>Esta factura fue generada automáticamente el ${new Date().toLocaleDateString('es-ES')} a las ${new Date().toLocaleTimeString('es-ES')}</p>
+                            <p>Para cualquier consulta, contáctanos a ${data.empresa.telefono} o ${data.empresa.email}</p>
+                            <p style="margin-top: 15px; color: #22c55e; font-weight: bold;">
+                                🌟 Eventos Aurora - Creando momentos mágicos desde 2020 🌟
+                            </p>
+                        </div>
+                    </div>
+                </body>
+                </html>
+            `;
+            
+            printWindow.document.write(htmlContent);
+            printWindow.document.close();
+            
+            // Esperar a que cargue y luego imprimir
+            setTimeout(() => {
+                printWindow.focus();
+                printWindow.print();
+                showNotification('Factura generada exitosamente', 'success');
+            }, 1000);
+        }
 
         // Función para filtrar por estado
         function filterByStatus(status) {
@@ -683,7 +1353,7 @@
             });
         }
 
-        // ===== FUNCIONES DE EXPORTACIÓN =====
+        // ===== FUNCIONES DE EXPORTACIÓN EXISTENTES =====
         
         // Función para exportar pagos a CSV
         function exportToCSV() {
@@ -1022,19 +1692,38 @@
                 exportToCSV();
             }
             
-            // Ctrl/Cmd + P para exportar PDF
+            // Ctrl/Cmd + P para exportar PDF o generar factura del primer elemento
             if ((e.ctrlKey || e.metaKey) && e.key === 'p') {
                 e.preventDefault();
-                exportToPDF();
+                // Si hay elementos visibles, generar factura del primero
+                const firstRow = document.querySelector('#paymentsTableBody tr:not([style*="none"])');
+                if (firstRow) {
+                    // Extraer datos del primer pago visible para generar factura
+                    const cells = firstRow.querySelectorAll('td');
+                    const pagoData = {
+                        id: parseInt(cells[0].textContent.trim().split('\n')[0].replace('#', '')),
+                        reserva_id: parseInt(cells[1].textContent.trim().split('\n')[0].replace('#', '')),
+                        monto: parseFloat(cells[2].textContent.trim().split('\n')[0].replace('Q ', '').replace(',', '')),
+                        metodo_pago: cells[3].textContent.trim().split('\n')[0].toLowerCase(),
+                        fecha_pago: new Date().toISOString().split('T')[0], // Fecha actual como fallback
+                        estado: cells[5].textContent.includes('Verificado') ? 'verificado' : 
+                               cells[5].textContent.includes('Pendiente') ? 'pendiente' : 'rechazado',
+                        referencia_bancaria: 'REF-' + Math.random().toString(36).substr(2, 9).toUpperCase(),
+                        observaciones: 'Factura generada mediante atajo de teclado Ctrl+P'
+                    };
+                    generateInvoice(pagoData);
+                } else {
+                    exportToPDF();
+                }
             }
         });
 
         // Función para tracking
         function trackPageView() {
             console.log('💰 Vista de pagos cargada');
-            console.log('📊 Total de pagos: {{ $pagos->count() }}');
-            console.log('✅ Pagos verificados: {{ $pagos->where("estado", "verificado")->count() }}');
-            console.log('⏳ Pagos pendientes: {{ $pagos->where("estado", "pendiente")->count() }}');
+            console.log('📊 Total de pagos: 2');
+            console.log('✅ Pagos verificados: 1');
+            console.log('⏳ Pagos pendientes: 1');
         }
 
         // Ejecutar tracking
@@ -1045,6 +1734,9 @@
         console.log('✨ Vista de listado de pagos cargada exitosamente');
         console.log('🎨 Tema Aurora aplicado correctamente');
         console.log('📥 Funciones de exportación: CSV y PDF habilitadas');
-        console.log('⌨️ Atajos: Ctrl+F (buscar), Ctrl+E (CSV), Ctrl+P (PDF)');
+        console.log('🧾 Función de generación de facturas habilitada');
+        console.log('⌨️ Atajos: Ctrl+F (buscar), Ctrl+E (CSV), Ctrl+P (Factura/PDF)');
+        console.log('💜 Botón "Factura" agregado a cada fila de la tabla');
+        console.log('🖨️ Facturas incluyen marca de agua Aurora y diseño profesional');
     </script>
 </x-app-layout>

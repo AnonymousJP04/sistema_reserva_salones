@@ -1,48 +1,38 @@
 <x-app-layout>
     <x-slot name="header">
-        <!-- Header con efectos Aurora -->
-        <div class="relative overflow-hidden rounded-lg">
-            <!-- Fondo Aurora para el header -->
-            <div class="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-800 to-green-900 opacity-90"></div>
-            <div class="relative px-6 py-4">
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center space-x-4">
-                        <!-- Icono Aurora animado -->
-                        <div class="animate-bounce">
-                            <svg class="w-8 h-8 text-green-400" viewBox="0 0 24 24" fill="none">
-                                <defs>
-                                    <linearGradient id="tarifasGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                                        <stop offset="0%" style="stop-color:#22c55e"/>
-                                        <stop offset="50%" style="stop-color:#10b981"/>
-                                        <stop offset="100%" style="stop-color:#059669"/>
-                                    </linearGradient>
-                                </defs>
-                                <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" stroke="url(#tarifasGradient)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                        </div>
-                        <div>
-                            <h2 class="font-bold text-2xl bg-gradient-to-r from-green-400 via-green-300 to-green-500 bg-clip-text text-transparent">
-                                Listado de Tarifas
-                            </h2>
-                            <p class="text-green-200 text-sm opacity-90">Gestión de precios y tarifas de salones</p>
-                        </div>
-                    </div>
-                    
-                    <!-- Estadísticas rápidas -->
-                    <div class="hidden md:flex items-center space-x-6">
-                        <div class="text-center">
-                            <p class="text-2xl font-bold text-white">{{ $tarifas->count() }}</p>
-                            <p class="text-green-200 text-xs">Tarifas</p>
-                        </div>
-                        <div class="text-center">
-                            <p class="text-2xl font-bold text-green-400">{{ $tarifas->where('activa', true)->count() }}</p>
-                            <p class="text-green-200 text-xs">Activas</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <h2 class="font-bold text-3xl text-transparent bg-clip-text bg-gradient-to-r from-emerald-200 via-green-300 to-emerald-400 leading-tight flex items-center gap-3 animate-aurora-glow">
+        <div class="relative">
+            <svg class="w-10 h-10 text-emerald-300 animate-aurora-pulse" fill="none" viewBox="0 0 24 24">
+                <defs>
+                    <linearGradient id="tarifasStarGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#6ee7b7"/>
+                        <stop offset="50%" stop-color="#22c55e"/>
+                        <stop offset="100%" stop-color="#047857"/>
+                    </linearGradient>
+                    <filter id="tarifas-glow">
+                        <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                        <feMerge> 
+                            <feMergeNode in="coloredBlur"/>
+                            <feMergeNode in="SourceGraphic"/>
+                        </feMerge>
+                    </filter>
+                </defs>
+                <path d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" 
+                      stroke="url(#tarifasStarGradient)" 
+                      stroke-width="2" 
+                      stroke-linecap="round" 
+                      stroke-linejoin="round"
+                      filter="url(#tarifas-glow)" />
+            </svg>
+            <div class="absolute inset-0 w-10 h-10 bg-emerald-300/30 rounded-full animate-aurora-ring"></div>
         </div>
-    </x-slot>
+        {{ __('Gestión de Tarifas') }}
+        <div class="ml-auto flex items-center gap-2 text-sm font-normal text-emerald-200/80">
+            <div class="w-2 h-2 bg-emerald-400 rounded-full animate-aurora-blink"></div>
+            {{ $tarifas->where('activa', true)->count() }} Activas
+        </div>
+    </h2>
+</x-slot>
 
     <!-- Fondo Aurora para toda la página -->
     <div class="aurora-bg fixed inset-0 z-0"></div>

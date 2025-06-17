@@ -415,17 +415,23 @@
                         </div>
                         <div class="flex items-center gap-6">
                             <div class="text-center">
-                                <div class="text-2xl font-bold text-blue-300">{{ $mantenimientos->where('estado', 'programado')->count() }}</div>
+                                <div class="text-2xl font-bold text-blue-300">
+                                    {{ isset($estadisticas) ? $estadisticas['programados'] : (isset($mantenimientos) ? $mantenimientos->where('estado', 'programado')->count() : 0) }}
+                                </div>
                                 <div class="text-blue-200/70 text-sm">Programados</div>
                             </div>
                             <div class="w-px h-12 bg-emerald-400/30"></div>
                             <div class="text-center">
-                                <div class="text-2xl font-bold text-yellow-300">{{ $mantenimientos->where('estado', 'en_proceso')->count() }}</div>
+                                <div class="text-2xl font-bold text-yellow-300">
+                                    {{ isset($estadisticas) ? $estadisticas['en_proceso'] : (isset($mantenimientos) ? $mantenimientos->where('estado', 'en_proceso')->count() : 0) }}
+                                </div>
                                 <div class="text-yellow-200/70 text-sm">En Proceso</div>
                             </div>
                             <div class="w-px h-12 bg-emerald-400/30"></div>
                             <div class="text-center">
-                                <div class="text-2xl font-bold text-emerald-300">{{ $mantenimientos->where('estado', 'completado')->count() }}</div>
+                                <div class="text-2xl font-bold text-emerald-300">
+                                    {{ isset($estadisticas) ? $estadisticas['completados'] : (isset($mantenimientos) ? $mantenimientos->where('estado', 'completado')->count() : 0) }}
+                                </div>
                                 <div class="text-emerald-200/70 text-sm">Completados</div>
                             </div>
                         </div>
@@ -502,71 +508,73 @@
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-emerald-500/20">
-                                @forelse($mantenimientos as $mantenimiento)
-                                    <tr class="transition-all duration-300 hover:bg-emerald-500/10">
-                                        <td class="px-6 py-4">
-                                            <div class="flex items-center">
-                                                <div class="w-10 h-10 bg-emerald-500/20 rounded-lg flex items-center justify-center mr-3">
-                                                    <svg class="w-5 h-5 text-emerald-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
-                                                    </svg>
-                                                </div>
-                                                <div>
-                                                    <div class="font-semibold text-white">{{ $mantenimiento->salon?->nombre ?? 'N/D' }}</div>
-                                                    <div class="text-emerald-300/70 text-sm">Capacidad {{ $mantenimiento->salon?->capacidad_maxima ?? 'N/D' }}</div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            <span class="text-white font-medium">{{ $mantenimiento->tipo_mantenimiento }}</span>
-                                            <div class="text-emerald-300/70 text-sm">{{ Str::limit($mantenimiento->descripcion, 30) ?? 'Sin descripción' }}</div>
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            <div class="text-white">{{ $mantenimiento->fecha_inicio ? $mantenimiento->fecha_inicio->format('d/m/Y') : 'N/D' }}</div>
-                                            <div class="text-emerald-300/70 text-sm">hasta {{ $mantenimiento->fecha_fin ? $mantenimiento->fecha_fin->format('d/m/Y') : 'N/D' }}</div>
-                                            @if($mantenimiento->hora_inicio && $mantenimiento->hora_fin)
-                                                <div class="text-cyan-300 text-xs">{{ $mantenimiento->hora_inicio }} - {{ $mantenimiento->hora_fin }}</div>
-                                            @endif
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            <span class="estado-{{ $mantenimiento->estado }} inline-flex px-3 py-1 rounded-full text-xs font-semibold border">
-                                                {{ ucfirst(str_replace('_', ' ', $mantenimiento->estado)) }}
-                                            </span>
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            <span class="text-white">{{ $mantenimiento->proveedor ?? 'Sin proveedor' }}</span>
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            <span class="text-emerald-400 font-bold text-lg">
-                                                @if($mantenimiento->costo)
-                                                    Q{{ number_format($mantenimiento->costo, 2) }}
-                                                @else
-                                                    N/D
-                                                @endif
-                                            </span>
-                                        </td>
-                                        <td class="px-6 py-4 text-center">
-                                            <div class="flex justify-center items-center gap-2">
-                                                <a href="{{ route('mantenimientos.edit', $mantenimiento) }}" class="aurora-btn-warning text-white px-3 py-2 rounded-lg text-sm font-medium flex items-center gap-1">
-                                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
-                                                    </svg>
-                                                    Editar
-                                                </a>
-                                                <form action="{{ route('mantenimientos.destroy', $mantenimiento) }}" method="POST" class="inline-block" onsubmit="return confirmDelete('{{ $mantenimiento->tipo_mantenimiento }}');">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="aurora-btn-danger text-white px-3 py-2 rounded-lg text-sm font-medium flex items-center gap-1">
-                                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                                @if(isset($mantenimientos) && $mantenimientos->count() > 0)
+                                    @foreach($mantenimientos as $mantenimiento)
+                                        <tr class="transition-all duration-300 hover:bg-emerald-500/10" data-salon-id="{{ $mantenimiento->salon?->id }}">
+                                            <td class="px-6 py-4">
+                                                <div class="flex items-center">
+                                                    <div class="w-10 h-10 bg-emerald-500/20 rounded-lg flex items-center justify-center mr-3">
+                                                        <svg class="w-5 h-5 text-emerald-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
                                                         </svg>
-                                                        Eliminar
-                                                    </button>
-                                                </form>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                @empty
+                                                    </div>
+                                                    <div>
+                                                        <div class="font-semibold text-white">{{ $mantenimiento->salon?->nombre ?? 'N/D' }}</div>
+                                                        <div class="text-emerald-300/70 text-sm">Capacidad {{ $mantenimiento->salon?->capacidad_maxima ?? 'N/D' }}</div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="px-6 py-4">
+                                                <span class="text-white font-medium">{{ $mantenimiento->tipo_mantenimiento }}</span>
+                                                <div class="text-emerald-300/70 text-sm">{{ Str::limit($mantenimiento->descripcion, 30) ?? 'Sin descripción' }}</div>
+                                            </td>
+                                            <td class="px-6 py-4">
+                                                <div class="text-white">{{ $mantenimiento->fecha_inicio ? $mantenimiento->fecha_inicio->format('d/m/Y') : 'N/D' }}</div>
+                                                <div class="text-emerald-300/70 text-sm">hasta {{ $mantenimiento->fecha_fin ? $mantenimiento->fecha_fin->format('d/m/Y') : 'N/D' }}</div>
+                                                @if($mantenimiento->hora_inicio && $mantenimiento->hora_fin)
+                                                    <div class="text-cyan-300 text-xs">{{ $mantenimiento->hora_inicio }} - {{ $mantenimiento->hora_fin }}</div>
+                                                @endif
+                                            </td>
+                                            <td class="px-6 py-4">
+                                                <span class="estado-{{ $mantenimiento->estado }} inline-flex px-3 py-1 rounded-full text-xs font-semibold border">
+                                                    {{ ucfirst(str_replace('_', ' ', $mantenimiento->estado)) }}
+                                                </span>
+                                            </td>
+                                            <td class="px-6 py-4">
+                                                <span class="text-white">{{ $mantenimiento->proveedor ?? 'Sin proveedor' }}</span>
+                                            </td>
+                                            <td class="px-6 py-4">
+                                                <span class="text-emerald-400 font-bold text-lg">
+                                                    @if($mantenimiento->costo)
+                                                        Q{{ number_format($mantenimiento->costo, 2) }}
+                                                    @else
+                                                        N/D
+                                                    @endif
+                                                </span>
+                                            </td>
+                                            <td class="px-6 py-4 text-center">
+                                                <div class="flex justify-center items-center gap-2">
+                                                    <!-- <a href="{{ route('mantenimientos.edit', $mantenimiento->id) }}" class="aurora-btn-warning text-white px-3 py-2 rounded-lg text-sm font-medium flex items-center gap-1">
+                                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                                                        </svg>
+                                                        Editar
+                                                    </a> -->
+                                                    <form action="{{ route('mantenimientos.destroy', $mantenimiento->id) }}" method="POST" class="inline-block" onsubmit="return confirmDelete('{{ $mantenimiento->tipo_mantenimiento }}');">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="aurora-btn-danger text-white px-3 py-2 rounded-lg text-sm font-medium flex items-center gap-1">
+                                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                                                            </svg>
+                                                            Eliminar
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @else
                                     <tr>
                                         <td colspan="7" class="px-6 py-12 text-center">
                                             <div class="flex flex-col items-center">
@@ -584,7 +592,7 @@
                                             </div>
                                         </td>
                                     </tr>
-                                @endforelse
+                                @endif
                             </tbody>
                         </table>
                     </div>
@@ -653,7 +661,7 @@
             </div>
 
             <!-- Paginación -->
-            @if($mantenimientos->hasPages())
+            @if(isset($mantenimientos) && $mantenimientos->hasPages())
                 <div class="mt-8 flex justify-center fade-in fade-in-delay-3">
                     <div class="aurora-card rounded-xl p-4">
                         <div class="flex items-center space-x-2">
@@ -712,34 +720,45 @@
     <!-- Scripts -->
     <script>
         // Preparar datos de mantenimientos para el calendario
-        const maintenanceData = {};
+const maintenanceData = {};
         
+@if(isset($mantenimientos) && $mantenimientos->count() > 0)
+    // Crear array con los datos de mantenimientos
+    const mantenimientosData = [
         @foreach($mantenimientos as $mantenimiento)
             @if($mantenimiento->fecha_inicio && $mantenimiento->fecha_fin)
-                // Crear rango de fechas para el mantenimiento
-                let startDate = new Date('{{ $mantenimiento->fecha_inicio->format('Y-m-d') }}');
-                let endDate = new Date('{{ $mantenimiento->fecha_fin->format('Y-m-d') }}');
-                
-                // Agregar cada día del rango al objeto de datos
-                for (let d = new Date(startDate); d <= endDate; d.setDate(d.getDate() + 1)) {
-                    let dateStr = d.toISOString().split('T')[0];
-                    if (!maintenanceData[dateStr]) {
-                        maintenanceData[dateStr] = [];
-                    }
-                    maintenanceData[dateStr].push({
-                        id: {{ $mantenimiento->id }},
-                        salon: '{{ $mantenimiento->salon?->nombre ?? 'N/D' }}',
-                        tipo: '{{ $mantenimiento->tipo_mantenimiento }}',
-                        estado: '{{ $mantenimiento->estado }}',
-                        proveedor: '{{ $mantenimiento->proveedor ?? 'Sin proveedor' }}',
-                        fecha_inicio: '{{ $mantenimiento->fecha_inicio->format('Y-m-d') }}',
-                        fecha_fin: '{{ $mantenimiento->fecha_fin->format('Y-m-d') }}',
-                        hora_inicio: '{{ $mantenimiento->hora_inicio ?? '' }}',
-                        hora_fin: '{{ $mantenimiento->hora_fin ?? '' }}'
-                    });
-                }
+            {
+                id: {{ $mantenimiento->id }},
+                salon: '{{ addslashes($mantenimiento->salon?->nombre ?? 'N/D') }}',
+                tipo: '{{ addslashes($mantenimiento->tipo_mantenimiento) }}',
+                estado: '{{ $mantenimiento->estado }}',
+                proveedor: '{{ addslashes($mantenimiento->proveedor ?? 'Sin proveedor') }}',
+                fecha_inicio: '{{ $mantenimiento->fecha_inicio->format('Y-m-d') }}',
+                fecha_fin: '{{ $mantenimiento->fecha_fin->format('Y-m-d') }}',
+                hora_inicio: '{{ $mantenimiento->hora_inicio ?? '' }}',
+                hora_fin: '{{ $mantenimiento->hora_fin ?? '' }}'
+            },
             @endif
         @endforeach
+    ];
+    
+    // Procesar los datos con JavaScript puro
+    mantenimientosData.forEach(function(mantenimiento) {
+        if (mantenimiento.fecha_inicio && mantenimiento.fecha_fin) {
+            let startDate = new Date(mantenimiento.fecha_inicio);
+            let endDate = new Date(mantenimiento.fecha_fin);
+            
+            for (let d = new Date(startDate); d <= endDate; d.setDate(d.getDate() + 1)) {
+                let dateStr = d.toISOString().split('T')[0];
+                if (!maintenanceData[dateStr]) {
+                    maintenanceData[dateStr] = [];
+                }
+                maintenanceData[dateStr].push(mantenimiento);
+            }
+        }
+    });
+@endif
+      
 
         // Variables del calendario
         let currentDate = new Date();
@@ -888,24 +907,34 @@
                 }
                 
                 // Agregar evento click
-                dayElement.addEventListener('click', () => {
-                    // Remover selección anterior
-                    document.querySelectorAll('.calendar-day.selected').forEach(el => {
-                        el.classList.remove('selected');
-                    });
-                    
-                    // Seleccionar día actual
-                    dayElement.classList.add('selected');
-                    dayElement.style.transform = 'scale(0.95)';
-                    setTimeout(() => {
-                        dayElement.style.transform = 'scale(1)';
-                    }, 150);
-                    
-                    selectedDate = dateStr;
-                    
-                    // Redireccionar a crear mantenimiento con fecha preseleccionada
-                    window.location.href = `{{ route('mantenimientos.create') }}?fecha=${dateStr}`;
-                });
+dayElement.addEventListener('click', function(e) {
+    // Si el clic fue en un botón, formulario o enlace, no hagas nada
+    if (e.target.closest('form') || e.target.closest('button') || e.target.closest('a')) {
+        return;
+    }
+
+    // Si ya hay mantenimientos en esta fecha, no hacer nada
+    if (maintenanceData[dateStr] && maintenanceData[dateStr].length > 0) {
+        return;
+    }
+
+    // Remover selección anterior
+    document.querySelectorAll('.calendar-day.selected').forEach(function(el) {
+        el.classList.remove('selected');
+    });
+
+    // Seleccionar día actual
+    dayElement.classList.add('selected');
+    dayElement.style.transform = 'scale(0.95)';
+    setTimeout(() => {
+        dayElement.style.transform = 'scale(1)';
+    }, 150);
+
+    selectedDate = dateStr;
+
+    // Redirigir a crear mantenimiento con la fecha seleccionada
+    window.location.href = `{{ route('mantenimientos.create') }}?fecha=${dateStr}`;
+});
                 
                 // Hover effects
                 dayElement.addEventListener('mouseenter', () => {
@@ -965,8 +994,51 @@
             });
         });
 
-        // Animaciones de entrada
+        // Función opcional para mostrar selector de múltiples mantenimientos
+        function showMaintenanceSelector(maintenances, dateStr) {
+            const modal = document.createElement('div');
+            modal.className = 'modal-backdrop fixed inset-0 z-50 flex items-center justify-center';
+            
+            const modalContent = `
+                <div class="modal-content rounded-2xl p-6 max-w-md w-full mx-4">
+                    <h3 class="text-xl font-bold text-white mb-4">Mantenimientos del ${new Date(dateStr).toLocaleDateString()}</h3>
+                    <div class="space-y-3">
+                        ${maintenances.map(maintenance => `
+                            <div class="aurora-card p-4 rounded-lg cursor-pointer hover:bg-emerald-500/20 transition-all"
+                                 onclick="window.location.href='{{ url('/mantenimientos') }}/${maintenance.id}/edit'">
+                                <div class="font-semibold text-white">${maintenance.tipo}</div>
+                                <div class="text-emerald-300/70 text-sm">Salón: ${maintenance.salon}</div>
+                                <div class="text-cyan-300 text-xs">Estado: ${maintenance.estado.replace('_', ' ')}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div class="mt-6 flex justify-between">
+                        <button onclick="this.closest('.modal-backdrop').remove()" 
+                                class="aurora-btn-secondary text-white px-4 py-2 rounded-lg">
+                            Cancelar
+                        </button>
+                        <a href="{{ route('mantenimientos.create') }}?fecha=${dateStr}" 
+                           class="aurora-btn text-white px-4 py-2 rounded-lg">
+                            Crear Nuevo
+                        </a>
+                    </div>
+                </div>
+            `;
+            
+            modal.innerHTML = modalContent;
+            document.body.appendChild(modal);
+            
+            // Cerrar modal al hacer click fuera
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.remove();
+                }
+            });
+        }
+
+        // Inicializar al cargar la página
         document.addEventListener('DOMContentLoaded', function() {
+            // Animaciones de entrada
             const fadeElements = document.querySelectorAll('.fade-in');
             fadeElements.forEach((element, index) => {
                 element.style.animationDelay = `${index * 0.1}s`;
