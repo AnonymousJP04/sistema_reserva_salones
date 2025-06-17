@@ -13,7 +13,7 @@ class Mantenimiento extends Model
     protected $table = 'admin_mantenimiento';
 
     protected $fillable = [
-        'salon_id',
+        'salon_id',          // ← Campo correcto según tu migración
         'fecha_inicio',
         'fecha_fin',
         'hora_inicio',
@@ -31,14 +31,14 @@ class Mantenimiento extends Model
         'fecha_fin' => 'date',
         'hora_inicio' => 'string',
         'hora_fin' => 'string',
-        'costo' => 'float',
+        'costo' => 'decimal:2',  // ← Mejor para decimales
     ];
 
+    // ✅ Relación corregida - debe usar salon_id, no salon_slug
     public function salon(): BelongsTo
     {
-    return $this->belongsTo(Salon::class, 'salon_slug', 'slug');
+        return $this->belongsTo(Salon::class, 'salon_id', 'id');
     }
-
 
     public function creador(): BelongsTo
     {

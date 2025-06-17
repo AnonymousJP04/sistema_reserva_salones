@@ -52,20 +52,32 @@ class PagoController extends Controller
     }
 
     // Actualiza un pago existente
-    public function update(Request $request, Pago $pago)
-    {
-        $validated = $request->validate([
-            'reserva_id' => 'required|exists:pub_reservas,id',
-            'monto' => 'required|numeric|min:0',
-            'fecha_pago' => 'required|date',
-            'metodo_pago' => 'required|string|max:50',
-            'referencia_bancaria' => 'nullable|string|max:100',
+
+public function update(Request $request, Pago $pago)
+{
+    // Si solo se envía el campo 'estado', solo actualiza el estado
+    if ($request->has('estado') && $request->keys() === ['_token', '_method', 'estado']) {
+        $request->validate([
             'estado' => 'required|in:pendiente,verificado,rechazado,reembolsado',
-            'observaciones' => 'nullable|string'
         ]);
-        $pago->update($validated);
-        return redirect()->route('pagos.index')->with('success', 'Pago actualizado exitosamente');
+        $pago->estado = $request->estado;
+        $pago->save();
+        return redirect()->route('pagos.index')->with('success', 'Estado actualizado exitosamente');
     }
+
+    // Si se envían más campos, valida y actualiza todo
+    $validated = $request->validate([
+        'reserva_id' => 'required|exists:pub_reservas,id',
+        'monto' => 'required|numeric|min:0',
+        'fecha_pago' => 'required|date',
+        'metodo_pago' => 'required|string|max:50',
+        'referencia_bancaria' => 'nullable|string|max:100',
+        'estado' => 'required|in:pendiente,verificado,rechazado,reembolsado',
+        'observaciones' => 'nullable|string'
+    ]);
+    $pago->update($validated);
+    return redirect()->route('pagos.index')->with('success', 'Pago actualizado exitosamente');
+}
 
     // Elimina un pago
     public function destroy(Pago $pago)

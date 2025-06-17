@@ -183,7 +183,7 @@
                                            focus:border-green-400 focus:ring-2 focus:ring-green-400/50 focus:bg-white/20 
                                            backdrop-blur-sm transition-all duration-300" required>
                                 <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                    <span class="text-white/50 font-medium">$</span>
+                                    <span class="text-white/50 font-medium">Q</span>
                                 </div>
                             </div>
                         </div>

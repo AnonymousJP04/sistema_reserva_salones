@@ -433,12 +433,12 @@
 
             <!-- Filtros de Tiempo -->
             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 animate-fadeInUp" style="animation-delay:0.1s;">
-                <div class="filter-tabs mb-4 sm:mb-0">
+                <!-- <div class="filter-tabs mb-4 sm:mb-0">
                     <div class="filter-tab active" data-period="today">Hoy</div>
                     <div class="filter-tab" data-period="week">Esta Semana</div>
                     <div class="filter-tab" data-period="month">Este Mes</div>
                     <div class="filter-tab" data-period="year">Este Año</div>
-                </div>
+                </div> -->
                 <div class="text-emerald-200/70 text-sm">
                     Última actualización: {{ now()->format('d/m/Y H:i') }}
                 </div>
@@ -455,7 +455,9 @@
                             </svg>
                         </div>
                         <div class="text-right">
-                            <p class="text-3xl font-bold text-emerald-300">{{ $stats['salones_activos'] ?? 0 }}</p>
+                                           <p class="text-3xl font-bold text-emerald-300" data-stat="salones_activos">
+                    {{ $stats['salones_activos'] ?? 0 }}
+                </p>
                             <div class="flex items-center text-emerald-400 text-sm">
                                 <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.293l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L9 9.414V13a1 1 0 102 0V9.414l1.293 1.293a1 1 0 001.414-1.414z" clip-rule="evenodd"/>
@@ -477,7 +479,9 @@
                             </svg>
                         </div>
                         <div class="text-right">
-                            <p class="text-3xl font-bold text-yellow-300">{{ $stats['reservas_pendientes'] ?? 0 }}</p>
+                                       <p class="text-3xl font-bold text-yellow-300" data-stat="reservas_pendientes">
+                {{ $stats['reservas_pendientes'] ?? 0 }}
+            </p>
                             <div class="flex items-center text-yellow-400 text-sm">
                                 <div class="w-2 h-2 bg-yellow-400 rounded-full animate-pulse mr-1"></div>
                                 Requieren atención
@@ -497,7 +501,9 @@
                             </svg>
                         </div>
                         <div class="text-right">
-                            <p class="text-3xl font-bold text-green-300">{{ $stats['reservas_hoy'] ?? 0 }}</p>
+                                        <p class="text-3xl font-bold text-green-300" data-stat="reservas_hoy">
+                {{ $stats['reservas_hoy'] ?? 0 }}
+            </p>
                             <div class="flex items-center text-green-400 text-sm">
                                 <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>
@@ -519,7 +525,9 @@
                             </svg>
                         </div>
                         <div class="text-right">
-                            <p class="text-3xl font-bold text-blue-300">${{ number_format($stats['ingresos_mes'] ?? 0, 0) }}</p>
+                                      <p class="text-3xl font-bold text-blue-300" data-stat="ingresos_mes">
+                Q{{ number_format($stats['ingresos_mes'] ?? 0, 2) }}
+            </p>
                             <div class="flex items-center text-blue-400 text-sm">
                                 <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M3 3a1 1 0 000 2v8a2 2 0 002 2h2.586l-1.293 1.293a1 1 0 101.414 1.414L10 15.414l2.293 2.293a1 1 0 001.414-1.414L12.414 15H15a2 2 0 002-2V5a1 1 0 100-2H3zm11.707 4.707a1 1 0 00-1.414-1.414L10 9.586 8.707 8.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
@@ -643,11 +651,7 @@
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
                                                     </svg>
                                                 </a>
-                                                <a href="{{ route('reservas.edit', $reserva->id) }}" class="text-blue-400 hover:text-blue-300 transition-colors">
-                                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
-                                                    </svg>
-                                                </a>
+
                                             </div>
                                         </td>
                                     </tr>
@@ -776,15 +780,7 @@
                     <p class="text-blue-200/70 text-xs mt-1">Administrar espacios</p>
                 </a>
                 
-                <a href="{{ route('reservas.pendientes') }}" class="aurora-card rounded-xl p-4 text-center hover:scale-105 transition-all duration-300 group block">
-                    <div class="w-12 h-12 bg-yellow-500/20 rounded-lg flex items-center justify-center mx-auto mb-3 group-hover:bg-yellow-500/30 transition-colors">
-                        <svg class="w-6 h-6 text-yellow-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 2m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                        </svg>
-                    </div>
-                    <span class="text-white font-semibold">Reservas Pendientes</span>
-                    <p class="text-yellow-200/70 text-xs mt-1">Revisar solicitudes</p>
-                </a>
+
                 
                 <a href="{{ route('pagos.index') }}" class="aurora-card rounded-xl p-4 text-center hover:scale-105 transition-all duration-300 group block">
                     <div class="w-12 h-12 bg-green-500/20 rounded-lg flex items-center justify-center mx-auto mb-3 group-hover:bg-green-500/30 transition-colors">
@@ -901,11 +897,6 @@
                     this.x += (dx / distance) * force * 0.3;
                     this.y += (dy / distance) * force * 0.3;
                     this.alpha = this.originalAlpha + force * 0.3;
-                if (distance < 120) {
-                    const force = (120 - distance) / 120;
-                    this.x += (dx / distance) * force * 0.3;
-                    this.y += (dy / distance) * force * 0.3;
-                    this.alpha = this.originalAlpha + force * 0.3;
                 } else {
                     this.alpha = this.originalAlpha;
                 }
@@ -926,7 +917,6 @@
                 if (this.y < -10) this.y = canvas.height + 10;
                 if (this.y > canvas.height + 10) this.y = -10;
             }
-            
             draw() {
                 ctx.save();
                 
@@ -1034,33 +1024,51 @@
         });
 
         // Función para actualizar datos del dashboard (ejemplo)
-        function fetchDashboardData(period) {
-            // Esta función se puede usar para hacer peticiones AJAX
-            // y actualizar las métricas según el período seleccionado
-            fetch(`/dashboard/data?period=${period}`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
-                }
-            })
-            .then(response => response.json())
-            .then(data => {
-                // Actualizar las métricas en el dashboard
-                updateMetrics(data);
-            })
-            .catch(error => {
-                console.error('Error:', error);
+// Reemplaza la función fetchDashboardData existente con esta:
+function fetchDashboardData(period) {
+        fetch(`/dashboard/data?period=${period}`, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Actualizar estadísticas
+                document.querySelector('[data-stat="salones_activos"]').textContent = data.stats.salones_activos;
+                document.querySelector('[data-stat="reservas_pendientes"]').textContent = data.stats.reservas_pendientes;
+                document.querySelector('[data-stat="reservas_hoy"]').textContent = data.stats.reservas_hoy;
+                document.querySelector('[data-stat="ingresos_mes"]').textContent = 
+                    'Q' + new Intl.NumberFormat('es-GT').format(data.stats.ingresos_mes);
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    }
+
+    // Event listener para los filtros de tiempo
+    document.addEventListener('DOMContentLoaded', () => {
+        const filterTabs = document.querySelectorAll('.filter-tab');
+        
+        filterTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                filterTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                const period = tab.dataset.period;
+                fetchDashboardData(period);
             });
-        }
+        });
+    });
 
         function updateMetrics(data) {
             // Actualizar las métricas con los nuevos datos
             if (data.stats) {
-                document.querySelector('.salones-activos').textContent = data.stats.salones_activos || 0;
-                document.querySelector('.reservas-pendientes').textContent = data.stats.reservas_pendientes || 0;
-                document.querySelector('.reservas-hoy').textContent = data.stats.reservas_hoy || 0;
-                document.querySelector('.ingresos-mes').textContent = ' + (data.stats.ingresos_mes || 0).toLocaleString();
+// Actualizar las métricas usando los data-stat
+document.querySelector('[data-stat="salones-activos"]').textContent = data.stats.salones_activos || 0;
+document.querySelector('[data-stat="reservas-pendientes"]').textContent = data.stats.reservas_pendientes || 0;
+document.querySelector('[data-stat="reservas-hoy"]').textContent = data.stats.reservas_hoy || 0;
+document.querySelector('[data-stat="ingresos-mes"]').textContent = 'Q' + (data.stats.ingresos_mes || 0).toLocaleString('es-GT');
             }
         }
 

@@ -93,4 +93,32 @@ public function show($id)
     return view('reservas.show', compact('reserva'));
 }
 
+// Agregar este método al ReservaController
+public function updateStatus(Request $request, Reserva $reserva)
+{
+    try {
+        // Validar el estado
+        $request->validate([
+            'estado' => 'required|in:aprobada,rechazada,pendiente,cancelada,completada'
+        ]);
+
+        // Actualizar el estado
+        $reserva->estado = $request->estado;
+        $reserva->save();
+
+        // Devolver respuesta exitosa
+        return response()->json([
+            'success' => true,
+            'message' => 'Estado actualizado correctamente'
+        ]);
+
+    } catch (\Exception $e) {
+        // Devolver error
+        return response()->json([
+            'success' => false,
+            'message' => 'Error al actualizar el estado: ' . $e->getMessage()
+        ], 500);
+    }
+}
+
 }
